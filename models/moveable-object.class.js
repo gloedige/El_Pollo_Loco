@@ -2,8 +2,9 @@ class  MoveableObject {
     x;
     y;
     img;
-    height = 180;
-    width = 80;
+    height;
+    width;
+    HEIGHT_CANVAS = 480;
 
     constructor(x, y, img) {
         this.x = x;
