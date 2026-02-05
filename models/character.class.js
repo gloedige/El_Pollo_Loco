@@ -11,6 +11,7 @@ class Character extends MoveableObject {
         ];
     currentImageIndex = 0;
     world;
+    speed = 5;
     
 
     constructor(x, y, img) {
@@ -19,15 +20,28 @@ class Character extends MoveableObject {
         this.x = 30;
         this.y = 450 - this.height; // ground level
         this.loadImages(this.CHARACTER_WALKING_IMAGES);
-        this.animate(this.CHARACTER_WALKING_IMAGES, 10);
+        this.animate(this.CHARACTER_WALKING_IMAGES, 20);
         this.jump();
     }
 
 
     animate(imagePathsArr, speedAnimation) {
+        setInterval(() => {
+        if (this.world.keyboard.RIGHT) {
+            this.moveRight();
+        }
+        }, 1000/60);
+
+        setInterval(() => {
+        if (this.world.keyboard.LEFT) {
+            this.moveLeft();
+        }
+        }, 1000/60);
+
+
         
         setInterval(() => {
-                if (this.world.keyboard.RIGHT) {
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     let i = this.currentImageIndex % imagePathsArr.length; // let I = 0 % 6
                     // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, ...
                     let path = imagePathsArr[i];
