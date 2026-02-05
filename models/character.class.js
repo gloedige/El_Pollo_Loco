@@ -11,7 +11,7 @@ class Character extends MoveableObject {
         ];
     currentImageIndex = 0;
     world;
-    speed = 5;
+    speed = 6;
     
 
     constructor(x, y, img) {
@@ -26,16 +26,16 @@ class Character extends MoveableObject {
 
 
     animate(imagePathsArr, speedAnimation) {
+        
         setInterval(() => {
-        if (this.world.keyboard.RIGHT) {
-            this.moveRight();
-        }
-        }, 1000/60);
+            if (this.world.keyboard.RIGHT) {
+                this.moveRight();
+            }
 
-        setInterval(() => {
-        if (this.world.keyboard.LEFT) {
-            this.moveLeft();
-        }
+            if (this.world.keyboard.LEFT) {
+                this.moveLeft();
+            }
+            this.world.camera_x = -this.x;
         }, 1000/60);
 
 
