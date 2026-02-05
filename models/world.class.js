@@ -14,14 +14,17 @@ class World {
     clouds = [
         new Cloud()
     ];
+
     canvas;
     ctx;
+    keyboard;
 
-    constructor(canvas) {
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        this.keyboard = keyboard;
         this.draw();
-
+        this.setWorld();
     }
 
 
@@ -39,13 +42,20 @@ class World {
         requestAnimationFrame(() => self.draw());
     }
 
+
     addObjectsToMap(objects) {
         objects.forEach(object => {
             this.addToMap(object);
         });
     }
 
+
     addToMap(movableObject) {
         this.ctx.drawImage(movableObject.img, movableObject.x, movableObject.y, movableObject.width, movableObject.height);
+    }
+    
+
+    setWorld() {
+        this.character.world = this;
     }
 }
