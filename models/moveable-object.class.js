@@ -5,6 +5,7 @@ class  MoveableObject {
     height;
     width;
     HEIGHT_CANVAS = 480;
+    imagesCache = {};
 
     constructor(x, y, img) {
         this.x = x;
@@ -15,6 +16,14 @@ class  MoveableObject {
     loadImage(path) {
         this.img = new Image(); // <img>
         this.img.src = path;
+    }
+
+    loadImages(arr){
+        arr.forEach ((path) => {
+            let img = new Image();
+            img.src = path;
+            this.imagesCache[path] = img;
+        });
     }
 
     moveRight() {
