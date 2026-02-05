@@ -29,9 +29,7 @@ class World {
 
 
     draw() {
-        
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // clear canvas
-        
         
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.clouds);
@@ -51,11 +49,31 @@ class World {
 
 
     addToMap(movableObject) {
+        if (movableObject.otherDirection) {
+            this.flipImage(movableObject);
+        }
         this.ctx.drawImage(movableObject.img, movableObject.x, movableObject.y, movableObject.width, movableObject.height);
+        
+        if (movableObject.otherDirection) {
+            this.flipImageBack(movableObject);
+        }
     }
     
-
+    
     setWorld() {
         this.character.world = this;
+    }
+    
+    
+    flipImage(movableObject) {
+        this.ctx.save();
+        this.ctx.translate(movableObject.width, 0);
+        this.ctx.scale(-1, 1);
+        movableObject.x = movableObject.x * -1;
+    }
+    
+    flipImageBack(movableObject) {
+        this.ctx.restore();
+        movableObject.x = movableObject.x * -1;
     }
 }
