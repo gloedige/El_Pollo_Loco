@@ -1,24 +1,18 @@
 class World {
     character = new Character();
-    enemies = [
-        new Chicken(),
-        new Chicken(),
-        new Chicken()
-    ];
-    backgroundObjects = [
-        new BackgroundObject('../img/5_background/layers/air.png', 0),
-        new BackgroundObject('../img/5_background/layers/3_third_layer/1.png', 0),
-        new BackgroundObject('../img/5_background/layers/2_second_layer/1.png', 0),
-        new BackgroundObject('../img/5_background/layers/1_first_layer/1.png', 0)
-    ]
-    clouds = [
-        new Cloud()
-    ];
+    enemies = level1.enemies;
+    start_background_x_1 = 0;
+    start_background_x_2 = 719;
+    backgroundObjects = level1.backgroundObjects;
+    clouds = level1.clouds; 
 
     canvas;
     ctx;
     keyboard;
-
+    camera_x = 0;
+    positionCharacterInWorld_x = 30;
+    widthOfSingleBackground = 719;
+    
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -26,10 +20,24 @@ class World {
         this.draw();
         this.setWorld();
     }
-
-
+    
+    
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // clear canvas
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.translate(this.camera_x, 0);
+        let relationOfCameraToBackground = this.camera_x % (this.widthOfSingleBackground - this.positionCharacterInWorld_x );
+        if (relationOfCameraToBackground == 0) {
+            this.start_background_x_1 += this.widthOfSingleBackground * 2;
+            this.start_background_x_2 += this.widthOfSingleBackground * 2;
+            this.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/air.png', this.start_background_x_1));
+            this.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/3_third_layer/1.png', this.start_background_x_1));
+            this.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/2_second_layer/1.png', this.start_background_x_1));
+            this.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/1_first_layer/1.png', this.start_background_x_1));
+            this.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/air.png', this.start_background_x_2));
+            this.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/3_third_layer/2.png', this.start_background_x_2));
+            this.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/2_second_layer/2.png', this.start_background_x_2));
+            this.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/1_first_layer/2.png', this.start_background_x_2));
+        }
         
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.clouds);
@@ -38,6 +46,8 @@ class World {
         
         let self = this;
         requestAnimationFrame(() => self.draw());
+
+        this.ctx.translate(-this.camera_x, 0);
     }
 
 
