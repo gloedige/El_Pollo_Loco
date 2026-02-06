@@ -6,9 +6,8 @@ class Chicken extends MoveableObject{
         '../img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
         '../img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
-    currentImageIndex = 0;
     
-    constructor(x, y, img){
+    constructor(){
         super().loadImage('../img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.x = 200 + Math.random() * 470; // random x position between 200 and 670 (720 - 50 width of chicken)
         this.y = 440 - this.height; // ground level for chicken
@@ -21,11 +20,7 @@ class Chicken extends MoveableObject{
 
     animate(imagePathsArr, speedAnimation) {
         setInterval(() => {
-            let i = this.currentImageIndex % imagePathsArr.length; // let I = 0 % 6
-            // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, ...
-            let path = imagePathsArr[i];
-            this.img = this.imagesCache[path];
-            this.currentImageIndex++;
+            this.playAnimation(imagePathsArr);
         }, 1000/speedAnimation);
     }
 

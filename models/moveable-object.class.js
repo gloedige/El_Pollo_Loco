@@ -10,6 +10,7 @@ class  MoveableObject {
     end_position_x;
     difference_of_position = 0;
     otherDirection = false;
+    currentImageIndex = 0;
     
     constructor(x, y, img) {
         this.x = x;
@@ -54,5 +55,13 @@ class  MoveableObject {
     moveRight() {
         this.x += this.speed;
         this.otherDirection = false;
+    }
+
+    playAnimation(imagePathsArr) {
+        let i = this.currentImageIndex % imagePathsArr.length; // let I = 0 % 6
+        // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, ...
+        let path = imagePathsArr[i];
+        this.img = this.imagesCache[path];
+        this.currentImageIndex++;
     }
 }
