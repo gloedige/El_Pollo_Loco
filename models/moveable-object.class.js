@@ -11,6 +11,8 @@ class  MoveableObject {
     difference_of_position = 0;
     otherDirection = false;
     currentImageIndex = 0;
+    speedY = 0;
+    acceleration = 2.5;
     
     constructor(x, y, img) {
         this.x = x;
@@ -63,5 +65,22 @@ class  MoveableObject {
         let path = imagePathsArr[i];
         this.img = this.imagesCache[path];
         this.currentImageIndex++;
+    }
+
+    applyGravity() {
+        setInterval(() => {
+            if (this.isAboveGround() || this.speedY > 0) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        }, 1000 / 25);
+    }
+
+    isAboveGround() {
+        if (this instanceof Character) {
+            return this.y < 450 - this.height;
+        } else {
+            return this.y < this.HEIGHT_CANVAS - this.height;
+        }   
     }
 }
