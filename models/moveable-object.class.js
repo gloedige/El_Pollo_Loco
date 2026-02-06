@@ -83,4 +83,8 @@ class  MoveableObject {
             return this.y < this.HEIGHT_CANVAS - this.height;
         }   
     }
+
+    jump() {
+        this.speedY = 25;
+    }
 }
