@@ -9,7 +9,7 @@ class Character extends MoveableObject {
             '../img/2_character_pepe/2_walk/W-25.png',
             '../img/2_character_pepe/2_walk/W-26.png'
         ];
-    CHAQRACTER_JUMPING_IMAGES = [
+    CHARACTER_JUMPING_IMAGES = [
         '../img/2_character_pepe/3_jump/J-31.png',
         '../img/2_character_pepe/3_jump/J-32.png',
         '../img/2_character_pepe/3_jump/J-33.png',
@@ -19,6 +19,15 @@ class Character extends MoveableObject {
         '../img/2_character_pepe/3_jump/J-37.png',
         '../img/2_character_pepe/3_jump/J-38.png',
         '../img/2_character_pepe/3_jump/J-39.png'
+    ];
+    CHARACTER_DEAD_IMAGES = [
+        '../img/2_character_pepe/5_dead/D-51.png',
+        '../img/2_character_pepe/5_dead/D-52.png',
+        '../img/2_character_pepe/5_dead/D-53.png',
+        '../img/2_character_pepe/5_dead/D-54.png',
+        '../img/2_character_pepe/5_dead/D-55.png',
+        '../img/2_character_pepe/5_dead/D-56.png',
+        '../img/2_character_pepe/5_dead/D-57.png',
     ];
 
     currentImageIndex = 0;
@@ -38,8 +47,9 @@ class Character extends MoveableObject {
         this.x = 30;
         this.y = 480 - 280;
         this.loadImages(this.CHARACTER_WALKING_IMAGES);
-        this.loadImages(this.CHAQRACTER_JUMPING_IMAGES);
-        this.animate(this.CHARACTER_WALKING_IMAGES, 20);
+        this.loadImages(this.CHARACTER_JUMPING_IMAGES);
+        this.loadImages(this.CHARACTER_DEAD_IMAGES);
+        this.animate(this.CHARACTER_WALKING_IMAGES, 10);
         this.applyGravity();
         this.jump();
      }
@@ -68,13 +78,17 @@ class Character extends MoveableObject {
 
         
         setInterval(() => {
-            if (this.isAboveGround()) {
+            if (this.isAboveGround() && !this.dead) {
                 // Jump animation
-                this.playAnimation(this.CHAQRACTER_JUMPING_IMAGES);
+                this.playAnimation(this.CHARACTER_JUMPING_IMAGES);
             }
-            else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            else if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.dead) {
                 // Walk animation
                 this.playAnimation(imagePathsArr);
+            }
+            else if (this.dead) {
+                // Dead animation
+                this.playDeadAnimation(this.CHARACTER_DEAD_IMAGES);
             }
         }, 1000/speedAnimation);
     }

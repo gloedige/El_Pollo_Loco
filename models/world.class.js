@@ -23,16 +23,16 @@ class World {
     checkCollisions() {
         setInterval(() => {
             this.level.enemies.forEach(enemy => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.energy -= 2;
+                if (this.character.colliding_detecting && this.character.isColliding(enemy)) {
+                    this.character.energy -= 10;
                     console.log('Character energy: ', this.character.energy);
                     if (this.character.energy <= 0) {
-                        console.log('Character is dead!');
-                        // Here you can implement what happens when the character dies, e.g., reset the game, show a game over screen, etc.
+                        this.character.dead = true;
+                        this.character.colliding_detecting = false;
                     }
                 }
             });
-        }, 100);
+        }, 500);
     }
     
     

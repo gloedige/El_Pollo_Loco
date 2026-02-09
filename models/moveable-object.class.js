@@ -13,6 +13,8 @@ class  MoveableObject {
     currentImageIndex = 0;
     speedY = 0;
     acceleration = 2.5;
+    dead = false;
+    colliding_detecting = true;
 
     offset = {
         top: 0,
@@ -89,6 +91,18 @@ class  MoveableObject {
         let path = imagePathsArr[i];
         this.img = this.imagesCache[path];
         this.currentImageIndex++;
+    }
+
+    playDeadAnimation(imagePathsArr) {
+        let i = this.currentImageIndex % imagePathsArr.length; // let I = 0 % 6
+        // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, ...
+        let path = imagePathsArr[i];
+        this.img = this.imagesCache[path];
+        this.currentImageIndex++;
+        if (this.currentImageIndex >= imagePathsArr.length) {
+            this.currentImageIndex = imagePathsArr.length - 1; // stop at the last frame
+        }
+        this.dead = true;
     }
 
     applyGravity() {
