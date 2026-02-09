@@ -26,8 +26,7 @@ class Character extends MoveableObject {
     speed = 6;
     
 
-    constructor(x, y, img) {
-
+    constructor() {
         super().loadImage('../img/2_character_pepe/2_walk/W-21.png');
         this.x = 30;
         this.y = 450 - this.height; // ground level
