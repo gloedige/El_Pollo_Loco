@@ -28,7 +28,7 @@ class Character extends MoveableObject {
 
     constructor() {
         super().loadImage('../img/2_character_pepe/2_walk/W-21.png');
-        this.x = 30;
+        this.x = 0;
         this.y = 450 - this.height; // ground level
         this.loadImages(this.CHARACTER_WALKING_IMAGES);
         this.loadImages(this.CHAQRACTER_JUMPING_IMAGES);

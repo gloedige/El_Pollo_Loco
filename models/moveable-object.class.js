@@ -102,4 +102,11 @@ class  MoveableObject {
     jump() {
         this.speedY = 25;
     }
+    
+    isColliding(movableObject) {
+        return  this.x + this.width > movableObject.x &&
+                this.y + this.height > movableObject.y &&
+                this.x < movableObject.x + movableObject.width &&
+                this.y < movableObject.y + movableObject.height;
+    }
 }
