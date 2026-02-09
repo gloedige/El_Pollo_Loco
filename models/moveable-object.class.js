@@ -20,6 +20,8 @@ class  MoveableObject {
         right: 0,
         bottom: 0
     };
+
+    energy = 100;
     
     constructor(x, y, img) {
         this.x = x;
@@ -100,18 +102,18 @@ class  MoveableObject {
 
     isAboveGround() {
         if (this instanceof Character) {
-            return this.y < 450 - this.height;
+            return this.y < 450 - 280;
         } else {
             return this.y < this.HEIGHT_CANVAS - this.height;
         }   
     }
 
     jump() {
-        this.speedY = 25;
+        this.speedY = 28;
     }
     
     isColliding(movableObject) {
-        return  this.x + this.offset.right - this.width > movableObject.x + movableObject.offset.left &&
+        return  this.x + this.width - this.offset.right > movableObject.x + movableObject.offset.left &&
                 this.y + this.height - this.offset.bottom > movableObject.y + movableObject.offset.top &&
                 this.x + this.offset.left < movableObject.x + movableObject.width - movableObject.offset.right &&
                 this.y + this.offset.top < movableObject.y + movableObject.height - movableObject.offset.bottom;

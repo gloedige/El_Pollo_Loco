@@ -16,7 +16,7 @@ class Chicken extends MoveableObject{
     
     constructor(){
         super().loadImage('../img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
-        this.x = 200 + Math.random() * 470; // random x position between 200 and 670 (720 - 50 width of chicken)
+        this.x = 300 + Math.random() * 470; // random x position between 300 and 770 (720 - 50 width of chicken)
         this.y = 440 - this.height; // ground level for chicken
         this.loadImages(this.CHICKEN_WALKING_IMAGES);
         this.animate(this.CHICKEN_WALKING_IMAGES, 12);

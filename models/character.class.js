@@ -1,6 +1,6 @@
 class Character extends MoveableObject {
-    height = this.HEIGHT_CANVAS;
-    width = 240;
+    height = 250; 
+    width = 140;
     CHARACTER_WALKING_IMAGES = [
             '../img/2_character_pepe/2_walk/W-21.png',
             '../img/2_character_pepe/2_walk/W-22.png',
@@ -26,23 +26,23 @@ class Character extends MoveableObject {
     speed = 6;
 
     offset = {
-        top: 200,
-        left: 80,
-        right: 50,
-        bottom: 30
+        top: 120,
+        left: 40,
+        right: 40,
+        bottom: 20
     };
     
 
     constructor() {
         super().loadImage('../img/2_character_pepe/2_walk/W-21.png');
-        this.x = 0;
-        this.y = 450 - this.height; // ground level
+        this.x = 30;
+        this.y = 480 - 280;
         this.loadImages(this.CHARACTER_WALKING_IMAGES);
         this.loadImages(this.CHAQRACTER_JUMPING_IMAGES);
-        this.animate(this.CHARACTER_WALKING_IMAGES, 15);
-        this.jump();
+        this.animate(this.CHARACTER_WALKING_IMAGES, 20);
         this.applyGravity();
-    }
+        this.jump();
+     }
 
 
     animate(imagePathsArr, speedAnimation) {
