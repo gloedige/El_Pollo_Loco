@@ -24,6 +24,13 @@ class Character extends MoveableObject {
     currentImageIndex = 0;
     world;
     speed = 6;
+
+    offset = {
+        top: 200,
+        left: 80,
+        right: 50,
+        bottom: 30
+    };
     
 
     constructor() {

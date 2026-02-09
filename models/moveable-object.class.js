@@ -13,6 +13,13 @@ class  MoveableObject {
     currentImageIndex = 0;
     speedY = 0;
     acceleration = 2.5;
+
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+    };
     
     constructor(x, y, img) {
         this.x = x;
@@ -31,7 +38,7 @@ class  MoveableObject {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right - this.offset.left, this.height - this.offset.top - this.offset.bottom);
             ctx.stroke();
         }
     }
@@ -104,9 +111,9 @@ class  MoveableObject {
     }
     
     isColliding(movableObject) {
-        return  this.x + this.width > movableObject.x &&
-                this.y + this.height > movableObject.y &&
-                this.x < movableObject.x + movableObject.width &&
-                this.y < movableObject.y + movableObject.height;
+        return  this.x + this.offset.right - this.width > movableObject.x + movableObject.offset.left &&
+                this.y + this.height - this.offset.bottom > movableObject.y + movableObject.offset.top &&
+                this.x + this.offset.left < movableObject.x + movableObject.width - movableObject.offset.right &&
+                this.y + this.offset.top < movableObject.y + movableObject.height - movableObject.offset.bottom;
     }
 }
