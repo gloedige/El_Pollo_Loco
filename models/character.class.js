@@ -20,6 +20,11 @@ class Character extends MoveableObject {
         '../img/2_character_pepe/3_jump/J-38.png',
         '../img/2_character_pepe/3_jump/J-39.png'
     ];
+    CHARACTER_HURT_IMAGES = [
+        '../img/2_character_pepe/4_hurt/H-41.png',
+        '../img/2_character_pepe/4_hurt/H-42.png',
+        '../img/2_character_pepe/4_hurt/H-43.png',
+    ];
     CHARACTER_DEAD_IMAGES = [
         '../img/2_character_pepe/5_dead/D-51.png',
         '../img/2_character_pepe/5_dead/D-52.png',
@@ -29,7 +34,7 @@ class Character extends MoveableObject {
         '../img/2_character_pepe/5_dead/D-56.png',
         '../img/2_character_pepe/5_dead/D-57.png',
     ];
-
+        
     currentImageIndex = 0;
     world;
     speed = 6;
@@ -48,6 +53,7 @@ class Character extends MoveableObject {
         this.y = 480 - 280;
         this.loadImages(this.CHARACTER_WALKING_IMAGES);
         this.loadImages(this.CHARACTER_JUMPING_IMAGES);
+        this.loadImages(this.CHARACTER_HURT_IMAGES);
         this.loadImages(this.CHARACTER_DEAD_IMAGES);
         this.animate(this.CHARACTER_WALKING_IMAGES, 10);
         this.applyGravity();
@@ -82,7 +88,7 @@ class Character extends MoveableObject {
                 // Jump animation
                 this.playAnimation(this.CHARACTER_JUMPING_IMAGES);
             }
-            else if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.dead) {
+            else if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.dead && !this.hurt) {
                 // Walk animation
                 this.playAnimation(imagePathsArr);
             }
@@ -90,6 +96,12 @@ class Character extends MoveableObject {
                 // Dead animation
                 this.playDeadAnimation(this.CHARACTER_DEAD_IMAGES);
             }
+            else if (this.hurt && !this.dead) {
+                // Hurt animation
+                this.playAnimation(this.CHARACTER_HURT_IMAGES);
+
+            }
+
         }, 1000/speedAnimation);
     }
     

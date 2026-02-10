@@ -14,6 +14,7 @@ class  MoveableObject {
     speedY = 0;
     acceleration = 2.5;
     dead = false;
+    hurt = false;
     colliding_detecting = true;
 
     offset = {
@@ -134,6 +135,7 @@ class  MoveableObject {
     }
 
     hit() {
+        this.hurt = true;
         this.energy -= 10;
         if (this.energy < 0) {
             this.energy = 0;
