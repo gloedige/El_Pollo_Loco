@@ -1,4 +1,4 @@
-class  MoveableObject {
+class  MoveableObject extends DrawableObject {
     x;
     y;
     img;
@@ -14,7 +14,7 @@ class  MoveableObject {
     speedY = 0;
     acceleration = 2.5;
     dead = false;
-    hurt = false;
+    lastHit = 0;
     colliding_detecting = true;
 
     offset = {
@@ -27,6 +27,7 @@ class  MoveableObject {
     energy = 100;
     
     constructor(x, y, img) {
+        super();
         this.x = x;
         this.y = y;
         this.img = img;
@@ -135,11 +136,19 @@ class  MoveableObject {
     }
 
     hit() {
-        this.hurt = true;
         this.energy -= 10;
         if (this.energy < 0) {
             this.energy = 0;
         }
+        else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    isHurt() {
+        let timePassed = new Date().getTime() - this.lastHit; // difference in ms
+        timePassed = timePassed / 1000; // difference in s
+        return timePassed < this.TIME_RESET_HURT;
     }
 
     checkIsDead() {

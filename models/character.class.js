@@ -21,7 +21,7 @@ class Character extends MoveableObject {
         '../img/2_character_pepe/3_jump/J-39.png'
     ];
     CHARACTER_HURT_IMAGES = [
-        '../img/2_character_pepe/4_hurt/H-41.png',
+         '../img/2_character_pepe/4_hurt/H-41.png',
         '../img/2_character_pepe/4_hurt/H-42.png',
         '../img/2_character_pepe/4_hurt/H-43.png',
     ];
@@ -34,6 +34,7 @@ class Character extends MoveableObject {
         '../img/2_character_pepe/5_dead/D-56.png',
         '../img/2_character_pepe/5_dead/D-57.png',
     ];
+    TIME_RESET_HURT = 1; // in seconds
         
     currentImageIndex = 0;
     world;
@@ -88,7 +89,7 @@ class Character extends MoveableObject {
                 // Jump animation
                 this.playAnimation(this.CHARACTER_JUMPING_IMAGES);
             }
-            else if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.dead && !this.hurt) {
+            else if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.dead) {
                 // Walk animation
                 this.playAnimation(imagePathsArr);
             }
@@ -96,7 +97,7 @@ class Character extends MoveableObject {
                 // Dead animation
                 this.playDeadAnimation(this.CHARACTER_DEAD_IMAGES);
             }
-            else if (this.hurt && !this.dead) {
+            else if (this.isHurt() && !this.dead) {
                 // Hurt animation
                 this.playAnimation(this.CHARACTER_HURT_IMAGES);
 

@@ -22,19 +22,14 @@ class World {
 
     checkCollisions() {
         setInterval(() => {
-            let collisionDetected = false;
             this.level.enemies.forEach(enemy => {
                 if (this.character.colliding_detecting && this.character.isColliding(enemy)) {
                     this.character.hit();
                     console.log('Character energy: ', this.character.energy);
                     this.character.checkIsDead();
-                    collisionDetected = true;
                 }
             });
-            if (!collisionDetected) {
-                this.character.hurt = false;
-            }
-        }, 500);
+        }, 200);
     }
     
     
