@@ -24,12 +24,9 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach(enemy => {
                 if (this.character.colliding_detecting && this.character.isColliding(enemy)) {
-                    this.character.energy -= 10;
+                    this.character.hit();
                     console.log('Character energy: ', this.character.energy);
-                    if (this.character.energy <= 0) {
-                        this.character.dead = true;
-                        this.character.colliding_detecting = false;
-                    }
+                    this.character.checkIsDead();
                 }
             });
         }, 500);

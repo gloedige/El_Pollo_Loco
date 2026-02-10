@@ -132,4 +132,19 @@ class  MoveableObject {
                 this.x + this.offset.left < movableObject.x + movableObject.width - movableObject.offset.right &&
                 this.y + this.offset.top < movableObject.y + movableObject.height - movableObject.offset.bottom;
     }
+
+    hit() {
+        this.energy -= 10;
+        if (this.energy < 0) {
+            this.energy = 0;
+        }
+    }
+
+    checkIsDead() {
+         if (this.energy == 0) {
+            this.dead = true;
+            this.colliding_detecting = false;
+        }
+    }
+    
 }
