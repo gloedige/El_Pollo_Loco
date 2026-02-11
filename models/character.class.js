@@ -61,44 +61,63 @@ class Character extends MoveableObject {
 
 
     animate(imagePathsArr, speedAnimation) {
-        setInterval(() => {
-            this.moveCharacter();
-        }, 1000/60);
-        
-        setInterval(() => {
-            this.playCharacter(imagePathsArr);
-        }, 1000/speedAnimation);
+        setInterval(() => this.moveCharacter(), 1000/60);        
+        setInterval(() => this.playCharacter(imagePathsArr), 1000/speedAnimation);
     }
 
     moveCharacter() {
-        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                // this.walking_sound.play();
+        if (this.canMoveRight()) {
+            this.moveRight();
+            // this.walking_sound.play();
             }
-        if (this.world.keyboard.LEFT && this.x > 0) {
+        if (this.canMoveLeft()) {
             this.moveLeft();
             // this.walking_sound.play();
         }
-        if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+        if (this.canJump()) {
             this.jump();
         }
         this.world.camera_x = -this.x;
     }
 
     playCharacter(imagePathsArr) {
-        if (this.isAboveGround() && !this.dead) {
+        if (this.isJumping()) {
             this.playAnimation(this.CHARACTER_JUMPING_IMAGES);
         }
-        else if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.dead) {
+        else if (this.isMoving()) {
             this.playAnimation(imagePathsArr);
         }
         else if (this.dead) {
             this.playDeadAnimation(this.CHARACTER_DEAD_IMAGES);
         }
-        else if (this.isHurt() && !this.dead) {
+        else if (this.isHit()) {
             this.playAnimation(this.CHARACTER_HURT_IMAGES);
 
         }
+    }
+
+    canMoveRight() {
+        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x
+    };
+
+    canMoveLeft() {
+        return this.world.keyboard.LEFT && this.x > 0;
+    };
+
+    canJump() {
+        return this.world.keyboard.SPACE && !this.isAboveGround();
+    }
+
+    isJumping() {
+        return this.isAboveGround() && !this.dead;
+    }
+
+    isMoving() {
+        return (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.dead;
+    }
+
+    isHit() {
+        return this.isHurt() && !this.dead;
     }
     
 }
