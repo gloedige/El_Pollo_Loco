@@ -8,7 +8,12 @@ class DrawableObject {
     currentImageIndex = 0;
 
     draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        try {
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        } catch (error) {
+            console.warn('Error drawing image:', error);
+            console.log('Could not load Image: ', this.img.src);
+        }
     }
 
 
@@ -20,9 +25,13 @@ class DrawableObject {
     
     loadImages(arr){
         arr.forEach ((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imagesCache[path] = img;
+            try {
+                let img = new Image();
+                img.src = path;
+                this.imagesCache[path] = img;
+            } catch (error) {
+                console.error('Error loading image:', error);
+            }
         });
     }
 
