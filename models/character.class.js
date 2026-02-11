@@ -35,8 +35,6 @@ class Character extends MoveableObject {
         '../img/2_character_pepe/5_dead/D-57.png',
     ];
     TIME_RESET_HURT = 1; // in seconds
-        
-    currentImageIndex = 0;
     world;
     speed = 6;
 

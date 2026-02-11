@@ -1,11 +1,5 @@
 class  MoveableObject extends DrawableObject {
-    x;
-    y;
-    img;
-    height;
-    width;
     HEIGHT_CANVAS = 480;
-    imagesCache = {};
     speed = 0.1;
     end_position_x;
     difference_of_position = 0;
@@ -34,11 +28,6 @@ class  MoveableObject extends DrawableObject {
     }
 
 
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    
-    }
-
     drawFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
             ctx.beginPath();
@@ -47,20 +36,6 @@ class  MoveableObject extends DrawableObject {
             ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right - this.offset.left, this.height - this.offset.top - this.offset.bottom);
             ctx.stroke();
         }
-    }
-    
-    loadImage(path) {
-        this.img = new Image(); // <img>
-        this.img.src = path;
-    }
-    
-    
-    loadImages(arr){
-        arr.forEach ((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imagesCache[path] = img;
-        });
     }
     
     
