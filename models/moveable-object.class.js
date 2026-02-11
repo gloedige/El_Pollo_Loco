@@ -94,7 +94,11 @@ class  MoveableObject extends DrawableObject {
     isAboveGround() {
         if (this instanceof Character) {
             return this.y < 450 - 280;
-        } else {
+        }
+        if (this instanceof ThrowableObject) {
+            return true; 
+        }
+        else {
             return this.y < this.HEIGHT_CANVAS - this.height;
         }   
     }
