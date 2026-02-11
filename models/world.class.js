@@ -26,7 +26,7 @@ class World {
             this.level.enemies.forEach(enemy => {
                 if (this.character.colliding_detecting && this.character.isColliding(enemy)) {
                     this.character.hit();
-                    console.log('Character energy: ', this.character.energy);
+                    this.statusBar.setPercentage(this.character.energy);
                     this.character.checkIsDead();
                 }
             });
@@ -60,6 +60,7 @@ class World {
         requestAnimationFrame(() => self.draw());
         
         this.ctx.translate(-this.camera_x, 0);
+        // Space for fixed objects like status bar //
         this.addToMap(this.statusBar);
     }
 
