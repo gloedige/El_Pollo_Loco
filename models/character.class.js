@@ -61,47 +61,44 @@ class Character extends MoveableObject {
 
 
     animate(imagePathsArr, speedAnimation) {
+        setInterval(() => {
+            this.moveCharacter();
+        }, 1000/60);
         
         setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.playCharacter(imagePathsArr);
+        }, 1000/speedAnimation);
+    }
+
+    moveCharacter() {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 // this.walking_sound.play();
             }
+        if (this.world.keyboard.LEFT && this.x > 0) {
+            this.moveLeft();
+            // this.walking_sound.play();
+        }
+        if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            this.jump();
+        }
+        this.world.camera_x = -this.x;
+    }
 
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                // this.walking_sound.play();
-            }
+    playCharacter(imagePathsArr) {
+        if (this.isAboveGround() && !this.dead) {
+            this.playAnimation(this.CHARACTER_JUMPING_IMAGES);
+        }
+        else if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.dead) {
+            this.playAnimation(imagePathsArr);
+        }
+        else if (this.dead) {
+            this.playDeadAnimation(this.CHARACTER_DEAD_IMAGES);
+        }
+        else if (this.isHurt() && !this.dead) {
+            this.playAnimation(this.CHARACTER_HURT_IMAGES);
 
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jump();
-            }
-
-            this.world.camera_x = -this.x;
-        }, 1000/60);
-
-
-        
-        setInterval(() => {
-            if (this.isAboveGround() && !this.dead) {
-                // Jump animation
-                this.playAnimation(this.CHARACTER_JUMPING_IMAGES);
-            }
-            else if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.dead) {
-                // Walk animation
-                this.playAnimation(imagePathsArr);
-            }
-            else if (this.dead) {
-                // Dead animation
-                this.playDeadAnimation(this.CHARACTER_DEAD_IMAGES);
-            }
-            else if (this.isHurt() && !this.dead) {
-                // Hurt animation
-                this.playAnimation(this.CHARACTER_HURT_IMAGES);
-
-            }
-
-        }, 1000/speedAnimation);
+        }
     }
     
 }
