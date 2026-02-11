@@ -6,6 +6,11 @@ let keyboard = new Keyboard();
 
 function init() {
     canvas = document.getElementById('canvas');
+    canvas.classList.remove('d-none');
+    document.getElementById('intro_outro_container').classList.add('d-none');
+    
+    // document.getElementById('canvas').style.display = 'none';
+
     world = new World(canvas, keyboard);
 
 

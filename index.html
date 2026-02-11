@@ -22,8 +22,11 @@
 </head>
 <body>
     <h1>El Pollo Loco</h1>
-
-    <canvas width="720" height="480" id="canvas">
+    <div class="intro_outro_container" id="intro_outro_container">
+        <img src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="Start Screen" class="startscreen_img">
+        <button class="startButton" onclick="startGame()">START GAME</button>`;
+    </div>
+    <canvas width="720" height="480" id="canvas" class="d-none">
         Your browser does not support the HTML5 canvas tag.
     </canvas>
     <button onclick="initLevel(), init()" class="startButton">Start Game</button>
