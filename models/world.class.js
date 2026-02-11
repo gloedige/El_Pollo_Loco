@@ -1,5 +1,6 @@
 class World {
     character = new Character();
+    statusBar = new StatusBar();
     level = level1;
     
     start_background_x_1 = 0;
@@ -57,8 +58,9 @@ class World {
         
         let self = this;
         requestAnimationFrame(() => self.draw());
-
+        
         this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBar);
     }
 
 
@@ -69,16 +71,18 @@ class World {
     }
 
 
-    addToMap(movableObject) {
-        if (movableObject.otherDirection) {
-            this.flipImage(movableObject);
+    addToMap(drawableObject) {
+        if (!(drawableObject instanceof StatusBar) && drawableObject.otherDirection) {
+            this.flipImage(drawableObject);
         }
 
-        movableObject.draw(this.ctx);
-        movableObject.drawFrame(this.ctx);
+        drawableObject.draw(this.ctx);
+        if (!(drawableObject instanceof StatusBar)) {
+            drawableObject.drawFrame(this.ctx);
+        }        
 
-        if (movableObject.otherDirection) {
-            this.flipImageBack(movableObject);
+        if (!(drawableObject instanceof StatusBar) && drawableObject.otherDirection) {
+            this.flipImageBack(drawableObject);
         }
 
     }
