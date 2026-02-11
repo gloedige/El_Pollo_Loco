@@ -105,7 +105,7 @@ class Character extends MoveableObject {
     };
 
     canJump() {
-        return this.world.keyboard.SPACE && !this.isAboveGround();
+        return this.world.keyboard.UP && !this.isAboveGround();
     }
 
     isJumping() {
