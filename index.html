@@ -26,7 +26,32 @@
     <canvas width="720" height="480" id="canvas">
         Your browser does not support the HTML5 canvas tag.
     </canvas>
-    <button onclick="initLevel(), init()">Start Game</button>
+    <button onclick="initLevel(), init()" class="startButton">Start Game</button>
+    <div>
+        <audio id="background-music" loop>
+            <source src="./audio/background-music.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    <div class="how_to_play">
+        <h3>How To Play:</h3>
+        <div class="how_to_play_button">
+            <img src="./img/10_button/arrow_left_50dp.png" alt="left arrow icon" class="how_to_play_img">
+            <p class="how_to_play_text">walk left</p>
+        </div>
+        <div class="how_to_play_button">
+            <img src="./img/10_button/arrow_right_50dp.png" alt="right arrow icon" class="how_to_play_img">
+            <p class="how_to_play_text">walk right</p>
+        </div>
+        <div class="how_to_play_button">
+            <img src="./img/10_button/arrow_drop_up_50dp.png" alt="up arrow icon" class="how_to_play_img">
+            <p class="how_to_play_text">jump</p>
+        </div>
+        <div class="how_to_play_button">
+            <img src="./img/6_salsa_bottle/salsa_bottle.png" alt="salsa bottle icon" class="how_to_play_img">
+            <p class="how_to_play_text">attack</p>
+        </div>
+    </div>
     
 </body>
 </html>

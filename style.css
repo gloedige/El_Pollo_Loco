@@ -11,16 +11,67 @@ body {
     background-image: url('./img/5_background/wild_desert_landscape_03.jpg');
     background-size: cover;
     height: 100vh;
+    gap: 16px;
+    margin: 0;
 }
 
 h1 {
     font-family: zabra;
+    color: white;
+    text-shadow: 4px 4px 4px #000000;
+    font-size: 80px;
+    letter-spacing: 12px;
+    margin: 20px;
+}
+
+h3 {
+    margin: 0;
+}
+
+.startButton{
+    font-family: zabra;
+    font-size: 30px;
+    letter-spacing: 3px;
+    padding: 10px 20px;
+    background-color: #F7BF64;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 4px 4px 4px #000000;
+    border: 2px solid #000000;
+}
+.startButton:hover {
+    background-color: #994409;
+}
+
+.how_to_play{
+    font-family: zabra;
+    font-size: 24px;
     color: black;
-    text-shadow: 2px 2px 4px #000000;
-    font-size: 64px;
-    letter-spacing: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.how_to_play_button{
+    display: flex;
+    flex-direction: row;
+}
+
+.how_to_play_text{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    letter-spacing: 3px;
+}
+
+
+.how_to_play_img{
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
 }
 
 canvas {
     background-color: black;
+    border-radius: 20px;
 }
