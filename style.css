@@ -40,6 +40,7 @@ h3 {
     cursor: pointer;
     box-shadow: 4px 4px 4px #000000;
     border: 2px solid #000000;
+    margin-top: 32px;
 }
 .startButton:hover {
     background-color: #994409;
@@ -85,21 +86,19 @@ canvas {
     border-radius: 20px;
 }
 .d-none {
-    display: none !important
+    display: none !important;
 }
 
 .intro_outro_container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
+    align-items: start;
     gap: 16px;
     width: 720px;
     height: 480px;
-}
-
-.startscreen_img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    background-image: url('./img/9_intro_outro_screens/start/startscreen_1.png');
+    background-size: 110% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
     border-radius: 20px;
 }
