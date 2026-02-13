@@ -36,7 +36,7 @@ class Character extends MoveableObject {
     ];
     TIME_RESET_HURT = 1; // in seconds
     world;
-    speed = 6;
+    speed = 1;
 
     offset = {
         top: 120,
@@ -113,7 +113,9 @@ class Character extends MoveableObject {
     }
 
     isMoving() {
-        return (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.dead;
+        return (
+            this.world && this.world.keyboard && 
+            (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.dead);
     }
 
     isHit() {

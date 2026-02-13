@@ -1,6 +1,7 @@
 class DrawableObject {
     x;
     y;
+    // xPositions = [];
     img;
     height;
     width;
@@ -9,7 +10,13 @@ class DrawableObject {
 
     draw(ctx) {
         try {
-            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+                if (this.xPositions && Array.isArray(this.xPositions)) {                    
+                    this.xPositions.forEach(x => {
+                        ctx.drawImage(this.img, x, this.y, this.width, this.height);
+                    });
+                } else {
+                    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+                }
         } catch (error) {
             console.warn('Error drawing image:', error);
             console.log('Could not load Image: ', this.img.src);
