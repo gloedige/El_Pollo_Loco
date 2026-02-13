@@ -3,14 +3,14 @@ class World {
     statusBar = new StatusBar();
     throwableObjects = [];
     level = level1;
-    
+    distanceTravelled = 0;
+
     start_background_x_1 = 0;
     start_background_x_2 = 719 * 2;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
-    positionCharacterInWorld_x = 30;
     totalBackgroundWidth = 719 * 2;
     
     constructor(canvas, keyboard) {
@@ -20,6 +20,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.distanceTravelled = 0;
     }
 
     run(){
@@ -94,31 +95,6 @@ class World {
         }
     }
 
-    // Function to parallax scroll the background
-    updateBackgroundPosition(backgroundObject) {
-        if (this.character.isMoving()) {
-            let character_speed = this.character.speed;
-            let speed_factor = backgroundObject.parallaxSpeed || 1;
-            
-            
-            if (this.character.otherDirection){
-                character_speed = -character_speed;
-            }
-
-
-            if (backgroundObject.xPositions[0] + this.camera_x < -this.totalBackgroundWidth) {
-                backgroundObject.xPositions[0] = this.totalBackgroundWidth - speed_factor * character_speed + backgroundObject.xPositions[1];
-            } else {
-                backgroundObject.xPositions[0] -= character_speed * speed_factor;
-            }
-
-            if (backgroundObject.xPositions[1] + this.camera_x < -this.totalBackgroundWidth) {
-                backgroundObject.xPositions[1] = this.totalBackgroundWidth - speed_factor * character_speed + backgroundObject.xPositions[0];
-            } else {
-                backgroundObject.xPositions[1] -= character_speed * speed_factor;
-            }
-        }
-    }
 
     animateBackground(objects) {
         // let speed_factor = 0;
@@ -130,6 +106,39 @@ class World {
             });
         
     }
+
+
+    // Function to parallax scroll the background
+    updateBackgroundPosition(backgroundObject) {
+        if (this.character.isMoving() && backgroundObject.parallaxSpeed !== 0) {
+            if(this.distanceTravelled < this.level.level_end_x) {
+
+            let character_speed = this.character.speed;
+            let speed_factor = backgroundObject.parallaxSpeed || 1;
+                        
+            if (this.character.otherDirection){
+                character_speed = -character_speed;
+            }
+
+
+            if (backgroundObject.xPositions[0] + this.camera_x < -this.totalBackgroundWidth) {
+                backgroundObject.xPositions[0] = this.totalBackgroundWidth - speed_factor * character_speed + backgroundObject.xPositions[1];
+            } else {
+                backgroundObject.xPositions[0] -= character_speed * speed_factor;
+            }
+            
+            if (backgroundObject.xPositions[1] + this.camera_x < -this.totalBackgroundWidth) {
+                backgroundObject.xPositions[1] = this.totalBackgroundWidth - speed_factor * character_speed + backgroundObject.xPositions[0];
+            } else {
+                backgroundObject.xPositions[1] -= character_speed * speed_factor;
+            }
+            }
+        }
+    }
+    
+
+
+    
 
     
     

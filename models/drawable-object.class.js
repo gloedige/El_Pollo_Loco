@@ -1,7 +1,6 @@
 class DrawableObject {
     x;
     y;
-    // xPositions = [];
     img;
     height;
     width;

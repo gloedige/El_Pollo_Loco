@@ -37,6 +37,7 @@ class Character extends MoveableObject {
     TIME_RESET_HURT = 1; // in seconds
     world;
     speed = 1;
+    positionCharacterInWorld_x = 100;
 
     offset = {
         top: 120,
@@ -48,7 +49,7 @@ class Character extends MoveableObject {
 
     constructor() {
         super().loadImage(this.CHARACTER_WALKING_IMAGES[0]);
-        this.x = 30;
+        this.x = 30 + this.positionCharacterInWorld_x;
         this.y = 480 - 280;
         this.loadImages(this.CHARACTER_WALKING_IMAGES);
         this.loadImages(this.CHARACTER_JUMPING_IMAGES);
@@ -68,16 +69,18 @@ class Character extends MoveableObject {
     moveCharacter() {
         if (this.canMoveRight()) {
             this.moveRight();
+            this.world.distanceTravelled += this.speed + this.world.level.backgroundObjects[3].parallaxSpeed;            
             // this.walking_sound.play();
             }
         if (this.canMoveLeft()) {
             this.moveLeft();
+            this.world.distanceTravelled -= this.speed + this.world.level.backgroundObjects[3].parallaxSpeed;
             // this.walking_sound.play();
         }
         if (this.canJump()) {
             this.jump();
         }
-        this.world.camera_x = -this.x;
+        this.world.camera_x = -this.x + this.positionCharacterInWorld_x;
     }
 
     playCharacter(imagePathsArr) {
@@ -97,7 +100,7 @@ class Character extends MoveableObject {
     }
 
     canMoveRight() {
-        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x
+        return this.world.keyboard.RIGHT && this.world.distanceTravelled < this.world.level.level_end_x
     };
 
     canMoveLeft() {
