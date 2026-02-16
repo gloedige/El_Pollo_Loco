@@ -1,10 +1,15 @@
 class BackgroundObject extends MoveableObject{
     height = this.HEIGHT_CANVAS;
-    width = 720;
+    width = 719 * 2;
+    parallaxSpeed = 0;
+    xPositions = [];
 
-    constructor(imagePath, x){
+    constructor(imagePath, xPositions, parallaxSpeed){
         super().loadImage(imagePath);
-        this.x = x;
+        this.image = imagePath;
+        this.x = xPositions[0];
         this.y = 0;
+        this.parallaxSpeed = parallaxSpeed;
+        this.xPositions = xPositions;
     }
 }

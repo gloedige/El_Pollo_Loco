@@ -3,15 +3,15 @@ class World {
     statusBar = new StatusBar();
     throwableObjects = [];
     level = level1;
-    
+    distanceTravelled = 0;
+
     start_background_x_1 = 0;
-    start_background_x_2 = 719;
+    start_background_x_2 = 719 * 2;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
-    positionCharacterInWorld_x = 30;
-    widthOfSingleBackground = 719;
+    totalBackgroundWidth = 719 * 2;
     
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -20,6 +20,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.distanceTravelled = 0;
     }
 
     run(){
@@ -54,23 +55,9 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
-        let relationOfCameraToBackground = this.camera_x % (this.widthOfSingleBackground - this.positionCharacterInWorld_x );
         
-        if (this.level instanceof Level) {
-            if (relationOfCameraToBackground == 0) {
-                this.start_background_x_1 += this.widthOfSingleBackground * 2;
-                this.start_background_x_2 += this.widthOfSingleBackground * 2;
-                this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/air.png', this.start_background_x_1));
-                this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/3_third_layer/1.png', this.start_background_x_1));
-                this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/2_second_layer/1.png', this.start_background_x_1));
-                this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/1_first_layer/1.png', this.start_background_x_1));
-                this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/air.png', this.start_background_x_2));
-                this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/3_third_layer/2.png', this.start_background_x_2));
-                this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/2_second_layer/2.png', this.start_background_x_2));
-                this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/1_first_layer/2.png', this.start_background_x_2));
-            }
-            
-            this.addObjectsToMap(this.level.backgroundObjects);
+        if (this.level instanceof Level) {           
+            this.animateBackground(this.level.backgroundObjects);
             this.addObjectsToMap(this.level.clouds);
             this.addObjectsToMap(this.level.enemies);
         }
@@ -98,16 +85,76 @@ class World {
             this.flipImage(drawableObject);
         }
 
+        // Draw the main image only once; seamless looping is handled by having two objects in the array
         drawableObject.draw(this.ctx);
         if (!(drawableObject instanceof StatusBar)) {
             drawableObject.drawFrame(this.ctx);
-        }        
-
+        }
         if (!(drawableObject instanceof StatusBar) && drawableObject.otherDirection) {
             this.flipImageBack(drawableObject);
         }
-
     }
+
+
+    animateBackground(objects) {
+        objects.forEach((backgroundObject) => {
+            if (backgroundObject instanceof BackgroundObject) {
+                this.updateBackgroundPosition(backgroundObject);
+                this.addToMap(backgroundObject);
+            }
+        });
+        
+    }
+
+
+    
+    updateBackgroundPosition(backgroundObject) {
+        if (this.character.isMoving() && backgroundObject.parallaxSpeed !== 0) {
+            if(this.distanceTravelled < this.level.level_end_x && this.distanceTravelled > 0){
+
+                if (this.character.otherDirection){
+                    let character_speed = -this.character.speed;
+                    this.parallaxBackgroundToLeft(backgroundObject, character_speed);
+                }
+                else {
+                    let character_speed = this.character.speed;
+                    this.parallaxBackgroundToRight(backgroundObject, character_speed);
+                }
+            }
+        }
+    }
+    
+
+    parallaxBackgroundToRight(backgroundObject, character_speed) {
+        if (backgroundObject.xPositions[0] + this.camera_x < -this.totalBackgroundWidth) {
+            backgroundObject.xPositions[0] = this.totalBackgroundWidth - backgroundObject.parallaxSpeed * character_speed + backgroundObject.xPositions[1];
+        } else {
+            backgroundObject.xPositions[0] -= character_speed * backgroundObject.parallaxSpeed;
+        }
+        
+        if (backgroundObject.xPositions[1] + this.camera_x < -this.totalBackgroundWidth) {
+            backgroundObject.xPositions[1] = this.totalBackgroundWidth - backgroundObject.parallaxSpeed * character_speed + backgroundObject.xPositions[0];
+        } else {
+            backgroundObject.xPositions[1] -= character_speed * backgroundObject.parallaxSpeed;
+        }
+    }
+
+        
+    parallaxBackgroundToLeft(backgroundObject, character_speed) {
+        if (backgroundObject.xPositions[0] + this.camera_x >= this.totalBackgroundWidth) {
+            backgroundObject.xPositions[0] = -this.totalBackgroundWidth - backgroundObject.parallaxSpeed * character_speed + backgroundObject.xPositions[1];
+        } else {
+            backgroundObject.xPositions[0] -= character_speed * backgroundObject.parallaxSpeed;
+        }
+    
+        if (backgroundObject.xPositions[1] + this.camera_x > this.totalBackgroundWidth) {
+            backgroundObject.xPositions[1] = -this.totalBackgroundWidth - backgroundObject.parallaxSpeed * character_speed + backgroundObject.xPositions[0];
+        } else {
+            backgroundObject.xPositions[1] -= character_speed * backgroundObject.parallaxSpeed;
+        }        
+    }
+    
+
     
     
     setWorld() {
