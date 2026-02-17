@@ -1,13 +1,12 @@
 let level1;
 const numberOfCoins = 30;
+const numberOfChickens = 4;
 // initLevel();
 
 function initLevel() {
     level1 = new Level(
         [
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
+            ...createArrayOfObjects(numberOfChickens, Chicken),
             new Endboss()
         ],
         [
@@ -24,10 +23,10 @@ function initLevel() {
         [
             new Cloud()
         ],
-        createArrayOfCoins()
+        createArrayOfObjects(numberOfCoins, Coins)
     );
 }
 
-function createArrayOfCoins() {
-    return Array.from({ length: numberOfCoins }, () => new Coins());
+function createArrayOfObjects(numberOfElements, object) {
+    return Array.from({ length: numberOfElements }, () => new object());
 }
