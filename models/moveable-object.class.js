@@ -148,4 +148,5 @@ class  MoveableObject extends DrawableObject {
             this.world.level.coins.splice(index, 1);
         }
     }
+
 }

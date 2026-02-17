@@ -1,8 +1,37 @@
 class World {
+    HEALTH_STATUS_BAR_IMAGES = [
+        '../img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',
+        '../img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
+        '../img/7_statusbars/1_statusbar/2_statusbar_health/blue/40.png',
+        '../img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png',
+        '../img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',
+        '../img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png'
+    ];
+    COINS_STATUS_BAR_IMAGES = [
+        '../img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
+        '../img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png',
+        '../img/7_statusbars/1_statusbar/1_statusbar_coin/blue/40.png',
+        '../img/7_statusbars/1_statusbar/1_statusbar_coin/blue/60.png',
+        '../img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png',
+        '../img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png'
+    ];
+    BOTTLE_STATUS_BAR_IMAGES = [
+        '../img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/0.png',
+        '../img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/20.png',
+        '../img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/40.png',
+        '../img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/60.png',
+        '../img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/80.png',
+        '../img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png'
+    ];
+
+
     character = new Character();
-    statusBar = new StatusBar();
+    statusBarHealth = new StatusBar(10, 0, this.HEALTH_STATUS_BAR_IMAGES, 100);
+    statusBarCoins = new StatusBar(10, 40, this.COINS_STATUS_BAR_IMAGES, 0);
+    statusBarBottles = new StatusBar(10, 80, this.BOTTLE_STATUS_BAR_IMAGES, 0);
     throwableObjects = [];
     level = level1;
+    totalCoins = this.level.coins.length;
     
     start_background_x_1 = 0;
     start_background_x_2 = 719;
@@ -36,13 +65,14 @@ class World {
             this.level.enemies.forEach(enemy => {
                 if (this.character.colliding_detecting && this.character.isColliding(enemy)) {
                     this.character.hit();
-                    this.statusBar.setPercentage(this.character.energy);
+                    this.statusBarHealth.setPercentage(this.character.energy);
                     this.character.checkIsDead();
                 }
             });
             this.level.coins.forEach(coin => {
                 if (this.character.colliding_detecting && this.character.isColliding(coin)) {
                     this.character.collectCoin();
+                    this.statusBarCoins.setPercentage(this.character.coinsCollected / this.totalCoins * 100);
                     coin.colliding_detecting = false;
                     this.character.deleteCoin(coin);
                 }
@@ -90,7 +120,9 @@ class World {
         
         this.ctx.translate(-this.camera_x, 0);
         // Space for fixed objects like status bar //
-        this.addToMap(this.statusBar);
+        this.addToMap(this.statusBarHealth);
+        this.addToMap(this.statusBarCoins);
+        this.addToMap(this.statusBarBottles);
     }
 
 
