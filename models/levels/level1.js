@@ -1,6 +1,7 @@
 let level1;
 const numberOfCoins = 30;
 const numberOfChickens = 4;
+const numberOfBottles = 20;
 // initLevel();
 
 function initLevel() {
@@ -23,7 +24,8 @@ function initLevel() {
         [
             new Cloud()
         ],
-        createArrayOfObjects(numberOfCoins, Coins)
+        createArrayOfObjects(numberOfCoins, Coins),
+        createArrayOfObjects(numberOfBottles, Bottles)
     );
 }
 

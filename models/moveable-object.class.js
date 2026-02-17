@@ -30,7 +30,7 @@ class  MoveableObject extends DrawableObject {
 
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins || this instanceof ThrowableObject) {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';
@@ -146,6 +146,12 @@ class  MoveableObject extends DrawableObject {
         if (index > -1) {            
             this.world.level.coins.splice(index, 1);
         }
+    }
+
+    selectRandomImage(imagePathsArr) {
+        let i = Math.floor(Math.random() * imagePathsArr.length);
+        let path = imagePathsArr[i];
+        this.img = this.imagesCache[path];
     }
 
 }
