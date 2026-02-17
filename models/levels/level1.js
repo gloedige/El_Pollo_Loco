@@ -22,6 +22,10 @@ function initLevel() {
         ],
         [
             new Cloud()
+        ],
+        [
+            new Coins(),
+            new Coins(),
         ]
     );
 }
