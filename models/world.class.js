@@ -1,34 +1,8 @@
 class World {
-    HEALTH_STATUS_BAR_IMAGES = [
-        '../img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',
-        '../img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
-        '../img/7_statusbars/1_statusbar/2_statusbar_health/blue/40.png',
-        '../img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png',
-        '../img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',
-        '../img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png'
-    ];
-    COINS_STATUS_BAR_IMAGES = [
-        '../img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
-        '../img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png',
-        '../img/7_statusbars/1_statusbar/1_statusbar_coin/blue/40.png',
-        '../img/7_statusbars/1_statusbar/1_statusbar_coin/blue/60.png',
-        '../img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png',
-        '../img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png'
-    ];
-    BOTTLE_STATUS_BAR_IMAGES = [
-        '../img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/0.png',
-        '../img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/20.png',
-        '../img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/40.png',
-        '../img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/60.png',
-        '../img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/80.png',
-        '../img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png'
-    ];
-
-
     character = new Character();
-    statusBarHealth = new StatusBar(10, 0, this.HEALTH_STATUS_BAR_IMAGES, 100);
-    statusBarCoins = new StatusBar(10, 40, this.COINS_STATUS_BAR_IMAGES, 0);
-    statusBarBottles = new StatusBar(10, 80, this.BOTTLE_STATUS_BAR_IMAGES, 0);
+    statusBarHealth = new StatusBar(10, 0, 'health', 100);
+    statusBarCoins = new StatusBar(10, 40, 'coins', 0);
+    statusBarBottles = new StatusBar(10, 80, 'bottles', 0);
     throwableObjects = [];
     level = level1;
     totalCoins = this.level.coins.length;

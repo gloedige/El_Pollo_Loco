@@ -139,7 +139,6 @@ class  MoveableObject extends DrawableObject {
 
     collectCoin() {
         this.coinsCollected = (this.coinsCollected || 0) + 1;
-        console.log(`Coins collected: ${this.coinsCollected}`);
     }
 
     deleteCoin(coin) {
