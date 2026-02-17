@@ -6,12 +6,12 @@ class Bottles extends MoveableObject {
         '../img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
     ];
     level_end_x = 720 * 2 * 3 - 720;
-    groundPosition = 440;
+    groundPosition = 430;
 
      offset = {
-        top: 10,
-        left: 10,
-        right: 10,
+        top: 15,
+        left: 35,
+        right: 20,
         bottom: 10
     };
 

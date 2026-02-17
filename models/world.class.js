@@ -5,7 +5,6 @@ class World {
     statusBarBottles = new StatusBar(10, 80, 'bottles', 0);
     throwableObjects = [];
     level = level1;
-    totalCoins = this.level.coins.length;
     
     start_background_x_1 = 0;
     start_background_x_2 = 719;
@@ -46,18 +45,45 @@ class World {
             this.level.coins.forEach(coin => {
                 if (this.character.colliding_detecting && this.character.isColliding(coin)) {
                     this.character.collectCoin();
-                    this.statusBarCoins.setPercentage(this.character.coinsCollected / this.totalCoins * 100);
+                    this.statusBarCoins.setPercentage(this.character.coinsCollected / numberOfCoins * 100);
                     coin.colliding_detecting = false;
-                    this.character.deleteCoin(coin);
+                    this.character.deleteElement(coin);
                 }
             });
+            this.level.bottles.forEach(bottle => {
+                if (this.character.colliding_detecting && this.character.isColliding(bottle)) {
+                    this.character.collectBottles();
+                    this.statusBarBottles.setPercentage(this.character.bottlesCollected / numberOfBottles * 100);
+                    console.log(this.character.bottlesCollected);
+                    bottle.colliding_detecting = false;
+                    this.character.deleteElement(bottle);                    
+                }
+            });
+
+
+
+
+            // this.throwableObjects.forEach(bottle => {
+            //     this.level.enemies.forEach(enemy => {
+            //         if (bottle.colliding_detecting && bottle.isColliding(enemy)) {
+            //             enemy.hit();
+            //             bottle.colliding_detecting = false;
+            //             const index = this.throwableObjects.indexOf(bottle);
+            //             if (index > -1) {
+            //                 this.throwableObjects.splice(index, 1);
+            //             }
+            //         }
+            //     });
+            // });
         }
     }
-
+    
+    
     checkThrowObjects() {
-        if (this.keyboard.SPACE) {
+        if (this.keyboard.SPACE && this.character.bottlesCollected > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + this.character.height / 3);
             this.throwableObjects.push(bottle);
+            this.character.removeCollectedBottle();
         }
     }
 

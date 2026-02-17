@@ -11,6 +11,7 @@ class  MoveableObject extends DrawableObject {
     lastHit = 0;
     colliding_detecting = true;
     coinsCollected = 0;
+    bottlesCollected = 0;
 
     offset = {
         top: 0,
@@ -30,7 +31,7 @@ class  MoveableObject extends DrawableObject {
 
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins || this instanceof ThrowableObject) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins || this instanceof Bottles) {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';
@@ -141,10 +142,18 @@ class  MoveableObject extends DrawableObject {
         this.coinsCollected = (this.coinsCollected || 0) + 1;
     }
 
-    deleteCoin(coin) {
-        const index = this.world.level.coins.indexOf(coin);
-        if (index > -1) {            
-            this.world.level.coins.splice(index, 1);
+    deleteElement(element) {
+        if (element instanceof Coins) {
+            const index = this.world.level.coins.indexOf(element);
+            if (index > -1) {            
+                this.world.level.coins.splice(index, 1);
+            }
+        }
+        else if (element instanceof Bottles) {
+            const index = this.world.level.bottles.indexOf(element);
+            if (index > -1) {            
+                this.world.level.bottles.splice(index, 1);
+            }
         }
     }
 
@@ -152,6 +161,16 @@ class  MoveableObject extends DrawableObject {
         let i = Math.floor(Math.random() * imagePathsArr.length);
         let path = imagePathsArr[i];
         this.img = this.imagesCache[path];
+    }
+
+    collectBottles() {
+        this.bottlesCollected = (this.bottlesCollected || 0) + 1;
+    }
+
+    removeCollectedBottle() {
+        if (this.bottlesCollected > 0) {
+            this.bottlesCollected--;
+        }
     }
 
 }

@@ -13,7 +13,7 @@ class ThrowableObject extends MoveableObject {
         bottom: 10
     };
 
-    constructor(x,y){
+    constructor(x,y) {
         super();
         this.loadImage(this.BOTTLE_ROTATION_IMAGES[0]);
         this.loadImages(this.BOTTLE_ROTATION_IMAGES);
