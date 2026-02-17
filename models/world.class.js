@@ -80,8 +80,8 @@ class World {
     
     
     checkThrowObjects() {
-        if (this.keyboard.SPACE && this.character.bottlesCollected > 0) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + this.character.height / 3);
+        if (this.keyboard.SPACE && this.character.bottlesCollected > 0) {;
+            let bottle = new ThrowableObject(this.character.x + this.character.width/2, this.character.y + this.character.height / 3, this.character.otherDirection);
             this.throwableObjects.push(bottle);
             this.character.removeCollectedBottle();
         }
