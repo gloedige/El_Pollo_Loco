@@ -6,6 +6,9 @@ class Chicken extends MoveableObject{
         '../img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
         '../img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
+    CHICKEN_DEAD_IMAGE = [
+        '../img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
+    ];
 
     offset = {
         top: 20,
@@ -19,20 +22,25 @@ class Chicken extends MoveableObject{
         this.x = 300 + Math.random() * 470; // random x position between 300 and 770 (720 - 50 width of chicken)
         this.y = 440 - this.height; // ground level for chicken
         this.loadImages(this.CHICKEN_WALKING_IMAGES);
+        this.loadImages(this.CHICKEN_DEAD_IMAGE);
         this.animate(this.CHICKEN_WALKING_IMAGES, 12);
         this.speed = 0.1 + Math.random() * 0.3; // random speed between 0.1 and 0.4
+        // this.speed = 0;
         this.autoMoveLeft(this.x, this.width);
+        this.energy = 5; // chickens have less energy than the character
     }
 
 
     animate(imagePathsArr, speedAnimation) {
-        setInterval(() => {
-            this.playAnimation(imagePathsArr);
-        }, 1000/speedAnimation);
+        setInterval(() => this.playChicken(imagePathsArr), 1000/speedAnimation);
     }
 
-   
-
-
+    playChicken(imagePathsArr) {
+        if (this.dead) {
+            this.playDeadAnimation(this.CHICKEN_DEAD_IMAGE);
+        } else {
+            this.playAnimation(imagePathsArr);
+        }
+    }
 
 }

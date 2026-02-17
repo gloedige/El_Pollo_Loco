@@ -41,7 +41,7 @@ class  MoveableObject extends DrawableObject {
     }
     
     
-    autoMoveLeft(start_position_x, width_object) {
+     autoMoveLeft(start_position_x, width_object) {
         this.x = start_position_x;
         this.end_position_x = -width_object;
         setInterval(() => {
@@ -115,6 +115,16 @@ class  MoveableObject extends DrawableObject {
                 this.y + this.offset.top < movableObject.y + movableObject.height - movableObject.offset.bottom;
     }
 
+    isJumpingOnTop(movableObject) {
+        return (
+            this.y + this.height - this.offset.bottom <= movableObject.y + movableObject.offset.top + 10 && // von oben, mit Toleranz
+            this.y + this.height - this.offset.bottom >= movableObject.y + movableObject.offset.top - 10 &&
+            this.x + this.width - this.offset.right > movableObject.x + movableObject.offset.left &&
+            this.x + this.offset.left < movableObject.x + movableObject.width - movableObject.offset.right &&
+            this.speedY < 0 // optional: nur wenn nach unten bewegt
+        );
+    }
+
     hit() {
         this.energy -= 10;
         if (this.energy < 0) {
@@ -171,6 +181,10 @@ class  MoveableObject extends DrawableObject {
         if (this.bottlesCollected > 0) {
             this.bottlesCollected--;
         }
+    }
+
+    killedEnemy() {
+        this.speed = 0;
     }
 
 }

@@ -41,6 +41,15 @@ class World {
                     this.statusBarHealth.setPercentage(this.character.energy);
                     this.character.checkIsDead();
                 }
+                if (this.character.colliding_detecting && this.character.isJumpingOnTop(enemy)) {
+                    enemy.hit();
+                    this.character.speedY = 15;
+                    enemy.checkIsDead();
+                    enemy.colliding_detecting = false;
+                    if (enemy.energy == 0) {
+                        enemy.killedEnemy();
+                    }
+                }
             });
             this.level.coins.forEach(coin => {
                 if (this.character.colliding_detecting && this.character.isColliding(coin)) {
