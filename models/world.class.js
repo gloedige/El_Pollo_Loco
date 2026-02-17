@@ -40,6 +40,13 @@ class World {
                     this.character.checkIsDead();
                 }
             });
+            this.level.coins.forEach(coin => {
+                if (this.character.colliding_detecting && this.character.isColliding(coin)) {
+                    this.character.collectCoin();
+                    coin.colliding_detecting = false;
+                    this.character.deleteCoin(coin);
+                }
+            });
         }
     }
 

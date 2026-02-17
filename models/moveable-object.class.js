@@ -10,6 +10,7 @@ class  MoveableObject extends DrawableObject {
     dead = false;
     lastHit = 0;
     colliding_detecting = true;
+    coinsCollected = 0;
 
     offset = {
         top: 0,
@@ -47,7 +48,6 @@ class  MoveableObject extends DrawableObject {
             if(this.x <= this.end_position_x){
                 start_position_x = 720; // reset to the right edge of the canvas
                 this.x = start_position_x;
-                
             }
         }, 1000 / 60); // 60 times per second
     }
@@ -136,5 +136,16 @@ class  MoveableObject extends DrawableObject {
             this.colliding_detecting = false;
         }
     }
-    
+
+    collectCoin() {
+        this.coinsCollected = (this.coinsCollected || 0) + 1;
+        console.log(`Coins collected: ${this.coinsCollected}`);
+    }
+
+    deleteCoin(coin) {
+        const index = this.world.level.coins.indexOf(coin);
+        if (index > -1) {            
+            this.world.level.coins.splice(index, 1);
+        }
+    }
 }
