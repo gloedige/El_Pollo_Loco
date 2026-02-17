@@ -29,7 +29,7 @@ class  MoveableObject extends DrawableObject {
 
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins) {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';

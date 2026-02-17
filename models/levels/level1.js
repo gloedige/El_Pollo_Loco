@@ -1,4 +1,5 @@
 let level1;
+const numberOfCoins = 30;
 // initLevel();
 
 function initLevel() {
@@ -23,9 +24,10 @@ function initLevel() {
         [
             new Cloud()
         ],
-        [
-            new Coins(),
-            new Coins(),
-        ]
+        createArrayOfCoins()
     );
+}
+
+function createArrayOfCoins() {
+    return Array.from({ length: numberOfCoins }, () => new Coins());
 }
