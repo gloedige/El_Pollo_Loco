@@ -55,15 +55,19 @@ class Endboss extends MoveableObject {
         this.loadImages(this.ENDBOSS_ATTACK_IMAGES);
         this.loadImages(this.ENDBOSS_HURT_IMAGES);
         this.loadImages(this.ENDBOSS_DEAD_IMAGES);
-        this.animate(this.ENDBOSS_ALERT_IMAGES, 12);
+        this.animate(this.ENDBOSS_ALERT_IMAGES, 5);
         this.energy = 50;
         // this.autoMoveLeft(this.x, this.width);
     }
 
     animate(imagePathsArr, speedAnimation) {
-        setInterval(() => {
+        let myInterval = setInterval(() => {
             this.playAnimation(imagePathsArr);
             this.playEndboss(imagePathsArr);
+            // Stop interval after einmaligem Durchlauf und zeige letztes Bild
+            if (this.currentImageIndex === imagePathsArr.length - 1) {
+                clearInterval(myInterval);
+            }
         }, 1000/speedAnimation);
     }
 

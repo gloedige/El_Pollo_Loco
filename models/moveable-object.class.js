@@ -148,6 +148,7 @@ class  MoveableObject extends DrawableObject {
          if (this.energy == 0) {
             this.dead = true;
             this.colliding_detecting = false;
+            this.killedEnemy();
         }
     }
 

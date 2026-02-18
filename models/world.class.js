@@ -75,9 +75,6 @@ class World {
                     this.character.speedY = 20;
                     enemy.checkIsDead();
                     enemy.colliding_detecting = false;
-                    if (enemy.energy == 0) {
-                        enemy.killedEnemy();
-                    }
                 }
             });
         }
