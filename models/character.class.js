@@ -66,6 +66,9 @@ class Character extends MoveableObject {
     }
 
     moveCharacter() {
+        if (this.dead) {
+            return; // stop moving if character is dead
+        }
         if (this.canMoveRight()) {
             this.moveRight();
             // this.walking_sound.play();

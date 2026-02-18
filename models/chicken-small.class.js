@@ -1,0 +1,32 @@
+class ChickenSmall extends Chicken {
+    height = 60;
+    width = 50
+    CHICKEN_SMALL_WALKING_IMAGES = [
+        '../img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
+        '../img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
+        '../img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
+    ];
+    CHICKEN_SMALL_DEAD_IMAGE = [
+        '../img/3_enemies_chicken/chicken_small/2_dead/dead.png'
+    ];
+
+    offset = {
+        top: 10,
+        left: 5,
+        right: 5,
+        bottom: 10
+    };
+
+    constructor() {
+        super().loadImage('../img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
+        this.x = 300 + Math.random() * 2470;
+        this.y = 440 - this.height;
+        this.loadImages(this.CHICKEN_SMALL_WALKING_IMAGES);
+        this.loadImages(this.CHICKEN_SMALL_DEAD_IMAGE);
+        this.animate(this.CHICKEN_SMALL_WALKING_IMAGES, 12);
+        this.speed = 0.1 + Math.random() * 0.3;
+    }
+
+    
+
+}
