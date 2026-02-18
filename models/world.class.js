@@ -28,6 +28,9 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+        }, 200);
+        setInterval(() => {
+            this.checkJumpingOnTop();
         }, 16);
     
     }
@@ -40,15 +43,6 @@ class World {
                     this.character.hit();
                     this.statusBarHealth.setPercentage(this.character.energy);
                     this.character.checkIsDead();
-                }
-                if (this.character.colliding_detecting && this.character.isColliding(enemy) && this.character.isJumpingOnTop(enemy)) {
-                    enemy.hit();
-                    this.character.speedY = 15;
-                    enemy.checkIsDead();
-                    enemy.colliding_detecting = false;
-                    if (enemy.energy == 0) {
-                        enemy.killedEnemy();
-                    }
                 }
             });
             this.level.coins.forEach(coin => {
@@ -87,6 +81,24 @@ class World {
         }
     }
     
+
+    checkJumpingOnTop() {
+        if (this.level instanceof Level) {
+            this.level.enemies.forEach(enemy => {
+                if (this.character.colliding_detecting && this.character.isColliding(enemy) && this.character.isJumpingOnTop(enemy) && !enemy.dead) {
+                    enemy.hit();
+                    this.character.speedY = 20;
+                    enemy.checkIsDead();
+                    enemy.colliding_detecting = false;
+                    if (enemy.energy == 0) {
+                        enemy.killedEnemy();
+                    }
+                }
+            });
+        }
+    }
+
+
     
     checkThrowObjects() {
         if (this.keyboard.SPACE && this.character.bottlesCollected > 0) {;
