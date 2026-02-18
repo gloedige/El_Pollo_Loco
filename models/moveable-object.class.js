@@ -192,7 +192,7 @@ class  MoveableObject extends DrawableObject {
 
     hasReachedEndboss() {
         if (this.world && this.world.character) {
-            return this.world.character.x >= 2200;
+            return this.world.character.x >= 2880;
         }
         return false;
     }
