@@ -26,8 +26,8 @@ function initLevel() {
         [
             new Cloud()
         ],
-        createArrayOfObjects(numberOfCoins, Coins),
-        createArrayOfObjects(numberOfBottles, Bottles)
+        createArrayOfObjects(numberOfCoins, Coin),
+        createArrayOfObjects(numberOfBottles, Bottle)
     );
 }
 

@@ -31,6 +31,7 @@ class World {
         }, 200);
         setInterval(() => {
             this.checkJumpingOnTop();
+            this.checkHitByBottle();
         }, 16);
     
     }
@@ -62,26 +63,10 @@ class World {
                     this.character.deleteElement(bottle);                    
                 }
             });
-
-
-
-
-            // this.throwableObjects.forEach(bottle => {
-            //     this.level.enemies.forEach(enemy => {
-            //         if (bottle.colliding_detecting && bottle.isColliding(enemy)) {
-            //             enemy.hit();
-            //             bottle.colliding_detecting = false;
-            //             const index = this.throwableObjects.indexOf(bottle);
-            //             if (index > -1) {
-            //                 this.throwableObjects.splice(index, 1);
-            //             }
-            //         }
-            //     });
-            // });
         }
     }
     
-
+    
     checkJumpingOnTop() {
         if (this.level instanceof Level) {
             this.level.enemies.forEach(enemy => {
@@ -98,6 +83,23 @@ class World {
         }
     }
 
+    checkHitByBottle() {
+         if (this.level instanceof Level) {
+            this.throwableObjects.forEach(bottle => {
+                this.level.enemies.forEach(enemy => {
+                    if (bottle.colliding_detecting && bottle.isColliding(enemy)) {
+                        enemy.hit();
+                        enemy.checkIsDead();
+                        bottle.colliding_detecting = false;
+                        const index = this.throwableObjects.indexOf(bottle);
+                        if (index > -1) {
+                            this.throwableObjects.splice(index, 1);
+                        }
+                    }
+                });
+            });
+        }
+    }
 
     
     checkThrowObjects() {

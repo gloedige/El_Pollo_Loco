@@ -31,7 +31,7 @@ class  MoveableObject extends DrawableObject {
 
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins || this instanceof Bottles) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottle) {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';
@@ -156,13 +156,13 @@ class  MoveableObject extends DrawableObject {
     }
 
     deleteElement(element) {
-        if (element instanceof Coins) {
+        if (element instanceof Coin) {
             const index = this.world.level.coins.indexOf(element);
             if (index > -1) {            
                 this.world.level.coins.splice(index, 1);
             }
         }
-        else if (element instanceof Bottles) {
+        else if (element instanceof Bottle) {
             const index = this.world.level.bottles.indexOf(element);
             if (index > -1) {            
                 this.world.level.bottles.splice(index, 1);
