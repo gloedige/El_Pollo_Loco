@@ -1,5 +1,4 @@
 class Character extends MoveableObject {
-    height = 250; 
     width = 140;
     CHARACTER_WALKING_IMAGES = [
             '../img/2_character_pepe/2_walk/W-21.png',
@@ -37,7 +36,6 @@ class Character extends MoveableObject {
     TIME_RESET_HURT = 1; // in seconds
     world;
     speed = 6;
-
     offset = {
         top: 120,
         left: 40,
@@ -48,8 +46,9 @@ class Character extends MoveableObject {
 
     constructor() {
         super().loadImage(this.CHARACTER_WALKING_IMAGES[0]);
+        this.height = 250;
         this.x = 30;
-        this.y = 480 - 280;
+        this.y = 430 - this.height; // ground level for character
         this.loadImages(this.CHARACTER_WALKING_IMAGES);
         this.loadImages(this.CHARACTER_JUMPING_IMAGES);
         this.loadImages(this.CHARACTER_HURT_IMAGES);

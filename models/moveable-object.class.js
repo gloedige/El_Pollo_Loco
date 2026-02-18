@@ -80,7 +80,7 @@ class  MoveableObject extends DrawableObject {
         if (this.currentImageIndex >= imagePathsArr.length) {
             this.currentImageIndex = imagePathsArr.length - 1; // stop at the last frame
         }
-        this.dead = true;
+        // this.dead = true;
     }
 
     applyGravity() {
@@ -94,7 +94,10 @@ class  MoveableObject extends DrawableObject {
 
     isAboveGround() {
         if (this instanceof Character) {
-            return this.y < 450 - 280;
+            return this.y < 430 - 250;
+        }
+        if (this instanceof ChickenSmall) {
+            return this.y < 430 - 60;
         }
         if (this instanceof ThrowableObject) {
             return true; 
