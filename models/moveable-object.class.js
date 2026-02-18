@@ -116,13 +116,9 @@ class  MoveableObject extends DrawableObject {
     }
 
     isJumpingOnTop(movableObject) {
-        return (
-            this.y + this.height - this.offset.bottom <= movableObject.y + movableObject.offset.top + 10 && // von oben, mit Toleranz
-            this.y + this.height - this.offset.bottom >= movableObject.y + movableObject.offset.top - 10 &&
-            this.x + this.width - this.offset.right > movableObject.x + movableObject.offset.left &&
-            this.x + this.offset.left < movableObject.x + movableObject.width - movableObject.offset.right &&
-            this.speedY < 0 // optional: nur wenn nach unten bewegt
-        );
+        return  this.y + this.height - this.offset.bottom < movableObject.y + movableObject.height/2 &&
+                this.y + this.height - this.offset.bottom > movableObject.y + movableObject.offset.top &&
+                this.speedY < 0;
     }
 
     hit() {

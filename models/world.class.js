@@ -28,7 +28,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 200);
+        }, 16);
     
     }
 
@@ -36,12 +36,12 @@ class World {
     checkCollisions() {
         if (this.level instanceof Level) {
             this.level.enemies.forEach(enemy => {
-                if (this.character.colliding_detecting && this.character.isColliding(enemy)) {
+                if (this.character.colliding_detecting && this.character.isColliding(enemy) && !this.character.isJumpingOnTop(enemy) && !enemy.dead) {
                     this.character.hit();
                     this.statusBarHealth.setPercentage(this.character.energy);
                     this.character.checkIsDead();
                 }
-                if (this.character.colliding_detecting && this.character.isJumpingOnTop(enemy)) {
+                if (this.character.colliding_detecting && this.character.isColliding(enemy) && this.character.isJumpingOnTop(enemy)) {
                     enemy.hit();
                     this.character.speedY = 15;
                     enemy.checkIsDead();
