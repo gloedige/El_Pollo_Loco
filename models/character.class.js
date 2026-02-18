@@ -117,9 +117,4 @@ class Character extends MoveableObject {
     isMoving() {
         return (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.dead;
     }
-
-    isHit() {
-        return this.isHurt() && !this.dead;
-    }
-    
 }

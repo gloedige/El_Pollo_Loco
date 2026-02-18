@@ -134,6 +134,10 @@ class  MoveableObject extends DrawableObject {
         }
     }
 
+    isHit() {
+        return this.isHurt() && !this.dead;
+    }
+
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit; // difference in ms
         timePassed = timePassed / 1000; // difference in s
@@ -184,6 +188,13 @@ class  MoveableObject extends DrawableObject {
 
     killedEnemy() {
         this.speed = 0;
+    }
+
+    hasReachedEndboss() {
+        if (this.world && this.world.character) {
+            return this.world.character.x >= 2200;
+        }
+        return false;
     }
 
 }
