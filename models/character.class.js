@@ -79,15 +79,7 @@ class Character extends MoveableObject {
             // this.walking_sound.play();
         }
         if (this.canJump()) {
-            if (!this.isJumpingSoundPlaying) {
-                this.isJumpingSoundPlaying = true;
-                let jump_sound = new Audio('./audio/cartoon_jump_sound_short.mp3');
-                jump_sound.volume = 0.5;
-                jump_sound.play();
-                jump_sound.onended = () => {
-                    this.isJumpingSoundPlaying = false;
-                };
-            }
+            this.playJumpSound();
             this.jump();
         }
         this.world.camera_x = -this.x;
