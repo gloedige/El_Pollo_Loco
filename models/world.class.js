@@ -116,12 +116,14 @@ class World {
     playCollectCoinSound() {
         let collect_coin_sound = new Audio(this.GET_COIN_SOUND);
         collect_coin_sound.volume = 0.5;
+        collect_coin_sound.muted = window.isMuted || false;
         collect_coin_sound.play();
     }
 
     playCollectBottleSound() {
         let collect_bottle_sound = new Audio(this.GET_BOTTLE_SOUND);
         collect_bottle_sound.volume = 0.5;
+        collect_bottle_sound.muted = window.isMuted || false;
         collect_bottle_sound.play();
     }
 
@@ -179,7 +181,7 @@ class World {
 
         drawableObject.draw(this.ctx);
         if (!(drawableObject instanceof StatusBar)) {
-            drawableObject.drawFrame(this.ctx);
+            // drawableObject.drawFrame(this.ctx);
         }        
 
         if (!(drawableObject instanceof StatusBar) && drawableObject.otherDirection) {

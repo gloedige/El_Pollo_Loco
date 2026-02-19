@@ -41,9 +41,12 @@
         </div>
         <button onclick="restartGame()" class="startButton">RESTART GAME</button>
     </div>
-    <canvas width="720" height="480" id="canvas" class="d-none">
-        Your browser does not support the HTML5 canvas tag.
-    </canvas>
+    <div class="canvas_container">
+        <canvas width="720" height="480" id="canvas" class="d-none">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+        <button id="muteButton" class="mute-btn" onclick="toggleMute()">🔇</button>
+    </div>
     <div class="how_to_play">
         <h3>How To Play:</h3>
         <div class="how_to_play_button">

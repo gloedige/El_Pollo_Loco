@@ -226,6 +226,7 @@ class  MoveableObject extends DrawableObject {
             this.isJumpingSoundPlaying = true;
             let jump_sound = new Audio(this.JUMP_SOUND);
             jump_sound.volume = 0.5;
+            jump_sound.muted = window.isMuted || false;
             jump_sound.play();
             jump_sound.onended = () => this.isJumpingSoundPlaying = false;
         }
@@ -236,6 +237,7 @@ class  MoveableObject extends DrawableObject {
             this.isEnemyHitSoundPlaying = true;
             let enemy_is_hit_sound = new Audio(this.ENEMY_HIT_SOUND);
             enemy_is_hit_sound.volume = 0.5;
+            enemy_is_hit_sound.muted = window.isMuted || false;
             enemy_is_hit_sound.play();
             enemy_is_hit_sound.onended = () => this.isEnemyHitSoundPlaying = false;
         }
@@ -243,6 +245,7 @@ class  MoveableObject extends DrawableObject {
 
     playEndbossIsWalkingSound() {
         this.endboss_is_walking_sound.volume = 0.5;
+        this.endboss_is_walking_sound.muted = window.isMuted || false;
         this.endboss_is_walking_sound.play();
         this.endboss_is_walking_sound.loop = true;
     }

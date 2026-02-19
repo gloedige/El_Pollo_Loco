@@ -2,14 +2,18 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 window.activeIntervals = [];
+window.isMuted = false;
 
 let you_won_sound = new Audio('./audio/you_won_sound.mp3');
 let game_over_sound = new Audio('./audio/game_over_sound.mp3');
 let game_music_loop = new Audio('./audio/game_music_loop.mp3');
+you_won_sound.muted = window.isMuted === true;
+game_over_sound.muted = window.isMuted === true;
+game_music_loop.muted = window.isMuted === true;
 
 you_won_sound.volume = 0.5;
 game_over_sound.volume = 0.8;
-game_music_loop.volume = 0.2;
+game_music_loop.volume = 0.1;
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -45,6 +49,18 @@ function showGameOverScreen() {
     document.querySelector('.game_over_img').classList.add('scale-in');
     game_music_loop.pause();
     game_over_sound.play();
+}
+
+function toggleMute() {
+    // window.isMuted = !window.isMuted;
+    window.isMuted = !window.isMuted;
+
+    // Update the muted property of all audio elements
+    you_won_sound.muted = window.isMuted;
+    game_over_sound.muted = window.isMuted;
+    game_music_loop.muted = window.isMuted;
+    // Optionally, update button icon
+    document.getElementById('muteButton').textContent = window.isMuted ? '🔈' : '🔇';
 }
 
 

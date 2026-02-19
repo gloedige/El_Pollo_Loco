@@ -1,7 +1,7 @@
 let level1;
 const numberOfCoins = 30;
-const numberOfChickens = 1;
-const numberOfSmallChickens = 1;
+const numberOfChickens = 5;
+const numberOfSmallChickens = 5;
 const numberOfBottles = 10;
 // initLevel();
 
