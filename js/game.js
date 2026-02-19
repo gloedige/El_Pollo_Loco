@@ -35,6 +35,7 @@ function restartGame() {
 function showYouWinScreen() {
     document.getElementById('you_win_container').classList.remove('d-none');
     document.getElementById('canvas').classList.add('d-none');
+    document.querySelector('.you_win_img').classList.add('scale-in');
     game_music_loop.pause();
     you_won_sound.play();
 }
@@ -42,6 +43,7 @@ function showYouWinScreen() {
 function showGameOverScreen() {
     document.getElementById('game_over_container').classList.remove('d-none');
     document.getElementById('canvas').classList.add('d-none');
+    document.querySelector('.game_over_img').classList.add('scale-in');
     game_music_loop.pause();
     game_over_sound.play();
 }
