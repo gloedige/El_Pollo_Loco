@@ -151,12 +151,17 @@ class  MoveableObject extends DrawableObject {
             this.dead = true;
             this.colliding_detecting = false;
             this.killedEnemy();
+            if (this instanceof Chicken) this.playChickenIsDeadSound();
         }
         if (this instanceof Endboss && this.dead) {
-            showYouWinScreen();
+            setTimeout(() => {
+                showYouWinScreen();
+            }, 1000);
         }
         if (this instanceof Character && this.dead) {
-            showGameOverScreen();
+            setTimeout(() => { 
+                showGameOverScreen();
+            }, 1000);
         }
     }
 
@@ -204,6 +209,22 @@ class  MoveableObject extends DrawableObject {
             return this.world.character.x >= 2880;
         }
         return false;
+    }
+
+    playJumpSound() {
+        if (!this.isJumpingSoundPlaying) {
+            this.isJumpingSoundPlaying = true;
+            let jump_sound = new Audio('./audio/cartoon_jump_sound_short.mp3');
+            jump_sound.volume = 0.5;
+            jump_sound.play();
+            jump_sound.onended = () => this.isJumpingSoundPlaying = false;
+        }
+    }
+
+    playChickenIsDeadSound() {
+        let chicken_is_dead_sound = new Audio('./audio/chicken_is_dead_sound.mp3');
+        chicken_is_dead_sound.volume = 0.5;
+        chicken_is_dead_sound.play();
     }
 
 }
