@@ -21,6 +21,7 @@ function init() {
     document.getElementById('intro_container').classList.add('d-none');
     document.getElementById('you_win_container').classList.add('d-none');
     document.getElementById('game_over_container').classList.add('d-none');
+    document.getElementById('muteButton').classList.remove('d-none');
     game_music_loop.play();
     game_music_loop.loop = true;
 
