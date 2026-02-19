@@ -37,6 +37,7 @@ class Endboss extends MoveableObject {
         '../img/4_enemie_boss_chicken/5_dead/G25.png',
         '../img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
+    TIME_RESET_HURT = 1;
     world;
 
      offset = {
@@ -57,18 +58,10 @@ class Endboss extends MoveableObject {
         this.loadImages(this.ENDBOSS_DEAD_IMAGES);
         this.animate(this.ENDBOSS_ALERT_IMAGES, 5);
         this.energy = 50;
-        // this.autoMoveLeft(this.x, this.width);
     }
 
     animate(imagePathsArr, speedAnimation) {
-        let myInterval = setInterval(() => {
-            this.playAnimation(imagePathsArr);
-            this.playEndboss(imagePathsArr);
-            // Stop interval after einmaligem Durchlauf und zeige letztes Bild
-            if (this.currentImageIndex === imagePathsArr.length - 1) {
-                clearInterval(myInterval);
-            }
-        }, 1000/speedAnimation);
+        setInterval(() => this.playEndboss(imagePathsArr), 1000/speedAnimation);
     }
 
     playEndboss(imagePathsArr) {
@@ -79,8 +72,8 @@ class Endboss extends MoveableObject {
         } else if (this.isColliding(this.world.character)) {
             this.playAnimation(this.ENDBOSS_ATTACK_IMAGES);
         } else if (this.hasReachedEndboss()) {
-            this.autoMoveLeft(this.x, this.width);
             this.playAnimation(this.ENDBOSS_WALKING_IMAGES);
+            this.autoMoveLeft(this.x, this.width);
         } else {
             this.playAnimation(imagePathsArr);
         }
