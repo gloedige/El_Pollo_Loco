@@ -12,16 +12,22 @@ function init() {
     // document.getElementById('canvas').style.display = 'none';
 
     world = new World(canvas, keyboard);
+}
 
+function restartGame() {
+    // Reset game state
+    world = null;
+    init();
+}
 
-    // ctx = canvas.getContext('2d');
+function showYouWinScreen() {
+    document.getElementById('you_win_screen').classList.remove('d-none');
+    document.getElementById('canvas').classList.add('d-none');
+}
 
-    // console.log('My Character is: ', world.character);
-    
-
-    // character.src = "../img/2_character_pepe/2_walk/W-21.png";
-
-    // ctx.drawImage(character, 30, 400 - 120, 50, 120);
+function showGameOverScreen() {
+    document.getElementById('game_over_screen').classList.remove('d-none');
+    document.getElementById('canvas').classList.add('d-none');
 }
 
 

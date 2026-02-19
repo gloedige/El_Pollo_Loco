@@ -25,8 +25,21 @@
 </head>
 <body>
     <h1>El Pollo Loco</h1>
-    <div class="intro_outro_container" id="intro_outro_container">
+    <div class="intro_outro_container intro_background button_top d-none" id="intro_outro_container">
+        <div class="img_container"></div>
         <button onclick="initLevel(), init()" class="startButton" onclick="startGame()">START GAME</button>
+    </div>
+    <div class="intro_outro_container outro_background d-none" id="you_win_container">
+        <div class="img_container">
+            <img src="./img/You won, you lost/You won A.png" alt="You Win" class="you_win_img">
+        </div>
+        <button onclick="restartGame()" class="startButton">RESTART GAME</button>
+    </div>
+    <div class="intro_outro_container outro_background " id="game_over_container">
+        <div class="img_container">
+            <img src="./img/You won, you lost/Game Over.png" alt="Game Over" class="game_over_img">
+        </div>
+        <button onclick="restartGame()" class="startButton">RESTART GAME</button>
     </div>
     <canvas width="720" height="480" id="canvas" class="d-none">
         Your browser does not support the HTML5 canvas tag.
