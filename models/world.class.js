@@ -15,6 +15,8 @@ class World {
     positionCharacterInWorld_x = 30;
     widthOfSingleBackground = 719;
 
+    GET_COIN_SOUND = './audio/collect_a_coin_sound.mp3';
+    GET_BOTTLE_SOUND = './audio/pick_a_bottle_sound.mp3';
     
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -59,6 +61,7 @@ class World {
             this.level.bottles.forEach(bottle => {
                 if (this.character.colliding_detecting && this.character.isColliding(bottle)) {
                     this.character.collectBottles();
+                    this.playCollectBottleSound();
                     this.statusBarBottles.setPercentage(this.character.bottlesCollected / numberOfBottles * 100);
                     console.log(this.character.bottlesCollected);
                     bottle.colliding_detecting = false;
@@ -111,9 +114,15 @@ class World {
 
 
     playCollectCoinSound() {
-        let collect_coin_sound = new Audio('./audio/get_a_coin_short.mp3');
+        let collect_coin_sound = new Audio(this.GET_COIN_SOUND);
         collect_coin_sound.volume = 0.5;
         collect_coin_sound.play();
+    }
+
+    playCollectBottleSound() {
+        let collect_bottle_sound = new Audio(this.GET_BOTTLE_SOUND);
+        collect_bottle_sound.volume = 0.5;
+        collect_bottle_sound.play();
     }
 
     

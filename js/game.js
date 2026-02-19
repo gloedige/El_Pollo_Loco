@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 window.activeIntervals = [];
+
 let you_won_sound = new Audio('./audio/you_won_sound.mp3');
 let game_over_sound = new Audio('./audio/game_over_sound.mp3');
 let game_music_loop = new Audio('./audio/game_music_loop.mp3');
@@ -16,7 +17,6 @@ function init() {
     document.getElementById('intro_container').classList.add('d-none');
     document.getElementById('you_win_container').classList.add('d-none');
     document.getElementById('game_over_container').classList.add('d-none');
-    // document.getElementById('canvas').style.display = 'none';
     game_music_loop.play();
     game_music_loop.loop = true;
 
@@ -24,7 +24,6 @@ function init() {
 }
 
 function restartGame() {
-    // Reset game state
     world = null;
     window.activeIntervals.forEach(clearInterval);
     window.activeIntervals = [];

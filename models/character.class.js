@@ -42,8 +42,7 @@ class Character extends MoveableObject {
         right: 40,
         bottom: 20
     };
-
-    isJumpingSoundPlaying = false;   
+   
         
     constructor() {
         super().loadImage(this.CHARACTER_WALKING_IMAGES[0]);

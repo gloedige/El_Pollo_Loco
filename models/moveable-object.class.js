@@ -20,7 +20,15 @@ class  MoveableObject extends DrawableObject {
         bottom: 0
     };
 
+    WALKING_ENDBOSS_SOUND = './audio/walking_endboss_sound.mp3';
+    JUMP_SOUND = './audio/cartoon_jump_sound_short.mp3';
+    ENEMY_HIT_SOUND = './audio/chicken_is_dead_sound.mp3';
+
     energy = 100;
+    endboss_is_walking_sound = new Audio(this.WALKING_ENDBOSS_SOUND);
+    isJumpingSoundPlaying = false;
+    isEnemyHitSoundPlaying = false;
+
     
     constructor(x, y, img) {
         super();
@@ -151,14 +159,16 @@ class  MoveableObject extends DrawableObject {
             this.dead = true;
             this.colliding_detecting = false;
             this.killedEnemy();
-            if (this instanceof Chicken) this.playChickenIsDeadSound();
+            if (this instanceof Chicken) this.playEnemyIsHitSound();
         }
         if (this instanceof Endboss && this.dead) {
+            this.stopEndbossWalkingSound();
             setTimeout(() => {
                 showYouWinScreen();
             }, 1000);
         }
         if (this instanceof Character && this.dead) {
+            this.stopEndbossWalkingSound();
             setTimeout(() => { 
                 showGameOverScreen();
             }, 1000);
@@ -214,17 +224,32 @@ class  MoveableObject extends DrawableObject {
     playJumpSound() {
         if (!this.isJumpingSoundPlaying) {
             this.isJumpingSoundPlaying = true;
-            let jump_sound = new Audio('./audio/cartoon_jump_sound_short.mp3');
+            let jump_sound = new Audio(this.JUMP_SOUND);
             jump_sound.volume = 0.5;
             jump_sound.play();
             jump_sound.onended = () => this.isJumpingSoundPlaying = false;
         }
     }
 
-    playChickenIsDeadSound() {
-        let chicken_is_dead_sound = new Audio('./audio/chicken_is_dead_sound.mp3');
-        chicken_is_dead_sound.volume = 0.5;
-        chicken_is_dead_sound.play();
+    playEnemyIsHitSound() {
+        if (!this.isEnemyHitSoundPlaying) {
+            this.isEnemyHitSoundPlaying = true;
+            let enemy_is_hit_sound = new Audio(this.ENEMY_HIT_SOUND);
+            enemy_is_hit_sound.volume = 0.5;
+            enemy_is_hit_sound.play();
+            enemy_is_hit_sound.onended = () => this.isEnemyHitSoundPlaying = false;
+        }
+    }
+
+    playEndbossIsWalkingSound() {
+        this.endboss_is_walking_sound.volume = 0.5;
+        this.endboss_is_walking_sound.play();
+        this.endboss_is_walking_sound.loop = true;
+    }
+
+    stopEndbossWalkingSound() {
+        this.endboss_is_walking_sound.pause();
+        this.endboss_is_walking_sound.currentTime = 0;
     }
 
 }
