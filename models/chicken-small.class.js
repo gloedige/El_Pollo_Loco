@@ -35,7 +35,7 @@ class ChickenSmall extends Chicken {
     }
 
     jumpRandomly() {
-        setInterval(() => {
+        let interval_jumpRandomly = setInterval(() => {
             if (this.dead) {
                 return; // stop jumping if chicken is dead
             }
@@ -43,6 +43,7 @@ class ChickenSmall extends Chicken {
                 this.jump();
             }
         }, 1000 / 50);
+        window.activeIntervals.push(interval_jumpRandomly);
     }
 
     

@@ -61,7 +61,8 @@ class Endboss extends MoveableObject {
     }
 
     animate(imagePathsArr, speedAnimation) {
-        setInterval(() => this.playEndboss(imagePathsArr), 1000/speedAnimation);
+        let interval_playEndboss = setInterval(() => this.playEndboss(imagePathsArr), 1000/speedAnimation);
+        window.activeIntervals.push(interval_playEndboss);
     }
 
     playEndboss(imagePathsArr) {

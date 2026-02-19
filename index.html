@@ -25,7 +25,7 @@
 </head>
 <body>
     <h1>El Pollo Loco</h1>
-    <div class="intro_outro_container intro_background button_top d-none" id="intro_outro_container">
+    <div class="intro_outro_container intro_background button_top" id="intro_container">
         <div class="img_container"></div>
         <button onclick="initLevel(), init()" class="startButton" onclick="startGame()">START GAME</button>
     </div>
@@ -35,7 +35,7 @@
         </div>
         <button onclick="restartGame()" class="startButton">RESTART GAME</button>
     </div>
-    <div class="intro_outro_container outro_background " id="game_over_container">
+    <div class="intro_outro_container outro_background d-none" id="game_over_container">
         <div class="img_container">
             <img src="./img/You won, you lost/Game Over.png" alt="Game Over" class="game_over_img">
         </div>

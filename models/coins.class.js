@@ -26,10 +26,10 @@ class Coin extends MoveableObject {
     }
 
     animate(imagePathsArr, speedAnimation) {
-        setInterval(() => {
+        let interval_playCoin = setInterval(() => {
             this.playAnimation(imagePathsArr);
         }, 1000/speedAnimation);
-
+        window.activeIntervals.push(interval_playCoin);
     }
 
 }

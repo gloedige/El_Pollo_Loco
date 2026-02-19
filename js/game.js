@@ -1,14 +1,15 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-
+window.activeIntervals = [];
 
 
 function init() {
     canvas = document.getElementById('canvas');
     canvas.classList.remove('d-none');
-    document.getElementById('intro_outro_container').classList.add('d-none');
-    
+    document.getElementById('intro_container').classList.add('d-none');
+    document.getElementById('you_win_container').classList.add('d-none');
+    document.getElementById('game_over_container').classList.add('d-none');
     // document.getElementById('canvas').style.display = 'none';
 
     world = new World(canvas, keyboard);
@@ -17,16 +18,19 @@ function init() {
 function restartGame() {
     // Reset game state
     world = null;
+    window.activeIntervals.forEach(clearInterval);
+    window.activeIntervals = [];
+    initLevel();
     init();
 }
 
 function showYouWinScreen() {
-    document.getElementById('you_win_screen').classList.remove('d-none');
+    document.getElementById('you_win_container').classList.remove('d-none');
     document.getElementById('canvas').classList.add('d-none');
 }
 
 function showGameOverScreen() {
-    document.getElementById('game_over_screen').classList.remove('d-none');
+    document.getElementById('game_over_container').classList.remove('d-none');
     document.getElementById('canvas').classList.add('d-none');
 }
 

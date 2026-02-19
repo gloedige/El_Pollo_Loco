@@ -33,7 +33,8 @@ class Chicken extends MoveableObject{
 
 
     animate(imagePathsArr, speedAnimation) {
-        setInterval(() => this.playChicken(imagePathsArr), 1000/speedAnimation);
+        let interval_playChicken = setInterval(() => this.playChicken(imagePathsArr), 1000/speedAnimation);
+        window.activeIntervals.push(interval_playChicken);
     }
 
     playChicken(imagePathsArr) {

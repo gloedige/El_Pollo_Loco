@@ -44,13 +44,14 @@ class  MoveableObject extends DrawableObject {
      autoMoveLeft(start_position_x, width_object) {
         this.x = start_position_x;
         this.end_position_x = -width_object;
-        setInterval(() => {
+        let interval_autoMoveLeft = setInterval(() => {
             this.x -= this.speed;
             if(this.x <= this.end_position_x){
                 start_position_x = 720; // reset to the right edge of the canvas
                 this.x = start_position_x;
             }
         }, 1000 / 60); // 60 times per second
+        window.activeIntervals.push(interval_autoMoveLeft);
     }
 
     moveLeft() {
@@ -84,12 +85,13 @@ class  MoveableObject extends DrawableObject {
     }
 
     applyGravity() {
-        setInterval(() => {
+        let interval_gravity = setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25);
+        window.activeIntervals.push(interval_gravity);
     }
 
     isAboveGround() {
@@ -145,10 +147,16 @@ class  MoveableObject extends DrawableObject {
     }
 
     checkIsDead() {
-         if (this.energy == 0) {
+        if (this.energy == 0) {
             this.dead = true;
             this.colliding_detecting = false;
             this.killedEnemy();
+        }
+        if (this instanceof Endboss && this.dead) {
+            showYouWinScreen();
+        }
+        if (this instanceof Character && this.dead) {
+            showGameOverScreen();
         }
     }
 

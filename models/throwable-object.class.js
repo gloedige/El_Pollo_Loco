@@ -29,7 +29,7 @@ class ThrowableObject extends MoveableObject {
     };
     
     throw() {
-        setInterval(() => {
+        let interval_throw = setInterval(() => {
             this.applyGravity();
             this.playAnimation(this.BOTTLE_ROTATION_IMAGES);
             if (this.otherDirection) {
@@ -39,6 +39,7 @@ class ThrowableObject extends MoveableObject {
             }
             this.y -= this.speedY;
         }, 50);
-    
+        window.activeIntervals.push(interval_throw);
+
     }
 }

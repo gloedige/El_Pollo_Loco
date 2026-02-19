@@ -59,8 +59,9 @@ class Character extends MoveableObject {
 
 
     animate(imagePathsArr, speedAnimation) {
-        setInterval(() => this.moveCharacter(), 1000/60);        
-        setInterval(() => this.playCharacter(imagePathsArr), 1000/speedAnimation);
+        let interval_moveCharacter = setInterval(() => this.moveCharacter(), 1000/60);        
+        let interval_playCharacter = setInterval(() => this.playCharacter(imagePathsArr), 1000/speedAnimation);
+        window.activeIntervals.push(interval_moveCharacter, interval_playCharacter);
     }
 
     moveCharacter() {

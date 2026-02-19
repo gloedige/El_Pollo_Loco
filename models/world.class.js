@@ -25,15 +25,15 @@ class World {
     }
 
     run(){
-        setInterval(() => {
+        let interval_checkCollisions = setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
         }, 200);
-        setInterval(() => {
+        let interval_checkJumpingOnTop = setInterval(() => {
             this.checkJumpingOnTop();
             this.checkHitByBottle();
         }, 16);
-    
+        window.activeIntervals.push(interval_checkCollisions, interval_checkJumpingOnTop);
     }
 
     
