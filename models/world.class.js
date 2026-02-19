@@ -14,6 +14,7 @@ class World {
     camera_x = 0;
     positionCharacterInWorld_x = 30;
     widthOfSingleBackground = 719;
+
     
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -49,6 +50,7 @@ class World {
             this.level.coins.forEach(coin => {
                 if (this.character.colliding_detecting && this.character.isColliding(coin)) {
                     this.character.collectCoin();
+                    this.playCollectCoinSound();
                     this.statusBarCoins.setPercentage(this.character.coinsCollected / numberOfCoins * 100);
                     coin.colliding_detecting = false;
                     this.character.deleteElement(coin);
@@ -105,6 +107,13 @@ class World {
             this.throwableObjects.push(bottle);
             this.character.removeCollectedBottle();
         }
+    }
+
+
+    playCollectCoinSound() {
+        let collect_coin_sound = new Audio('./audio/get_a_coin_short.mp3');
+        collect_coin_sound.volume = 0.5;
+        collect_coin_sound.play();
     }
 
     

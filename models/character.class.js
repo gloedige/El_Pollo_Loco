@@ -42,8 +42,9 @@ class Character extends MoveableObject {
         right: 40,
         bottom: 20
     };
-    
 
+    isJumpingSoundPlaying = false;   
+        
     constructor() {
         super().loadImage(this.CHARACTER_WALKING_IMAGES[0]);
         this.height = 250;
@@ -55,15 +56,16 @@ class Character extends MoveableObject {
         this.loadImages(this.CHARACTER_DEAD_IMAGES);
         this.animate(this.CHARACTER_WALKING_IMAGES, 10);
         this.applyGravity();
-     }
-
-
+        
+    }
+    
+    
     animate(imagePathsArr, speedAnimation) {
         let interval_moveCharacter = setInterval(() => this.moveCharacter(), 1000/60);        
         let interval_playCharacter = setInterval(() => this.playCharacter(imagePathsArr), 1000/speedAnimation);
         window.activeIntervals.push(interval_moveCharacter, interval_playCharacter);
     }
-
+    
     moveCharacter() {
         if (this.dead) {
             return; // stop moving if character is dead
@@ -71,12 +73,21 @@ class Character extends MoveableObject {
         if (this.canMoveRight()) {
             this.moveRight();
             // this.walking_sound.play();
-            }
+        }
         if (this.canMoveLeft()) {
             this.moveLeft();
             // this.walking_sound.play();
         }
         if (this.canJump()) {
+            if (!this.isJumpingSoundPlaying) {
+                this.isJumpingSoundPlaying = true;
+                let jump_sound = new Audio('./audio/cartoon_jump_sound_short.mp3');
+                jump_sound.volume = 0.5;
+                jump_sound.play();
+                jump_sound.onended = () => {
+                    this.isJumpingSoundPlaying = false;
+                };
+            }
             this.jump();
         }
         this.world.camera_x = -this.x;
