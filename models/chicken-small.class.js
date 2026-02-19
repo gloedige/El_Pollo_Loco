@@ -18,7 +18,7 @@ class ChickenSmall extends Chicken {
     };
 
     constructor() {
-        super().loadImage('../img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
+        super().loadImage(this.CHICKEN_SMALL_WALKING_IMAGES[0]);
         this.x = 300 + Math.random() * 2470;
         this.y = 420 - this.height; // ground level for chicken
         this.loadImages(this.CHICKEN_SMALL_WALKING_IMAGES);
