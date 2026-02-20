@@ -96,7 +96,7 @@ class Character extends MoveableObject {
         }
         else if (this.isHit()) {
             this.playAnimation(this.CHARACTER_HURT_IMAGES);
-
+            this.playCharacterIsHitSound();
         }
     }
 
