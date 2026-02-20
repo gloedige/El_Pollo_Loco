@@ -81,6 +81,7 @@ class  MoveableObject extends DrawableObject {
         this.img = this.imagesCache[path];
         this.currentImageIndex++;
     }
+    // TODO: create two separate function for a single time animation and for looping animation, because in some cases we want to play the animation only once (e.g. when character is hurt or dead) and in other cases we want to loop the animation (e.g. when character is walking or jumping)
 
     playDeadAnimation(imagePathsArr) {
         let i = this.currentImageIndex % imagePathsArr.length; // let I = 0 % 6
@@ -180,11 +181,12 @@ class  MoveableObject extends DrawableObject {
     stopIntervalEndbossWalking() {
         this.stopEndbossWalkingSound();
         // clearInterval window.activeIntervals interval_playEndboss
-        window.activeIntervals.forEach(interval => {
-            if (interval === this.interval_playEndboss) {
-                clearInterval(interval);
-            }
-        });
+        window.activeIntervals.forEach(clearInterval);
+        // window.activeIntervals.forEach(interval => {
+        //     if (interval === this.interval_playEndboss) {
+        //         clearInterval(interval);
+        //     }
+        // });
     }
 
     collectCoin() {
