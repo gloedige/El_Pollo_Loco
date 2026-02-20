@@ -23,12 +23,14 @@ class  MoveableObject extends DrawableObject {
     WALKING_ENDBOSS_SOUND = './audio/walking_endboss_sound.mp3';
     JUMP_SOUND = './audio/cartoon_jump_sound_short.mp3';
     ENEMY_HIT_SOUND = './audio/chicken_is_dead_sound.mp3';
+    CHARACTER_HIT_SOUND = './audio/character_hurt_sound.mp3';
 
     energy = 100;
     endboss_is_walking_sound = new Audio(this.WALKING_ENDBOSS_SOUND);
     isJumpingSoundPlaying = false;
     isEnemyHitSoundPlaying = false;
-
+    isCharacterHitSoundPlaying = false;
+    isEndbossWalkingSoundPlaying = false;
     
     constructor(x, y, img) {
         super();
@@ -162,17 +164,27 @@ class  MoveableObject extends DrawableObject {
             if (this instanceof Chicken) this.playEnemyIsHitSound();
         }
         if (this instanceof Character && this.dead) {
-            this.stopEndbossWalkingSound();
+            this.stopIntervalEndbossWalking();
             setTimeout(() => { 
                 showGameOverScreen();
             }, 1000);
         }
         else if (this instanceof Endboss && this.dead && !(this.world.character && this.world.character.dead)) {
-            this.stopEndbossWalkingSound();
+            this.stopIntervalEndbossWalking();
             setTimeout(() => {
                 showYouWinScreen();
             }, 1000);
         }
+    }
+
+    stopIntervalEndbossWalking() {
+        this.stopEndbossWalkingSound();
+        // clearInterval window.activeIntervals interval_playEndboss
+        window.activeIntervals.forEach(interval => {
+            if (interval === this.interval_playEndboss) {
+                clearInterval(interval);
+            }
+        });
     }
 
     collectCoin() {
@@ -243,14 +255,29 @@ class  MoveableObject extends DrawableObject {
         }
     }
 
+    playCharacterIsHitSound() {
+        if (!this.isCharacterHitSoundPlaying) {
+            this.isCharacterHitSoundPlaying = true;
+            let character_is_hit_sound = new Audio(this.CHARACTER_HIT_SOUND);
+            character_is_hit_sound.volume = 0.5;
+            character_is_hit_sound.muted = window.isMuted || false;
+            character_is_hit_sound.play();
+            character_is_hit_sound.onended = () => this.isCharacterHitSoundPlaying = false;
+        }
+    }
+
     playEndbossIsWalkingSound() {
-        this.endboss_is_walking_sound.volume = 0.5;
-        this.endboss_is_walking_sound.muted = window.isMuted || false;
-        this.endboss_is_walking_sound.play();
-        this.endboss_is_walking_sound.loop = true;
+        if (!this.isEndbossWalkingSoundPlaying && !(this.world.character && this.world.character.dead)) {
+            this.isEndbossWalkingSoundPlaying = true;
+            this.endboss_is_walking_sound.volume = 0.5;
+            this.endboss_is_walking_sound.muted = window.isMuted || false;
+            this.endboss_is_walking_sound.play();
+            this.endboss_is_walking_sound.loop = true;
+        }
     }
 
     stopEndbossWalkingSound() {
+        this.endboss_is_walking_sound.loop = false;
         this.endboss_is_walking_sound.pause();
         this.endboss_is_walking_sound.currentTime = 0;
     }
