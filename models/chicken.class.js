@@ -2,12 +2,12 @@ class Chicken extends MoveableObject{
     // height = 120;
     width = 100;
     CHICKEN_WALKING_IMAGES = [
-        '../img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
-        '../img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
-        '../img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
+        './img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
+        './img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
+        './img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
     CHICKEN_DEAD_IMAGE = [
-        '../img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
+        './img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ];
 
     offset = {

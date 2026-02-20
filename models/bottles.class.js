@@ -2,8 +2,8 @@ class Bottle extends MoveableObject {
     height = 100;
     width = 100;
     BOTTLE_IMAGES = [
-        '../img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
-        '../img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
+        './img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
+        './img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
     ];
     level_end_x = 720 * 2 * 3 - 720;
     groundPosition = 430;

@@ -2,8 +2,8 @@ class Coin extends MoveableObject {
     height = 120;
     width = 120;
     COIN_IMAGES = [
-        '../img/8_coin/coin_1.png',
-        '../img/8_coin/coin_2.png'
+        './img/8_coin/coin_1.png',
+        './img/8_coin/coin_2.png'
     ];
     middleOfCoins = this.width / 2;
     level_end_x = 720 * 2 * 3 - 720;
