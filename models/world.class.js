@@ -11,17 +11,18 @@ class World {
     canvas;
     ctx;
     keyboard;
+    sounds;
     camera_x = 0;
     positionCharacterInWorld_x = 30;
     widthOfSingleBackground = 719;
-
-    GET_COIN_SOUND = './audio/collect_a_coin_sound.mp3';
-    GET_BOTTLE_SOUND = './audio/pick_a_bottle_sound.mp3';
     
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard, sounds) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.sounds = sounds;
+        this.get_coin_sound = this.sounds.GET_COIN_SOUND;
+        this.get_bottle_sound = this.sounds.GET_BOTTLE_SOUND;
         this.draw();
         this.setWorld();
         this.run();
@@ -113,18 +114,16 @@ class World {
     }
 
 
-    playCollectCoinSound() {
-        let collect_coin_sound = new Audio(this.GET_COIN_SOUND);
-        collect_coin_sound.volume = 0.5;
-        collect_coin_sound.muted = window.isMuted || false;
-        collect_coin_sound.play();
+    playCollectCoinSound() {;
+        this.get_coin_sound.volume = 0.5;
+        this.get_coin_sound.muted = window.isMuted || false;
+        this.get_coin_sound.play();
     }
 
     playCollectBottleSound() {
-        let collect_bottle_sound = new Audio(this.GET_BOTTLE_SOUND);
-        collect_bottle_sound.volume = 0.5;
-        collect_bottle_sound.muted = window.isMuted || false;
-        collect_bottle_sound.play();
+        this.get_bottle_sound.volume = 0.5;
+        this.get_bottle_sound.muted = window.isMuted || false;
+        this.get_bottle_sound.play();
     }
 
     

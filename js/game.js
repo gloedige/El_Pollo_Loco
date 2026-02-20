@@ -1,13 +1,15 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let sounds = new Sounds();
+window.sounds = sounds; // Make sounds globally accessible for other classes
 window.activeIntervals = [];
 window.isMuted = false;
 
-let you_won_sound = new Audio('./audio/you_won_sound.mp3');
-let game_over_sound = new Audio('./audio/game_over_sound.mp3');
-// let game_music_loop = new Audio('./audio/game_music_loop.mp3');
-let game_music_loop = new Audio('');
+let you_won_sound = sounds.YOU_WON_SOUND;
+let game_over_sound = sounds.GAME_OVER_SOUND;
+let game_music_loop = sounds.GAME_MUSIC_LOOP;
+
 you_won_sound.muted = window.isMuted === true;
 game_over_sound.muted = window.isMuted === true;
 game_music_loop.muted = window.isMuted === true;
@@ -26,7 +28,11 @@ function init() {
     game_music_loop.play();
     game_music_loop.loop = true;
 
-    world = new World(canvas, keyboard);
+    world = new World(canvas, keyboard, sounds);
+}
+
+function endGame() {
+    stopLoopingGameMusic();
 }
 
 function restartGame() {
@@ -35,6 +41,11 @@ function restartGame() {
     window.activeIntervals = [];
     initLevel();
     init();
+}
+
+function stopLoopingGameMusic() {
+    window.sounds.stop(window.sounds.GAME_MUSIC_LOOP);
+    window.sounds.stop(window.sounds.WALKING_ENDBOSS_SOUND);
 }
 
 function showYouWinScreen() {
