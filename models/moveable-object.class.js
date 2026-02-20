@@ -161,16 +161,16 @@ class  MoveableObject extends DrawableObject {
             this.killedEnemy();
             if (this instanceof Chicken) this.playEnemyIsHitSound();
         }
-        if (this instanceof Endboss && this.dead) {
-            this.stopEndbossWalkingSound();
-            setTimeout(() => {
-                showYouWinScreen();
-            }, 1000);
-        }
         if (this instanceof Character && this.dead) {
             this.stopEndbossWalkingSound();
             setTimeout(() => { 
                 showGameOverScreen();
+            }, 1000);
+        }
+        else if (this instanceof Endboss && this.dead && !(this.world.character && this.world.character.dead)) {
+            this.stopEndbossWalkingSound();
+            setTimeout(() => {
+                showYouWinScreen();
             }, 1000);
         }
     }
