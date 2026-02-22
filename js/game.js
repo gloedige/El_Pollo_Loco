@@ -32,7 +32,10 @@ function init() {
 }
 
 function endGame() {
+    window.activeIntervals.forEach(clearInterval);
+    window.activeIntervals = [];
     stopLoopingGameMusic();
+    world = null;
 }
 
 function restartGame() {
@@ -44,8 +47,9 @@ function restartGame() {
 }
 
 function stopLoopingGameMusic() {
-    window.sounds.stop(window.sounds.GAME_MUSIC_LOOP);
-    window.sounds.stop(window.sounds.WALKING_ENDBOSS_SOUND);
+    world.sounds.stop(world.sounds.GAME_MUSIC_LOOP);
+    world.sounds.stop(world.sounds.WALKING_ENDBOSS_SOUND);
+    // window.sounds.stop(window.sounds.WALKING_ENDBOSS_SOUND);
 }
 
 function showYouWinScreen() {

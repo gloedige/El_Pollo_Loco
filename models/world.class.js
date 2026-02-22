@@ -193,7 +193,7 @@ class World {
     setWorld() {
         this.character.world = this;
         this.level.enemies.forEach(enemy => {
-            if (enemy instanceof Endboss) {
+            if (enemy instanceof Endboss || enemy instanceof Chicken || enemy instanceof ChickenSmall) {
                 enemy.world = this;
             }
         });

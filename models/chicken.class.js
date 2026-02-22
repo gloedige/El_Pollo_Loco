@@ -9,6 +9,7 @@ class Chicken extends MoveableObject{
     CHICKEN_DEAD_IMAGE = [
         './img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ];
+    world;
 
     offset = {
         top: 20,

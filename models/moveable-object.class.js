@@ -20,13 +20,8 @@ class  MoveableObject extends DrawableObject {
         bottom: 0
     };
 
-    WALKING_ENDBOSS_SOUND = './audio/walking_endboss_sound.mp3';
-    JUMP_SOUND = './audio/cartoon_jump_sound_short.mp3';
-    ENEMY_HIT_SOUND = './audio/chicken_is_dead_sound.mp3';
-    CHARACTER_HIT_SOUND = './audio/character_hurt_sound.mp3';
 
     energy = 100;
-    endboss_is_walking_sound = new Audio(this.WALKING_ENDBOSS_SOUND);
     isJumpingSoundPlaying = false;
     isEnemyHitSoundPlaying = false;
     isCharacterHitSoundPlaying = false;
@@ -165,29 +160,17 @@ class  MoveableObject extends DrawableObject {
             if (this instanceof Chicken) this.playEnemyIsHitSound();
         }
         if (this instanceof Character && this.dead) {
-            // this.stopIntervalEndbossWalking();
             endGame();
             setTimeout(() => { 
                 showGameOverScreen();
             }, 1000);
         }
         else if (this instanceof Endboss && this.dead && !(this.world.character && this.world.character.dead)) {
-            this.stopIntervalEndbossWalking();
+            endGame();
             setTimeout(() => {
                 showYouWinScreen();
             }, 1000);
         }
-    }
-
-    stopIntervalEndbossWalking() {
-        this.stopEndbossWalkingSound();
-        // clearInterval window.activeIntervals interval_playEndboss
-        window.activeIntervals.forEach(clearInterval);
-        // window.activeIntervals.forEach(interval => {
-        //     if (interval === this.interval_playEndboss) {
-        //         clearInterval(interval);
-        //     }
-        // });
     }
 
     collectCoin() {
@@ -237,52 +220,24 @@ class  MoveableObject extends DrawableObject {
     }
 
     playJumpSound() {
-        if (!this.isJumpingSoundPlaying) {
+        if (!this.isJumpingSoundPlaying && this.world && this.world.sounds) {
             this.isJumpingSoundPlaying = true;
-            let jump_sound = new Audio(this.JUMP_SOUND);
-            jump_sound.volume = 0.5;
-            jump_sound.muted = window.isMuted || false;
-            jump_sound.play();
-            jump_sound.onended = () => this.isJumpingSoundPlaying = false;
+            this.world.sounds.JUMP_SOUND.volume = 0.5;
+            this.world.sounds.JUMP_SOUND.muted = window.isMuted || false;
+            this.world.sounds.JUMP_SOUND.play();
+            this.world.sounds.JUMP_SOUND.onended = () => this.isJumpingSoundPlaying = false;
         }
     }
 
     playEnemyIsHitSound() {
-        if (!this.isEnemyHitSoundPlaying) {
+        if (!this.isEnemyHitSoundPlaying && this.world && this.world.sounds) {
             this.isEnemyHitSoundPlaying = true;
-            let enemy_is_hit_sound = new Audio(this.ENEMY_HIT_SOUND);
-            enemy_is_hit_sound.volume = 0.5;
-            enemy_is_hit_sound.muted = window.isMuted || false;
-            enemy_is_hit_sound.play();
-            enemy_is_hit_sound.onended = () => this.isEnemyHitSoundPlaying = false;
+            this.world.sounds.ENEMY_HIT_SOUND.volume = 0.5;
+            this.world.sounds.ENEMY_HIT_SOUND.muted = window.isMuted || false;
+            this.world.sounds.ENEMY_HIT_SOUND.play();
+            this.world.sounds.ENEMY_HIT_SOUND.onended = () => this.isEnemyHitSoundPlaying = false;
         }
     }
 
-    playCharacterIsHitSound() {
-        if (!this.isCharacterHitSoundPlaying) {
-            this.isCharacterHitSoundPlaying = true;
-            let character_is_hit_sound = new Audio(this.CHARACTER_HIT_SOUND);
-            character_is_hit_sound.volume = 0.5;
-            character_is_hit_sound.muted = window.isMuted || false;
-            character_is_hit_sound.play();
-            character_is_hit_sound.onended = () => this.isCharacterHitSoundPlaying = false;
-        }
-    }
-
-    playEndbossIsWalkingSound() {
-        if (!this.isEndbossWalkingSoundPlaying && !(this.world.character && this.world.character.dead)) {
-            this.isEndbossWalkingSoundPlaying = true;
-            this.endboss_is_walking_sound.volume = 0.5;
-            this.endboss_is_walking_sound.muted = window.isMuted || false;
-            this.endboss_is_walking_sound.play();
-            this.endboss_is_walking_sound.loop = true;
-        }
-    }
-
-    stopEndbossWalkingSound() {
-        this.endboss_is_walking_sound.loop = false;
-        this.endboss_is_walking_sound.pause();
-        this.endboss_is_walking_sound.currentTime = 0;
-    }
-
+    
 }

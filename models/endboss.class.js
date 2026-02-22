@@ -81,4 +81,23 @@ class Endboss extends MoveableObject {
             this.playAnimation(imagePathsArr);
         }
     }
+
+    playEndbossIsWalkingSound() {
+        if (!this.isEndbossWalkingSoundPlaying && this.world && this.world.sounds) {
+            this.isEndbossWalkingSoundPlaying = true;
+            this.world.sounds.WALKING_ENDBOSS_SOUND.volume = 0.5;
+            this.world.sounds.WALKING_ENDBOSS_SOUND.muted = window.isMuted || false;
+            this.world.sounds.WALKING_ENDBOSS_SOUND.play();
+            this.world.sounds.WALKING_ENDBOSS_SOUND.loop = true;
+        }
+    }
+
+
+    stopEndbossWalkingSound() {
+        if (this.world && this.world.sounds) {
+            this.world.sounds.WALKING_ENDBOSS_SOUND.loop = false;
+            this.world.sounds.WALKING_ENDBOSS_SOUND.pause();
+            this.world.sounds.WALKING_ENDBOSS_SOUND.currentTime = 0;
+        }
+    }
 }

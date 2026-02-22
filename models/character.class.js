@@ -119,4 +119,16 @@ class Character extends MoveableObject {
     isMoving() {
         return (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.dead;
     }
+
+
+    playCharacterIsHitSound() {
+        if (!this.isCharacterHitSoundPlaying) {
+            this.isCharacterHitSoundPlaying = true;
+            let character_is_hit_sound = new Audio(this.CHARACTER_HIT_SOUND);
+            this.world.sounds.CHARACTER_HIT_SOUND.volume = 0.5;
+            this.world.sounds.CHARACTER_HIT_SOUND.muted = window.isMuted || false;
+            this.world.sounds.CHARACTER_HIT_SOUND.play();
+            this.world.sounds.CHARACTER_HIT_SOUND.onended = () => this.isCharacterHitSoundPlaying = false;
+        }
+    }
 }
