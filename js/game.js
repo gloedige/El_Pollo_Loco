@@ -27,9 +27,11 @@ function init() {
     document.getElementById('muteButton').classList.remove('d-none');
     game_music_loop.play();
     game_music_loop.loop = true;
-
+    
     world = new World(canvas, keyboard, sounds);
+    setLastMutedStateOnButton();
 }
+
 
 function endGame() {
     window.activeIntervals.forEach(clearInterval);
@@ -37,6 +39,7 @@ function endGame() {
     stopLoopingGameMusic();
     world = null;
 }
+
 
 function restartGame() {
     world = null;
@@ -46,11 +49,13 @@ function restartGame() {
     init();
 }
 
+
 function stopLoopingGameMusic() {
     world.sounds.stop(world.sounds.GAME_MUSIC_LOOP);
     world.sounds.stop(world.sounds.WALKING_ENDBOSS_SOUND);
     // window.sounds.stop(window.sounds.WALKING_ENDBOSS_SOUND);
 }
+
 
 function showYouWinScreen() {
     document.getElementById('you_win_container').classList.remove('d-none');
@@ -61,6 +66,7 @@ function showYouWinScreen() {
     you_won_sound.play();
 }
 
+
 function showGameOverScreen() {
     document.getElementById('game_over_container').classList.remove('d-none');
     document.getElementById('canvas').classList.add('d-none');
@@ -70,8 +76,8 @@ function showGameOverScreen() {
     game_over_sound.play();
 }
 
+
 function toggleMute() {
-    // window.isMuted = !window.isMuted;
     window.isMuted = !window.isMuted;
 
     // Update the muted property of all audio elements
@@ -79,7 +85,8 @@ function toggleMute() {
     game_over_sound.muted = window.isMuted;
     game_music_loop.muted = window.isMuted;
     // Optionally, update button icon
-    document.getElementById('muteButton').textContent = window.isMuted ? '🔈' : '🔇';
+    document.getElementById('muteButton').textContent = window.isMuted ? '🔇' : '🔈';
+    saveMuteStateInLocalStorage();
 }
 
 
@@ -93,6 +100,7 @@ window.addEventListener("keydown", (e) => {
     if (e.key === "d") keyboard.D = true;
 });
 
+
 window.addEventListener("keyup", (e) => {
     // console.log('Key up: ', e.key);
     if (e.key === "ArrowLeft") keyboard.LEFT = false;
@@ -102,3 +110,35 @@ window.addEventListener("keyup", (e) => {
     if (e.key === " ") keyboard.SPACE = false;
     if (e.key === "d") keyboard.D = false;
 });
+
+
+function getMuteStateFromLocalStorage(){
+  let storedMuteState = localStorage.getItem('isMuted');
+  if (storedMuteState !== null){
+    window.isMuted = JSON.parse(storedMuteState);
+  }
+}
+
+
+function saveMuteStateInLocalStorage(){
+  localStorage.setItem("isMuted", JSON.stringify(window.isMuted));
+}
+
+
+function setLastMutedStateOnButton() {
+    getMuteStateFromLocalStorage();
+    const muteButton = document.getElementById('muteButton');
+    if (window.isMuted) {
+        muteButton.textContent = '🔇';
+    } else {
+        muteButton.textContent = '🔈';
+    }
+    setMuteStateToSounds();
+}
+
+
+function setMuteStateToSounds() {
+    you_won_sound.muted = window.isMuted;
+    game_over_sound.muted = window.isMuted;
+    game_music_loop.muted = window.isMuted;
+}
