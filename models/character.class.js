@@ -47,7 +47,7 @@ class Character extends MoveableObject {
     constructor() {
         super().loadImage(this.CHARACTER_WALKING_IMAGES[0]);
         this.height = 250;
-        this.x = 30;
+        this.x = 100;
         this.y = 430 - this.height; // ground level for character
         this.loadImages(this.CHARACTER_WALKING_IMAGES);
         this.loadImages(this.CHARACTER_JUMPING_IMAGES);
@@ -81,7 +81,7 @@ class Character extends MoveableObject {
             this.playJumpSound();
             this.jump();
         }
-        this.world.camera_x = -this.x;
+        this.world.camera_x = -this.x + 100;
     }
 
     playCharacter(imagePathsArr) {
@@ -101,11 +101,11 @@ class Character extends MoveableObject {
     }
 
     canMoveRight() {
-        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x
+        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
     };
 
     canMoveLeft() {
-        return this.world.keyboard.LEFT && this.x > 0;
+        return this.world.keyboard.LEFT && this.x > this.world.level.level_start_x;
     };
 
     canJump() {

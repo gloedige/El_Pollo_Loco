@@ -13,7 +13,7 @@ class World {
     keyboard;
     sounds;
     camera_x = 0;
-    positionCharacterInWorld_x = 30;
+    positionCharacterInWorld_x = 100;
     widthOfSingleBackground = 719;
     
     constructor(canvas, keyboard, sounds) {
