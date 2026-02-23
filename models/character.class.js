@@ -133,9 +133,6 @@ class Character extends MoveableObject {
             this.isJumping = true;
             this.getLastMoveTime();
         }
-
-        if (this.isAboveGround() && !this.canJump()) {
-        }
         
         if (this.canFallDown()) {
             if (!this.hasFallingAnimationStarted) {
