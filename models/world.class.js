@@ -178,10 +178,7 @@ class World {
             this.flipImage(drawableObject);
         }
 
-        drawableObject.draw(this.ctx);
-        if (!(drawableObject instanceof StatusBar)) {
-            // drawableObject.drawFrame(this.ctx);
-        }        
+        drawableObject.draw(this.ctx);      
 
         if (!(drawableObject instanceof StatusBar) && drawableObject.otherDirection) {
             this.flipImageBack(drawableObject);

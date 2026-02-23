@@ -12,6 +12,7 @@ class  MoveableObject extends DrawableObject {
     colliding_detecting = true;
     coinsCollected = 0;
     bottlesCollected = 0;
+    
 
     offset = {
         top: 0,
@@ -69,7 +70,7 @@ class  MoveableObject extends DrawableObject {
         this.otherDirection = false;
     }
 
-    playAnimation(imagePathsArr) {
+    playMultiLoopAnimation(imagePathsArr) {
         let i = this.currentImageIndex % imagePathsArr.length; // let I = 0 % 6
         // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, ...
         let path = imagePathsArr[i];
@@ -78,7 +79,7 @@ class  MoveableObject extends DrawableObject {
     }
     // TODO: create two separate function for a single time animation and for looping animation, because in some cases we want to play the animation only once (e.g. when character is hurt or dead) and in other cases we want to loop the animation (e.g. when character is walking or jumping)
 
-    playDeadAnimation(imagePathsArr) {
+    playSingleLoopAnimation(imagePathsArr) {
         let i = this.currentImageIndex % imagePathsArr.length; // let I = 0 % 6
         // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, ...
         let path = imagePathsArr[i];
@@ -87,7 +88,6 @@ class  MoveableObject extends DrawableObject {
         if (this.currentImageIndex >= imagePathsArr.length) {
             this.currentImageIndex = imagePathsArr.length - 1; // stop at the last frame
         }
-        // this.dead = true;
     }
 
     applyGravity() {
@@ -148,7 +148,7 @@ class  MoveableObject extends DrawableObject {
 
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit; // difference in ms
-        timePassed = timePassed / 1000; // difference in s
+        timePassed = timePassed / 500; // difference in s
         return timePassed < this.TIME_RESET_HURT;
     }
 

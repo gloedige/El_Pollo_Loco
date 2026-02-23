@@ -27,7 +27,7 @@ class Coin extends MoveableObject {
 
     animate(imagePathsArr, speedAnimation) {
         let interval_playCoin = setInterval(() => {
-            this.playAnimation(imagePathsArr);
+            this.playMultiLoopAnimation(imagePathsArr);
         }, 1000/speedAnimation);
         window.activeIntervals.push(interval_playCoin);
     }

@@ -40,9 +40,9 @@ class Chicken extends MoveableObject{
 
     playChicken(imagePathsArr) {
         if (this.dead) {
-            this.playDeadAnimation(this.CHICKEN_DEAD_IMAGE);
+            this.playSingleLoopAnimation(this.CHICKEN_DEAD_IMAGE);
         } else {
-            this.playAnimation(imagePathsArr);
+            this.playMultiLoopAnimation(imagePathsArr);
         }
     }
 
