@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let sounds = new Sounds();
+let stateOfFullscreen = false;
 window.sounds = sounds; // Make sounds globally accessible for other classes
 window.activeIntervals = [];
 window.isMuted = false;
@@ -20,7 +21,7 @@ game_music_loop.volume = 0.1;
 
 function init() {
     canvas = document.getElementById('canvas');
-    canvas.classList.remove('d-none');
+    document.getElementById('canvas_container').classList.remove('d-none');
     document.getElementById('intro_container').classList.add('d-none');
     document.getElementById('you_win_container').classList.add('d-none');
     document.getElementById('game_over_container').classList.add('d-none');
@@ -59,9 +60,9 @@ function stopLoopingGameMusic() {
 
 function showYouWinScreen() {
     document.getElementById('you_win_container').classList.remove('d-none');
-    document.getElementById('canvas').classList.add('d-none');
+    document.getElementById('canvas_container').classList.add('d-none');
     document.querySelector('.you_win_img').classList.add('scale-in');
-    document.getElementById('muteButton').classList.add('d-none');
+    // document.getElementById('muteButton').classList.add('d-none');
     game_music_loop.pause();
     you_won_sound.play();
 }
@@ -69,9 +70,9 @@ function showYouWinScreen() {
 
 function showGameOverScreen() {
     document.getElementById('game_over_container').classList.remove('d-none');
-    document.getElementById('canvas').classList.add('d-none');
+    document.getElementById('canvas_container').classList.add('d-none');
     document.querySelector('.game_over_img').classList.add('scale-in');
-    document.getElementById('muteButton').classList.add('d-none');
+    // document.getElementById('muteButton').classList.add('d-none');
     game_music_loop.pause();
     game_over_sound.play();
 }
@@ -141,4 +142,38 @@ function setMuteStateToSounds() {
     you_won_sound.muted = window.isMuted;
     game_over_sound.muted = window.isMuted;
     game_music_loop.muted = window.isMuted;
+}
+
+
+function openFullscreen(elem) {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+  }
+}
+
+
+function closeFullscreen(elem) {
+  if (elem.exitFullscreen) {
+    elem.exitFullscreen();
+  } else if (elem.webkitExitFullscreen) { /* Safari */
+    elem.webkitExitFullscreen();
+  } else if (elem.msExitFullscreen) { /* IE11 */
+    elem.msExitFullscreen();
+  }
+}
+
+
+function toggleFullscreen() {
+    let fullscreenContainer = document.getElementById('fullscreen_container');
+  if (!stateOfFullscreen) {
+    openFullscreen(fullscreenContainer);
+    stateOfFullscreen = true;
+  } else {
+    closeFullscreen(fullscreenContainer);
+    stateOfFullscreen = false;
+  }
 }
