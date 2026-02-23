@@ -62,7 +62,6 @@ function showYouWinScreen() {
     document.getElementById('you_win_container').classList.remove('d-none');
     document.getElementById('canvas_container').classList.add('d-none');
     document.querySelector('.you_win_img').classList.add('scale-in');
-    // document.getElementById('muteButton').classList.add('d-none');
     game_music_loop.pause();
     you_won_sound.play();
 }
@@ -72,7 +71,6 @@ function showGameOverScreen() {
     document.getElementById('game_over_container').classList.remove('d-none');
     document.getElementById('canvas_container').classList.add('d-none');
     document.querySelector('.game_over_img').classList.add('scale-in');
-    // document.getElementById('muteButton').classList.add('d-none');
     game_music_loop.pause();
     game_over_sound.play();
 }
@@ -80,8 +78,6 @@ function showGameOverScreen() {
 
 function toggleMute() {
     window.isMuted = !window.isMuted;
-
-    // Update the muted property of all audio elements
     you_won_sound.muted = window.isMuted;
     game_over_sound.muted = window.isMuted;
     game_music_loop.muted = window.isMuted;
@@ -92,7 +88,6 @@ function toggleMute() {
 
 
 window.addEventListener("keydown", (e) => {
-    // console.log('Key down: ', e.key);
     if (e.key === "ArrowLeft") keyboard.LEFT = true;
     if (e.key === "ArrowRight") keyboard.RIGHT = true;
     if (e.key === "ArrowUp") keyboard.UP = true;
@@ -103,7 +98,6 @@ window.addEventListener("keydown", (e) => {
 
 
 window.addEventListener("keyup", (e) => {
-    // console.log('Key up: ', e.key);
     if (e.key === "ArrowLeft") keyboard.LEFT = false;
     if (e.key === "ArrowRight") keyboard.RIGHT = false;
     if (e.key === "ArrowUp") keyboard.UP = false;
@@ -142,38 +136,4 @@ function setMuteStateToSounds() {
     you_won_sound.muted = window.isMuted;
     game_over_sound.muted = window.isMuted;
     game_music_loop.muted = window.isMuted;
-}
-
-
-function openFullscreen(elem) {
-  if (elem.requestFullscreen) {
-    elem.requestFullscreen();
-  } else if (elem.webkitRequestFullscreen) { /* Safari */
-    elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) { /* IE11 */
-    elem.msRequestFullscreen();
-  }
-}
-
-
-function closeFullscreen(elem) {
-  if (elem.exitFullscreen) {
-    elem.exitFullscreen();
-  } else if (elem.webkitExitFullscreen) { /* Safari */
-    elem.webkitExitFullscreen();
-  } else if (elem.msExitFullscreen) { /* IE11 */
-    elem.msExitFullscreen();
-  }
-}
-
-
-function toggleFullscreen() {
-    let fullscreenContainer = document.getElementById('fullscreen_container');
-  if (!stateOfFullscreen) {
-    openFullscreen(fullscreenContainer);
-    stateOfFullscreen = true;
-  } else {
-    closeFullscreen(fullscreenContainer);
-    stateOfFullscreen = false;
-  }
 }

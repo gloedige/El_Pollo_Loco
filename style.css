@@ -102,7 +102,6 @@ canvas {
     gap: 16px;
     width: 720px;
     height: 480px;
-    /* background-image: url('./img/9_intro_outro_screens/start/startscreen_1.png'); */
     background-size: 110% 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -119,7 +118,6 @@ canvas {
 
 .you_win_img, .game_over_img {
     width: 400px;
-    /* height: auto; */
 }
 
 .img_container{
@@ -152,20 +150,6 @@ canvas {
     position: absolute;
     top: 16px;
     right: 16px;
-    z-index: 10;
-    background: rgba(255,255,255,0.5);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.fullscreen-btn{
-    position: absolute;
-    top: 16px;
-    right: 64px;
     z-index: 10;
     background: rgba(255,255,255,0.5);
     border: none;

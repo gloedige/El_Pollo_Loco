@@ -26,30 +26,27 @@
 </head>
 <body>
     <h1>El Pollo Loco</h1>
-    <div id="fullscreen_container" class="fullscreen">
-        <div class="intro_outro_container intro_background button_top" id="intro_container">
-            <div class="img_container"></div>
-            <button onclick="initLevel(), init()" class="startButton">START GAME</button>
+    <div class="intro_outro_container intro_background button_top" id="intro_container">
+        <div class="img_container"></div>
+        <button onclick="initLevel(), init()" class="startButton">START GAME</button>
+    </div>
+    <div class="intro_outro_container outro_background d-none" id="you_win_container">
+        <div class="img_container">
+            <img src="./img/You won, you lost/You won A.png" alt="You Win" class="you_win_img">
         </div>
-        <div class="intro_outro_container outro_background d-none" id="you_win_container">
-            <div class="img_container">
-                <img src="./img/You won, you lost/You won A.png" alt="You Win" class="you_win_img">
-            </div>
-            <button onclick="restartGame()" class="startButton">RESTART GAME</button>
+        <button onclick="restartGame()" class="startButton">RESTART GAME</button>
+    </div>
+    <div class="intro_outro_container outro_background d-none" id="game_over_container">
+        <div class="img_container">
+            <img src="./img/You won, you lost/Game Over.png" alt="Game Over" class="game_over_img">
         </div>
-        <div class="intro_outro_container outro_background d-none" id="game_over_container">
-            <div class="img_container">
-                <img src="./img/You won, you lost/Game Over.png" alt="Game Over" class="game_over_img">
-            </div>
-            <button onclick="restartGame()" class="startButton">RESTART GAME</button>
-        </div>
-        <div class="canvas_container d-none" id="canvas_container">
-            <canvas width="720" height="480" id="canvas">
-                Your browser does not support the HTML5 canvas tag.
-            </canvas>
-            <button id="muteButton" class="mute-btn" onclick="toggleMute()">🔈</button>
-            <button id="fullscreenButton" class="fullscreen-btn" onclick="toggleFullscreen()">⛶</button>
-        </div>
+        <button onclick="restartGame()" class="startButton">RESTART GAME</button>
+    </div>
+    <div class="canvas_container d-none" id="canvas_container">
+        <canvas width="720" height="480" id="canvas">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+        <button id="muteButton" class="mute-btn" onclick="toggleMute()">🔈</button>
     </div>
     <div class="how_to_play">
         <h3>How To Play:</h3>
