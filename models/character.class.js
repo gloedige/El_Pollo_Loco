@@ -1,5 +1,29 @@
 class Character extends MoveableObject {
     width = 140;
+    CHARACTER_IDLE_SHORT_IMAGES = [
+        './img/2_character_pepe/1_idle/idle/I-1.png',
+        './img/2_character_pepe/1_idle/idle/I-2.png',
+        './img/2_character_pepe/1_idle/idle/I-3.png',
+        './img/2_character_pepe/1_idle/idle/I-4.png',
+        './img/2_character_pepe/1_idle/idle/I-5.png',
+        './img/2_character_pepe/1_idle/idle/I-6.png',
+        './img/2_character_pepe/1_idle/idle/I-7.png',
+        './img/2_character_pepe/1_idle/idle/I-8.png',
+        './img/2_character_pepe/1_idle/idle/I-9.png',
+        './img/2_character_pepe/1_idle/idle/I-10.png'
+    ];
+    CHARACTER_IDLE_LONG_IMAGES = [
+        './img/2_character_pepe/1_idle/long_idle/I-11.png',
+        './img/2_character_pepe/1_idle/long_idle/I-12.png',
+        './img/2_character_pepe/1_idle/long_idle/I-13.png',
+        './img/2_character_pepe/1_idle/long_idle/I-14.png',
+        './img/2_character_pepe/1_idle/long_idle/I-15.png',
+        './img/2_character_pepe/1_idle/long_idle/I-16.png',
+        './img/2_character_pepe/1_idle/long_idle/I-17.png',
+        './img/2_character_pepe/1_idle/long_idle/I-18.png',
+        './img/2_character_pepe/1_idle/long_idle/I-19.png',
+        './img/2_character_pepe/1_idle/long_idle/I-20.png'
+    ];
     CHARACTER_WALKING_IMAGES = [
             './img/2_character_pepe/2_walk/W-21.png',
             './img/2_character_pepe/2_walk/W-22.png',
@@ -42,13 +66,15 @@ class Character extends MoveableObject {
         right: 40,
         bottom: 20
     };
-   
+    lastMoveTime = new Date().getTime();
         
     constructor() {
         super().loadImage(this.CHARACTER_WALKING_IMAGES[0]);
         this.height = 250;
         this.x = 100;
         this.y = 430 - this.height; // ground level for character
+        this.loadImages(this.CHARACTER_IDLE_SHORT_IMAGES);
+        this.loadImages(this.CHARACTER_IDLE_LONG_IMAGES);
         this.loadImages(this.CHARACTER_WALKING_IMAGES);
         this.loadImages(this.CHARACTER_JUMPING_IMAGES);
         this.loadImages(this.CHARACTER_HURT_IMAGES);
@@ -57,12 +83,27 @@ class Character extends MoveableObject {
         this.applyGravity();
         
     }
+
+
+    getLastMoveTime() {
+        this.lastMoveTime = new Date().getTime();
+    }
     
     
     animate(imagePathsArr, speedAnimation) {
         let interval_moveCharacter = setInterval(() => this.moveCharacter(), 1000/60);        
         let interval_playCharacter = setInterval(() => this.playCharacter(imagePathsArr), 1000/speedAnimation);
         window.activeIntervals.push(interval_moveCharacter, interval_playCharacter);
+    }
+
+    sleepCharacter() {
+        let currentTime = new Date().getTime();
+        if (currentTime - this.lastMoveTime > 15000) { // 15 seconds of inactivity
+            this.playAnimation(this.CHARACTER_IDLE_LONG_IMAGES);
+        }
+        else {
+            this.playAnimation(this.CHARACTER_IDLE_SHORT_IMAGES);
+        }
     }
     
     moveCharacter() {
@@ -71,15 +112,18 @@ class Character extends MoveableObject {
         }
         if (this.canMoveRight()) {
             this.moveRight();
+            this.getLastMoveTime();
             // this.walking_sound.play();
         }
         if (this.canMoveLeft()) {
             this.moveLeft();
+            this.getLastMoveTime();
             // this.walking_sound.play();
         }
         if (this.canJump()) {
             this.playJumpSound();
             this.jump();
+            this.getLastMoveTime();
         }
         this.world.camera_x = -this.x + 100;
     }
@@ -97,6 +141,9 @@ class Character extends MoveableObject {
         else if (this.isHit()) {
             this.playAnimation(this.CHARACTER_HURT_IMAGES);
             this.playCharacterIsHitSound();
+        }
+        else {
+            this.sleepCharacter();
         }
     }
 
@@ -124,7 +171,6 @@ class Character extends MoveableObject {
     playCharacterIsHitSound() {
         if (!this.isCharacterHitSoundPlaying) {
             this.isCharacterHitSoundPlaying = true;
-            let character_is_hit_sound = new Audio(this.CHARACTER_HIT_SOUND);
             this.world.sounds.CHARACTER_HIT_SOUND.volume = 0.5;
             this.world.sounds.CHARACTER_HIT_SOUND.muted = window.isMuted || false;
             this.world.sounds.CHARACTER_HIT_SOUND.play();
