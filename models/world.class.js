@@ -30,7 +30,7 @@ class World {
 
     run(){
         let interval_checkCollisions = setInterval(() => {
-            this.checkCollisions();
+            this.checkCollisionsOfCharacter();
             this.checkThrowObjects();
         }, 200);
         let interval_checkJumpingOnTop = setInterval(() => {
@@ -41,7 +41,7 @@ class World {
     }
 
     
-    checkCollisions() {
+    checkCollisionsOfCharacter() {
         if (this.level instanceof Level) {
             this.level.enemies.forEach(enemy => {
                 if (this.character.colliding_detecting && this.character.isColliding(enemy) && !this.character.isJumpingOnTop(enemy) && !enemy.dead) {

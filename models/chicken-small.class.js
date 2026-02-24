@@ -32,6 +32,7 @@ class ChickenSmall extends MoveableObject {
         this.animateOnJump(this.CHICKEN_SMALL_WALKING_IMAGES);
         this.applyGravity();
         this.jumpRandomly();
+        this.energy = 5;
     }
 
 
@@ -42,7 +43,11 @@ class ChickenSmall extends MoveableObject {
 
 
     playChickenOnJump(imagePathsArr) {
-        if (this.isAboveGround()) {
+        if (this.dead) {
+            this.playSingleLoopAnimation(this.CHICKEN_SMALL_DEAD_IMAGE);
+            window.clearInterval(this.interval_playChicken);
+        }
+        else if (this.isAboveGround()) {
             this.playMultiLoopAnimation(imagePathsArr);
         }
         else {

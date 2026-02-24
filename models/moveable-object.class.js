@@ -164,7 +164,7 @@ class  MoveableObject extends DrawableObject {
             this.dead = true;
             this.colliding_detecting = false;
             this.killedEnemy();
-            if (this instanceof Chicken) this.playEnemyIsHitSound();
+            if (this instanceof Chicken || this instanceof ChickenSmall) this.playEnemyIsHitSound();
         }
         if (this instanceof Character && this.dead) {
             endGame();
@@ -176,7 +176,7 @@ class  MoveableObject extends DrawableObject {
             endGame();
             setTimeout(() => {
                 showYouWinScreen();
-            }, 1000);
+            }, 3000);
         }
     }
 

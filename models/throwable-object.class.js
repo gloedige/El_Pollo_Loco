@@ -31,7 +31,7 @@ class ThrowableObject extends MoveableObject {
     throw() {
         let interval_throw = setInterval(() => {
             this.applyGravity();
-            this.playAnimation(this.BOTTLE_ROTATION_IMAGES);
+            this.playMultiLoopAnimation(this.BOTTLE_ROTATION_IMAGES);
             if (this.otherDirection) {
                 this.x -= this.speedX;
             } else {

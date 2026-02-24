@@ -1,16 +1,16 @@
 let level1;
 const numberOfCoins = 30;
-const numberOfChickens = 5;
-const numberOfSmallChickens = 5;
+const numberOfChickens = 1;
+const numberOfSmallChickens = 1;
 const numberOfBottles = 10;
 // initLevel();
 
 function initLevel() {
     level1 = new Level(
         [
+            ...createArrayOfObjects(numberOfSmallChickens, ChickenSmall),
             ...createArrayOfObjects(numberOfChickens, Chicken),
-            new Endboss(),
-            ...createArrayOfObjects(numberOfSmallChickens, ChickenSmall)
+            new Endboss()
         ],
         [
             new BackgroundObject('./img/5_background/layers/air.png', 0),
