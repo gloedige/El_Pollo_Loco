@@ -35,10 +35,12 @@ function init() {
 
 
 function endGame() {
-    window.activeIntervals.forEach(clearInterval);
-    window.activeIntervals = [];
-    stopLoopingGameMusic();
-    world = null;
+    if (world) {
+        window.activeIntervals.forEach(clearInterval);
+        window.activeIntervals = [];
+        stopLoopingGameMusic();
+        world = null;
+    }
 }
 
 
