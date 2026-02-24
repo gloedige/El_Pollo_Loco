@@ -5,7 +5,7 @@ class  MoveableObject extends DrawableObject {
     speed = 0.1;
     end_position_x;
     difference_of_position = 0;
-    
+    level_end_x = 720 * 2 * 2 + 720;
     currentImageIndex = 0;
     speedY = 0;
     acceleration = 2.5;
@@ -14,6 +14,7 @@ class  MoveableObject extends DrawableObject {
     colliding_detecting = true;
     coinsCollected = 0;
     bottlesCollected = 0;
+    characterReachesEndboss = false;
     
 
     offset = {
@@ -55,7 +56,7 @@ class  MoveableObject extends DrawableObject {
         let interval_autoMoveLeft = setInterval(() => {
             this.x -= this.speed;
             if(this.x <= this.end_position_x){
-                start_position_x = 720; // reset to the right edge of the canvas
+                start_position_x = this.level_end_x; // reset to the right edge of the canvas
                 this.x = start_position_x;
             }
         }, 1000 / 60); // 60 times per second
@@ -220,10 +221,9 @@ class  MoveableObject extends DrawableObject {
     }
 
     hasReachedEndboss() {
-        if (this.world && this.world.character) {
-            return this.world.character.x >= 2880;
+        if (this.world && this.world.character && this.world.character.x >= 2800) {
+            this.characterReachesEndboss = true;
         }
-        return false;
     }
 
     playJumpSound() {

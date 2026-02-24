@@ -74,11 +74,12 @@ class Endboss extends MoveableObject {
             this.playEnemyIsHitSound();
         } else if (this.isColliding(this.world.character)) {
             this.playMultiLoopAnimation(this.ENDBOSS_ATTACK_IMAGES);
-        } else if (this.hasReachedEndboss() && !(this.world.character && this.world.character.dead)) {
+        } else if (this.characterReachesEndboss && !(this.world.character && this.world.character.dead)) {
             this.playMultiLoopAnimation(this.ENDBOSS_WALKING_IMAGES);
             this.autoMoveLeft(this.x, this.width);
             this.playEndbossIsWalkingSound();
         } else {
+            this.hasReachedEndboss();
             this.playMultiLoopAnimation(imagePathsArr);
         }
     }
