@@ -1,5 +1,6 @@
 class  MoveableObject extends DrawableObject {
     HEIGHT_CANVAS = 480;
+    GROUND_LEVEL = 50;
     speed = 0.1;
     end_position_x;
     difference_of_position = 0;
@@ -60,15 +61,18 @@ class  MoveableObject extends DrawableObject {
         window.activeIntervals.push(interval_autoMoveLeft);
     }
 
+
     moveLeft() {
         this.x -= this.speed;
         this.otherDirection = true;
     }
 
+
     moveRight() {
         this.x += this.speed;
         this.otherDirection = false;
     }
+
 
     playMultiLoopAnimation(imagePathsArr) {
         let i = this.currentImageIndex % imagePathsArr.length; // let I = 0 % 6
@@ -77,7 +81,7 @@ class  MoveableObject extends DrawableObject {
         this.img = this.imagesCache[path];
         this.currentImageIndex++;
     }
-    // TODO: create two separate function for a single time animation and for looping animation, because in some cases we want to play the animation only once (e.g. when character is hurt or dead) and in other cases we want to loop the animation (e.g. when character is walking or jumping)
+
 
     playSingleLoopAnimation(imagePathsArr) {
         let i = this.currentImageIndex % imagePathsArr.length; // let I = 0 % 6
@@ -96,22 +100,22 @@ class  MoveableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
+            if (!this.isAboveGround()) {
+                this.y = this.HEIGHT_CANVAS - this.GROUND_LEVEL - this.height;
+            }
         }, 1000 / 25);
         window.activeIntervals.push(interval_gravity);
     }
 
     isAboveGround() {
-        if (this instanceof Character) {
-            return this.y < 430 - 250;
-        }
-        if (this instanceof ChickenSmall) {
-            return this.y < 430 - 60;
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ChickenSmall) {
+            return this.y < this.HEIGHT_CANVAS - this.GROUND_LEVEL - this.height;
         }
         if (this instanceof ThrowableObject) {
             return true; 
         }
         else {
-            return this.y < this.HEIGHT_CANVAS - this.height;
+            return this.y < this.HEIGHT_CANVAS - this.GROUND_LEVEL - this.height;
         }   
     }
 

@@ -112,7 +112,7 @@ class Character extends MoveableObject {
     
     moveCharacter() {
         if (this.dead) {
-            return; // stop moving if character is dead
+            return;
         }
         if (this.canMoveRight()) {
             this.moveRight();
@@ -125,7 +125,7 @@ class Character extends MoveableObject {
             // this.walking_sound.play();
         }
         if (this.canJump()) {
-            this.currentImageIndex = 0; // reset the animation to the first frame of jumping up animation
+            this.currentImageIndex = 0;
             this.canFallDownState = true;
             this.playJumpSound();
             this.jump();
@@ -135,13 +135,13 @@ class Character extends MoveableObject {
         
         if (this.canFallDown()) {
             if (!this.hasFallingAnimationStarted) {
-                this.currentImageIndex = 0; // einmaliges Reset vor dem Fallen
+                this.currentImageIndex = 0;
                 this.isJumping = false;
                 this.hasFallingAnimationStarted = true;
             }
         }
         else {
-            this.hasFallingAnimationStarted = false; // reset für den nächsten Sprung
+            this.hasFallingAnimationStarted = false;
         }
         this.world.camera_x = -this.x + 100;
     }
@@ -185,11 +185,6 @@ class Character extends MoveableObject {
     canFallDown() {
         return this.isAboveGround() && (this.speedY <= 0);
     }
-
-
-    // isJumpingUp() {
-    //     return this.isAboveGround() && !this.dead && this.speedY > 0;
-    // }
 
 
     isJumpingDown() {
