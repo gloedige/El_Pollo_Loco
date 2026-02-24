@@ -22,14 +22,13 @@ class Chicken extends MoveableObject{
         super().loadImage(this.CHICKEN_WALKING_IMAGES[0]);
         this.x = 300 + Math.random() * 2470; // random x position between 300 and 2770 (720 - 50 width of chicken)
         this.height = 120;
-        this.y = 430 - this.height; // ground level for chicken
+        this.y = this.HEIGHT_CANVAS - this.GROUND_LEVEL - this.height;
         this.loadImages(this.CHICKEN_WALKING_IMAGES);
         this.loadImages(this.CHICKEN_DEAD_IMAGE);
         this.animate(this.CHICKEN_WALKING_IMAGES, 12);
-        this.speed = 0.1 + Math.random() * 0.3; // random speed between 0.1 and 0.4
-        // this.speed = 0;
+        this.speed = 0.1 + Math.random() * 0.3;
         this.autoMoveLeft(this.x, this.width);
-        this.energy = 5; // chickens have less energy than the character
+        this.energy = 5;
     }
 
 

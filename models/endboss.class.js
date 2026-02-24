@@ -38,6 +38,7 @@ class Endboss extends MoveableObject {
         './img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
     TIME_RESET_HURT = 1;
+    GROUND_LEVEL_ENDBOSS = 30;
     world;
 
      offset = {
@@ -50,7 +51,7 @@ class Endboss extends MoveableObject {
     constructor() {
         super().loadImage(this.ENDBOSS_ALERT_IMAGES[0]);
         this.x = 3300;
-        this.y = 450 - this.height;
+        this.y = this.HEIGHT_CANVAS - this.GROUND_LEVEL_ENDBOSS - this.height;
         this.loadImages(this.ENDBOSS_ALERT_IMAGES);
         this.loadImages(this.ENDBOSS_WALKING_IMAGES);
         this.loadImages(this.ENDBOSS_ATTACK_IMAGES);

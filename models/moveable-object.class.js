@@ -1,6 +1,7 @@
 class  MoveableObject extends DrawableObject {
     HEIGHT_CANVAS = 480;
     GROUND_LEVEL = 50;
+    GROUND_LEVEL_CHICKEN_SMALL = 60;
     speed = 0.1;
     end_position_x;
     difference_of_position = 0;
@@ -101,20 +102,22 @@ class  MoveableObject extends DrawableObject {
                 this.speedY -= this.acceleration;
             }
             if (!this.isAboveGround()) {
-                this.y = this.HEIGHT_CANVAS - this.GROUND_LEVEL - this.height;
+                if (this instanceof ChickenSmall) {
+                    this.y = this.HEIGHT_CANVAS - this.GROUND_LEVEL_CHICKEN_SMALL - this.height;
+                } else {
+                    this.y = this.HEIGHT_CANVAS - this.GROUND_LEVEL - this.height;
+                }
             }
         }, 1000 / 25);
         window.activeIntervals.push(interval_gravity);
     }
 
     isAboveGround() {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof ChickenSmall) {
-            return this.y < this.HEIGHT_CANVAS - this.GROUND_LEVEL - this.height;
-        }
-        if (this instanceof ThrowableObject) {
+        if (this instanceof ChickenSmall) {
+            return this.y < this.HEIGHT_CANVAS - this.GROUND_LEVEL_CHICKEN_SMALL - this.height;
+        } else if (this instanceof ThrowableObject) {
             return true; 
-        }
-        else {
+        } else {
             return this.y < this.HEIGHT_CANVAS - this.GROUND_LEVEL - this.height;
         }   
     }

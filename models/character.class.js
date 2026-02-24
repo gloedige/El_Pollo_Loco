@@ -75,7 +75,7 @@ class Character extends MoveableObject {
         super().loadImage(this.CHARACTER_WALKING_IMAGES[0]);
         this.height = 250;
         this.x = 100;
-        this.y = 430 - this.height; // ground level for character
+        this.y = this.HEIGHT_CANVAS - this.GROUND_LEVEL - this.height; // ground level for character
         this.loadImages(this.CHARACTER_IDLE_SHORT_IMAGES);
         this.loadImages(this.CHARACTER_IDLE_LONG_IMAGES);
         this.loadImages(this.CHARACTER_WALKING_IMAGES);
