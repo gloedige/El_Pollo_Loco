@@ -39,6 +39,10 @@ class Endboss extends MoveableObject {
     ];
     TIME_RESET_HURT = 1;
     GROUND_LEVEL_ENDBOSS = 30;
+    ENDBOSS_START_X_POSITION = 3500;
+    ENDBOSS_LEFT_EDGE = this.ENDBOSS_START_X_POSITION - 500; // 500 Pixel vor dem Charakter
+    ENDBOSS_RIGHT_EDGE = this.ENDBOSS_START_X_POSITION + 220 - this.width; // 220 Pixel hinter dem Charakter
+    
     world;
 
      offset = {
@@ -50,7 +54,7 @@ class Endboss extends MoveableObject {
 
     constructor() {
         super().loadImage(this.ENDBOSS_ALERT_IMAGES[0]);
-        this.x = 3300;
+        this.x = this.ENDBOSS_START_X_POSITION;
         this.y = this.HEIGHT_CANVAS - this.GROUND_LEVEL_ENDBOSS - this.height;
         this.loadImages(this.ENDBOSS_ALERT_IMAGES);
         this.loadImages(this.ENDBOSS_WALKING_IMAGES);
@@ -75,8 +79,9 @@ class Endboss extends MoveableObject {
         } else if (this.isColliding(this.world.character)) {
             this.playMultiLoopAnimation(this.ENDBOSS_ATTACK_IMAGES);
         } else if (this.characterReachesEndboss && !(this.world.character && this.world.character.dead)) {
-            this.playMultiLoopAnimation(this.ENDBOSS_WALKING_IMAGES);
-            this.autoMoveLeft(this.x, this.width);
+            // this.playMultiLoopAnimation(this.ENDBOSS_WALKING_IMAGES);
+            // this.autoMoveLeft(this.x, this.width);
+            this.autoMoveAttack();
             this.playEndbossIsWalkingSound();
         } else {
             this.hasReachedEndboss();
@@ -102,4 +107,51 @@ class Endboss extends MoveableObject {
             this.world.sounds.WALKING_ENDBOSS_SOUND.currentTime = 0;
         }
     }
+
+    // this funtion move the endboss automatically to the left when character reaches and turns to the right when reaching end of canvas
+    autoMoveAttack() {
+        // Endboss bewegt sich abwechselnd nach links und rechts innerhalb des sichtbaren Bereichs
+        let direction = 'left';
+        let interval_autoMoveAttack = setInterval(() => {
+            switch (direction) {
+                case 'left':
+                    this.moveLeft();
+                    if (this.x <= this.ENDBOSS_LEFT_EDGE) {
+                        this.x = this.ENDBOSS_LEFT_EDGE;
+                        direction = 'right';
+                    }
+                    break;
+                case 'right':
+                    this.moveRight();
+                    if (this.x >= this.ENDBOSS_RIGHT_EDGE) {
+                        this.x = this.ENDBOSS_RIGHT_EDGE;
+                        direction = 'left';
+                    }
+                    break;
+            }
+        }, 1000 / 30);
+        window.activeIntervals.push(interval_autoMoveAttack);
+    }
+
+
+    /**
+     * Zeichnet die Begrenzungslinien für den Endboss-Bereich
+     * @param {CanvasRenderingContext2D} ctx - Canvas Kontext
+     */
+    drawLines(ctx) {
+        // Linke Begrenzung
+        ctx.beginPath();
+        ctx.strokeStyle = 'red';
+        ctx.moveTo(this.ENDBOSS_LEFT_EDGE, 0);
+        ctx.lineTo(this.ENDBOSS_LEFT_EDGE, this.HEIGHT_CANVAS);
+        ctx.stroke();
+
+        // Rechte Begrenzung
+        ctx.beginPath();
+        ctx.strokeStyle = 'red';
+        ctx.moveTo(this.ENDBOSS_RIGHT_EDGE, 0);
+        ctx.lineTo(this.ENDBOSS_RIGHT_EDGE, this.HEIGHT_CANVAS);
+        ctx.stroke();
+    }
+
 }

@@ -1,7 +1,9 @@
 class  MoveableObject extends DrawableObject {
     HEIGHT_CANVAS = 480;
+    WIDTH_CANVAS = 720;
     GROUND_LEVEL = 50;
     GROUND_LEVEL_CHICKEN_SMALL = 60;
+    REACH_END_BOSS_X_POSITION = 3000;
     speed = 0.1;
     end_position_x;
     difference_of_position = 0;
@@ -48,9 +50,9 @@ class  MoveableObject extends DrawableObject {
             ctx.stroke();
         }
     }
+
     
-    
-     autoMoveLeft(start_position_x, width_object) {
+    autoMoveLeft(start_position_x, width_object) {
         this.x = start_position_x;
         this.end_position_x = -width_object;
         let interval_autoMoveLeft = setInterval(() => {
@@ -221,7 +223,7 @@ class  MoveableObject extends DrawableObject {
     }
 
     hasReachedEndboss() {
-        if (this.world && this.world.character && this.world.character.x >= 2800) {
+        if (this.world && this.world.character && this.world.character.x >= this.REACH_END_BOSS_X_POSITION) {
             this.characterReachesEndboss = true;
         }
     }
