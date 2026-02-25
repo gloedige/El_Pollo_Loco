@@ -32,7 +32,7 @@ class World {
         let interval_checkCollisions = setInterval(() => {
             this.checkCollisionsOfCharacter();
             this.checkThrowObjects();
-        }, 1000/5);
+        }, 1000/10);
         let interval_checkJumpingOnTop = setInterval(() => {
             this.checkJumpingOnTop();
             this.checkHitByBottle();
@@ -120,12 +120,14 @@ class World {
 
 
     playCollectCoinSound() {;
+        this.get_coin_sound.currentTime = 0;
         this.get_coin_sound.volume = 0.5;
         this.get_coin_sound.muted = window.isMuted || false;
         this.get_coin_sound.play();
     }
 
     playCollectBottleSound() {
+        this.get_bottle_sound.currentTime = 0;
         this.get_bottle_sound.volume = 0.5;
         this.get_bottle_sound.muted = window.isMuted || false;
         this.get_bottle_sound.play();

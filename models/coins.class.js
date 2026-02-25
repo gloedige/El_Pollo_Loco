@@ -17,10 +17,8 @@ class Coin extends MoveableObject {
 
     constructor() {
         super().loadImage(this.COIN_IMAGES[0]);
-        this.x = 300 + Math.random() * (this.level_end_x - 300); // coins will be placed between x=300 and the end of the level
-        // this y should be between 150 and 400, so that the coins are not too high or too low on the canvas. The middleOfCoins is subtracted to center the coin vertically around its y position.
+        this.x = 300 + Math.random() * (this.level_end_x - 300);
         this.y = 150 - this.middleOfCoins + Math.random() * 250;
-        // this.y = 150 - this.middleOfCoins + Math.random() * 300;
         this.loadImages(this.COIN_IMAGES);
         this.animate(this.COIN_IMAGES, 5);
     }
