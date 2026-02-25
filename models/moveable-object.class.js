@@ -61,7 +61,7 @@ class  MoveableObject extends DrawableObject {
                 start_position_x = this.level_end_x; // reset to the right edge of the canvas
                 this.x = start_position_x;
             }
-        }, 1000 / 60); // 60 times per second
+        }, 1000 / 60);
         window.activeIntervals.push(interval_autoMoveLeft);
     }
 
@@ -79,8 +79,7 @@ class  MoveableObject extends DrawableObject {
 
 
     playMultiLoopAnimation(imagePathsArr) {
-        let i = this.currentImageIndex % imagePathsArr.length; // let I = 0 % 6
-        // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, ...
+        let i = this.currentImageIndex % imagePathsArr.length;
         let path = imagePathsArr[i];
         this.img = this.imagesCache[path];
         this.currentImageIndex++;
@@ -88,13 +87,12 @@ class  MoveableObject extends DrawableObject {
 
 
     playSingleLoopAnimation(imagePathsArr) {
-        let i = this.currentImageIndex % imagePathsArr.length; // let I = 0 % 6
-        // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, ...
+        let i = this.currentImageIndex % imagePathsArr.length;
         let path = imagePathsArr[i];
         this.img = this.imagesCache[path];
         this.currentImageIndex++;
         if (this.currentImageIndex >= imagePathsArr.length) {
-            this.currentImageIndex = imagePathsArr.length - 1; // stop at the last frame
+            this.currentImageIndex = imagePathsArr.length - 1;
         }
     }
 

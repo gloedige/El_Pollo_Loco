@@ -61,14 +61,26 @@ class Endboss extends MoveableObject {
         this.loadImages(this.ENDBOSS_ATTACK_IMAGES);
         this.loadImages(this.ENDBOSS_HURT_IMAGES);
         this.loadImages(this.ENDBOSS_DEAD_IMAGES);
-        this.animate(this.ENDBOSS_ALERT_IMAGES, 5);
+        this.animate(this.ENDBOSS_ALERT_IMAGES, 10);
         this.energy = 50;
         this.otherDirection = false;
+        this.speed = 15;
     }
 
     animate(imagePathsArr, speedAnimation) {
+        let interval_moveEndboss = setInterval(() => this.moveEndboss(), 1000/60);
         let interval_playEndboss = setInterval(() => this.playEndboss(imagePathsArr), 1000/speedAnimation);
+        window.activeIntervals.push(interval_moveEndboss);
         window.activeIntervals.push(interval_playEndboss);
+    }
+
+
+    moveEndboss() {
+        if (this.dead || this.characterReachesEndboss) {
+            return;
+        }
+        
+
     }
 
     playEndboss(imagePathsArr) {
@@ -80,16 +92,14 @@ class Endboss extends MoveableObject {
         } else if (this.isColliding(this.world.character)) {
             this.playMultiLoopAnimation(this.ENDBOSS_ATTACK_IMAGES);
         } else if (this.characterReachesEndboss && !(this.world.character && this.world.character.dead)) {
-            // this.autoMoveLeft(this.x, this.width);
             this.autoMoveAttack();
-            this.playMultiLoopAnimation(this.ENDBOSS_WALKING_IMAGES);
             this.playEndbossIsWalkingSound();
         } else if (!this.characterReachesEndboss){
             this.hasReachedEndboss();
             this.playMultiLoopAnimation(imagePathsArr);
         }
     }
-
+    
     playEndbossIsWalkingSound() {
         if (!this.isEndbossWalkingSoundPlaying && this.world && this.world.sounds) {
             this.isEndbossWalkingSoundPlaying = true;
@@ -99,8 +109,8 @@ class Endboss extends MoveableObject {
             this.world.sounds.WALKING_ENDBOSS_SOUND.loop = true;
         }
     }
-
-
+    
+    
     stopEndbossWalkingSound() {
         if (this.world && this.world.sounds) {
             this.world.sounds.WALKING_ENDBOSS_SOUND.loop = false;
@@ -108,50 +118,47 @@ class Endboss extends MoveableObject {
             this.world.sounds.WALKING_ENDBOSS_SOUND.currentTime = 0;
         }
     }
-
-    // this funtion move the endboss automatically to the left when character reaches and turns to the right when reaching end of canvas
-    // autoMoveAttack() {
-    //     // Endboss bewegt sich abwechselnd nach links und rechts innerhalb des sichtbaren Bereichs
-    //     let direction = 'left';
-    //     let interval_autoMoveAttack = setInterval(() => {
-    //         switch (direction) {
-    //             case 'left':
-    //                 this.moveLeft();
-    //                 if (this.x <= this.ENDBOSS_LEFT_EDGE) {
-    //                     this.x = this.ENDBOSS_LEFT_EDGE;
-    //                     direction = 'right';
-    //                 }
-    //                 break;
-    //             case 'right':
-    //                 this.moveRight();
-    //                 if (this.x >= this.ENDBOSS_RIGHT_EDGE) {
-    //                     this.x = this.ENDBOSS_RIGHT_EDGE;
-    //                     direction = 'left';
-    //                 }
-    //                 break;
-    //         }
-    //     }, 1000 / 30);
-    //     window.activeIntervals.push(interval_autoMoveAttack);
-    // }
-
-
+    
+    
     autoMoveAttack() {
-        if (this.direction === 'left') {
+        this.handleMovementThresholds();
+        this.playWalkAnimatin();
+    }
+    
+    
+    playWalkAnimatin(){
+        this.playMultiLoopAnimation(this.ENDBOSS_WALKING_IMAGES);
+        if (!this.otherDirection){
             this.x -= this.speed;
-            if (!this.otherDirection) this.otherDirection = false;
-            if (this.x <= this.ENDBOSS_LEFT_EDGE) {
-                this.x = this.ENDBOSS_LEFT_EDGE;
-                this.direction = 'right';
-            }
-        } else {
+    
+        }
+        else {
             this.x += this.speed;
-            if (this.otherDirection) this.otherDirection = true;
-            if (this.x >= this.ENDBOSS_RIGHT_EDGE) {
-                this.x = this.ENDBOSS_RIGHT_EDGE;
-                this.direction = 'left';
-            }
         }
     }
+
+    
+    handleMovementThresholds() {
+        if (this.x <= this.ENDBOSS_LEFT_EDGE) {
+            this.x = this.ENDBOSS_LEFT_EDGE;
+            this.otherDirection = true;
+        }
+        if (this.x >= this.ENDBOSS_RIGHT_EDGE) {
+            this.x = this.ENDBOSS_RIGHT_EDGE;
+            this.otherDirection = false;
+         }
+    }   
+
+
+    // moveTowardsPlayer() {
+    //     if(this.x > this.world.character.x) {
+    //         this.moveLeft();
+    //         this.flipImage = false;
+    //     }else if(this.x < this.world.character.x) {
+    //         this.moveRight();
+    //         this.flipImage = true;
+    //     }
+    // }
 
 
     
