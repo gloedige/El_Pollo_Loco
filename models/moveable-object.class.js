@@ -3,7 +3,6 @@ class  MoveableObject extends DrawableObject {
     WIDTH_CANVAS = 720;
     GROUND_LEVEL = 50;
     GROUND_LEVEL_CHICKEN_SMALL = 60;
-    REACH_END_BOSS_X_POSITION = 3000;
     speed = 0.1;
     end_position_x;
     difference_of_position = 0;
@@ -15,9 +14,7 @@ class  MoveableObject extends DrawableObject {
     lastHit = 0;
     colliding_detecting = true;
     coinsCollected = 0;
-    bottlesCollected = 0;
-    characterReachesEndboss = false;
-    
+    bottlesCollected = 0;    
 
     offset = {
         top: 0,
@@ -25,11 +22,7 @@ class  MoveableObject extends DrawableObject {
         right: 0,
         bottom: 0
     };
-
-
     energy = 100;
-    isJumpingSoundPlaying = false;
-    isEnemyHitSoundPlaying = false;
     
     constructor(x, y, img) {
         super();
@@ -137,13 +130,6 @@ class  MoveableObject extends DrawableObject {
     }
 
 
-    isJumpingOnTop(movableObject) {
-        return  this.y + this.height - this.offset.bottom < movableObject.y + movableObject.height/2 &&
-                this.y + this.height - this.offset.bottom > movableObject.y + movableObject.offset.top &&
-                this.speedY < 0;
-    }
-
-
     hit() {
         this.energy -= 10;
         if (this.energy < 0) {
@@ -161,8 +147,8 @@ class  MoveableObject extends DrawableObject {
 
 
     isHurt() {
-        let timePassed = new Date().getTime() - this.lastHit; // difference in ms
-        timePassed = timePassed / 500; // difference in s
+        let timePassed = new Date().getTime() - this.lastHit;
+        timePassed = timePassed / 500;
         return timePassed < this.TIME_RESET_HURT;
     }
 
@@ -172,7 +158,7 @@ class  MoveableObject extends DrawableObject {
             this.dead = true;
             this.colliding_detecting = false;
             this.killedEnemy();
-            if (this instanceof Chicken || this instanceof ChickenSmall) this.playEnemyIsHitSound();
+            if (this instanceof Chicken || this instanceof ChickenSmall) this.world.sounds.playEnemyIsHitSound();
         }
         if (this instanceof Character && this.dead && this.world != null) {
             setTimeout(() => { 
@@ -186,11 +172,6 @@ class  MoveableObject extends DrawableObject {
                 endGame();
             }, 1000);
         }
-    }
-
-
-    collectCoin() {
-        this.coinsCollected = (this.coinsCollected || 0) + 1;
     }
 
 
@@ -210,56 +191,8 @@ class  MoveableObject extends DrawableObject {
     }
 
 
-    selectRandomImage(imagePathsArr) {
-        let i = Math.floor(Math.random() * imagePathsArr.length);
-        let path = imagePathsArr[i];
-        this.img = this.imagesCache[path];
-    }
-
-
-    collectBottles() {
-        this.bottlesCollected = (this.bottlesCollected || 0) + 1;
-    }
-
-
-    removeCollectedBottle() {
-        if (this.bottlesCollected > 0) {
-            this.bottlesCollected--;
-        }
-    }
-
-
     killedEnemy() {
         this.speed = 0;
-    }
-
-
-    hasReachedEndboss() {
-        if (this.world && this.world.character && this.world.character.x >= this.REACH_END_BOSS_X_POSITION) {
-            this.characterReachesEndboss = true;
-        }
-    }
-
-
-    playJumpSound() {
-        if (!this.isJumpingSoundPlaying && this.world && this.world.sounds) {
-            this.isJumpingSoundPlaying = true;
-            this.world.sounds.JUMP_SOUND.volume = 0.5;
-            this.world.sounds.JUMP_SOUND.muted = window.isMuted || false;
-            this.world.sounds.JUMP_SOUND.play();
-            this.world.sounds.JUMP_SOUND.onended = () => this.isJumpingSoundPlaying = false;
-        }
-    }
-
-
-    playEnemyIsHitSound() {
-        if (!this.isEnemyHitSoundPlaying && this.world && this.world.sounds) {
-            this.isEnemyHitSoundPlaying = true;
-            this.world.sounds.ENEMY_HIT_SOUND.volume = 0.5;
-            this.world.sounds.ENEMY_HIT_SOUND.muted = window.isMuted || false;
-            this.world.sounds.ENEMY_HIT_SOUND.play();
-            this.world.sounds.ENEMY_HIT_SOUND.onended = () => this.isEnemyHitSoundPlaying = false;
-        }
     }
 
 

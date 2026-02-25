@@ -73,15 +73,15 @@ function createHarmonicCoins(count) {
  * @returns {Coin[]} Array von Coin-Objekten als zufällig verteilte 2x2 Blöcke
  */
 function createRandomCoinBlocks2x2(totalCoins, xStart = 1700, xEnd = 3000, yStart = 120, yEnd = 360) {
-    const blockWidthPx = 40; // Abstand zwischen Coins im Block (x)
-    const blockHeightPx = 40; // Abstand zwischen Coins im Block (y)
-    const minBlockDistance = 100; // Mindestabstand zwischen Blöcken
+    const blockWidthPx = 40;
+    const blockHeightPx = 40;
+    const minBlockDistance = 100;
     const blockCount = Math.floor(totalCoins / 4);
     const placedBlocks = [];
     for (let b = 0; b < blockCount; b++) {
         let blockX, blockY, tries = 0;
         let validPosition = false;
-        // Suche eine Position mit genügend Abstand zu anderen Blöcken
+    
         while (!validPosition && tries < 100) {
             blockX = xStart + Math.random() * (xEnd - xStart - blockWidthPx);
             blockY = yStart + Math.random() * (yEnd - yStart - blockHeightPx);
@@ -89,7 +89,7 @@ function createRandomCoinBlocks2x2(totalCoins, xStart = 1700, xEnd = 3000, yStar
             for (const block of placedBlocks) {
                 const dx = blockX - block.x;
                 const dy = blockY - block.y;
-                // Prüfe Abstand (Mindestabstand gilt für Blockmitte zu Blockmitte)
+            
                 if (Math.abs(dx) < blockWidthPx + minBlockDistance && Math.abs(dy) < blockHeightPx + minBlockDistance) {
                     validPosition = false;
                     break;

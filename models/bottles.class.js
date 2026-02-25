@@ -23,4 +23,10 @@ class Bottle extends MoveableObject {
         this.selectRandomImage(this.BOTTLE_IMAGES);
     }
 
+
+    selectRandomImage(imagePathsArr) {
+        let i = Math.floor(Math.random() * imagePathsArr.length);
+        let path = imagePathsArr[i];
+        this.img = this.imagesCache[path];
+    }
 };

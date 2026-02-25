@@ -1,5 +1,7 @@
 class Sounds {
-    // GET_COIN_SOUND;
+    isJumpingSoundPlaying = false;
+    isEnemyHitSoundPlaying = false;
+    world;
 
     constructor() {
         this.WALKING_ENDBOSS_SOUND = new Audio('./audio/walking_endboss_sound.mp3');
@@ -34,5 +36,25 @@ class Sounds {
         sound.pause();
         sound.currentTime = 0;
         sound.loop = false;
+    }
+
+    playJumpSound() {
+        if (!this.isJumpingSoundPlaying && this.world && this.world.sounds) {
+            this.isJumpingSoundPlaying = true;
+            this.world.sounds.JUMP_SOUND.volume = 0.5;
+            this.world.sounds.JUMP_SOUND.muted = window.isMuted || false;
+            this.world.sounds.JUMP_SOUND.play();
+            this.world.sounds.JUMP_SOUND.onended = () => this.isJumpingSoundPlaying = false;
+        }
+    }
+
+    playEnemyIsHitSound() {
+        if (!this.isEnemyHitSoundPlaying && this.world && this.world.sounds) {
+            this.isEnemyHitSoundPlaying = true;
+            this.world.sounds.ENEMY_HIT_SOUND.volume = 0.5;
+            this.world.sounds.ENEMY_HIT_SOUND.muted = window.isMuted || false;
+            this.world.sounds.ENEMY_HIT_SOUND.play();
+            this.world.sounds.ENEMY_HIT_SOUND.onended = () => this.isEnemyHitSoundPlaying = false;
+        }
     }
 }

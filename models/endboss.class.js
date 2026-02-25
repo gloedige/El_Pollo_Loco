@@ -62,7 +62,8 @@ class Endboss extends MoveableObject {
     isEndbossWalkingSoundPlaying = false;
     lastJumpTime = 0;
     JUMPCOOLDOWN = 2000;
-
+    REACH_END_BOSS_X_POSITION = 3000;
+    characterReachesEndboss = false;
 
     constructor() {
         super().loadImage(this.ENDBOSS_ALERT_IMAGES[0]);
@@ -103,7 +104,7 @@ class Endboss extends MoveableObject {
     
     handleJumping() {
         this.jumpRandomly();
-        if (this.isAboveGround()) {
+        if (this.isAboveGround() && !this.isHit()) {
             this.playMultiLoopAnimation(this.ENDBOSS_JUMP_IMAGES);
         }
     
@@ -115,7 +116,7 @@ class Endboss extends MoveableObject {
             this.playSingleLoopAnimation(this.ENDBOSS_DEAD_IMAGES);
         } else if (this.isHit()) {
             this.playMultiLoopAnimation(this.ENDBOSS_HURT_IMAGES);
-            this.playEnemyIsHitSound();
+            this.world.sounds.playEnemyIsHitSound();
         } else if (this.isColliding(this.world.character) && !this.isAboveGround()) {
             this.playMultiLoopAnimation(this.ENDBOSS_ATTACK_IMAGES);
         } else if (this.startFinalFight() && !this.isAboveGround()) {
@@ -194,6 +195,13 @@ class Endboss extends MoveableObject {
         ctx.moveTo(this.ENDBOSS_RIGHT_EDGE + this.width, 0);
         ctx.lineTo(this.ENDBOSS_RIGHT_EDGE + this.width, this.HEIGHT_CANVAS);
         ctx.stroke();
+    }
+
+
+    hasReachedEndboss() {
+        if (this.world && this.world.character && this.world.character.x >= this.REACH_END_BOSS_X_POSITION) {
+            this.characterReachesEndboss = true;
+        }
     }
 
 }

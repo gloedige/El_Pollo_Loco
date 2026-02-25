@@ -131,7 +131,8 @@ class Character extends MoveableObject {
         if (this.canJump()) {
             this.currentImageIndex = 0;
             this.canFallDownState = true;
-            this.playJumpSound();
+            this.world.sounds.playJumpSound();
+            // this.playJumpSound();
             this.jump();
             this.isJumping = true;
             this.getLastMoveTime();
@@ -233,6 +234,30 @@ class Character extends MoveableObject {
             this.world.sounds.CHARACTER_SLEEPING_SOUND.pause();
             this.world.sounds.CHARACTER_SLEEPING_SOUND.currentTime = 0;
             this.isCharacterSleepingSoundPlaying = false;
+        }
+    }
+
+
+    isJumpingOnTop(movableObject) {
+        return  this.y + this.height - this.offset.bottom < movableObject.y + movableObject.height/2 &&
+                this.y + this.height - this.offset.bottom > movableObject.y + movableObject.offset.top &&
+                this.speedY < 0;
+    }
+
+
+    collectCoin() {
+        this.coinsCollected = (this.coinsCollected || 0) + 1;
+    }
+
+
+    collectBottles() {
+        this.bottlesCollected = (this.bottlesCollected || 0) + 1;
+    }
+
+
+    removeCollectedBottle() {
+        if (this.bottlesCollected > 0) {
+            this.bottlesCollected--;
         }
     }
 }
