@@ -64,7 +64,7 @@ class Endboss extends MoveableObject {
         this.animate(this.ENDBOSS_ALERT_IMAGES, 10);
         this.energy = 50;
         this.otherDirection = false;
-        this.speed = 15;
+        this.speed = 10;
     }
 
     animate(imagePathsArr, speedAnimation) {
