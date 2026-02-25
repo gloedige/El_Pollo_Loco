@@ -68,18 +68,21 @@ class Endboss extends MoveableObject {
     }
 
     animate(imagePathsArr, speedAnimation) {
-        let interval_moveEndboss = setInterval(() => this.moveEndboss(), 1000/60);
+        let interval_moveEndboss = setInterval(() => this.autoMoveEndboss(), 1000/30);
         let interval_playEndboss = setInterval(() => this.playEndboss(imagePathsArr), 1000/speedAnimation);
         window.activeIntervals.push(interval_moveEndboss);
         window.activeIntervals.push(interval_playEndboss);
     }
 
 
-    moveEndboss() {
-        if (this.dead || this.characterReachesEndboss) {
+    autoMoveEndboss() {
+        if (this.dead) {
             return;
         }
-        
+        else if (this.startFinalFight()) {
+            this.handleMovementThresholds();
+            this.moveEndboss();
+        }
 
     }
 
@@ -91,10 +94,11 @@ class Endboss extends MoveableObject {
             this.playEnemyIsHitSound();
         } else if (this.isColliding(this.world.character)) {
             this.playMultiLoopAnimation(this.ENDBOSS_ATTACK_IMAGES);
-        } else if (this.characterReachesEndboss && !(this.world.character && this.world.character.dead)) {
-            this.autoMoveAttack();
+        } else if (this.startFinalFight()) {
+            // this.autoMoveAttack();
+            this.playMultiLoopAnimation(this.ENDBOSS_WALKING_IMAGES);
             this.playEndbossIsWalkingSound();
-        } else if (!this.characterReachesEndboss){
+        } else if (!this.startFinalFight()){
             this.hasReachedEndboss();
             this.playMultiLoopAnimation(imagePathsArr);
         }
@@ -120,14 +124,12 @@ class Endboss extends MoveableObject {
     }
     
     
-    autoMoveAttack() {
-        this.handleMovementThresholds();
-        this.playWalkAnimatin();
+    startFinalFight() {
+        return this.characterReachesEndboss && !(this.world.character && this.world.character.dead);
     }
     
     
-    playWalkAnimatin(){
-        this.playMultiLoopAnimation(this.ENDBOSS_WALKING_IMAGES);
+    moveEndboss() {
         if (!this.otherDirection){
             this.x -= this.speed;
     
