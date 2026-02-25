@@ -96,6 +96,7 @@ class  MoveableObject extends DrawableObject {
         }
     }
 
+
     applyGravity() {
         let interval_gravity = setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -113,6 +114,7 @@ class  MoveableObject extends DrawableObject {
         window.activeIntervals.push(interval_gravity);
     }
 
+
     isAboveGround() {
         if (this instanceof ChickenSmall) {
             return this.y < this.HEIGHT_CANVAS - this.GROUND_LEVEL_CHICKEN_SMALL - this.height;
@@ -123,9 +125,11 @@ class  MoveableObject extends DrawableObject {
         }   
     }
 
+
     jump() {
         this.speedY = 28;     
     }
+
     
     isColliding(movableObject) {
         return  this.x + this.width - this.offset.right > movableObject.x + movableObject.offset.left &&
@@ -134,11 +138,13 @@ class  MoveableObject extends DrawableObject {
                 this.y + this.offset.top < movableObject.y + movableObject.height - movableObject.offset.bottom;
     }
 
+
     isJumpingOnTop(movableObject) {
         return  this.y + this.height - this.offset.bottom < movableObject.y + movableObject.height/2 &&
                 this.y + this.height - this.offset.bottom > movableObject.y + movableObject.offset.top &&
                 this.speedY < 0;
     }
+
 
     hit() {
         this.energy -= 10;
@@ -150,15 +156,18 @@ class  MoveableObject extends DrawableObject {
         }
     }
 
+
     isHit() {
         return this.isHurt() && !this.dead;
     }
+
 
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit; // difference in ms
         timePassed = timePassed / 500; // difference in s
         return timePassed < this.TIME_RESET_HURT;
     }
+
 
     checkIsDead() {
         if (this.energy == 0) {
@@ -181,9 +190,11 @@ class  MoveableObject extends DrawableObject {
         }
     }
 
+
     collectCoin() {
         this.coinsCollected = (this.coinsCollected || 0) + 1;
     }
+
 
     deleteElement(element) {
         if (element instanceof Coin) {
@@ -200,15 +211,18 @@ class  MoveableObject extends DrawableObject {
         }
     }
 
+
     selectRandomImage(imagePathsArr) {
         let i = Math.floor(Math.random() * imagePathsArr.length);
         let path = imagePathsArr[i];
         this.img = this.imagesCache[path];
     }
 
+
     collectBottles() {
         this.bottlesCollected = (this.bottlesCollected || 0) + 1;
     }
+
 
     removeCollectedBottle() {
         if (this.bottlesCollected > 0) {
@@ -216,15 +230,18 @@ class  MoveableObject extends DrawableObject {
         }
     }
 
+
     killedEnemy() {
         this.speed = 0;
     }
+
 
     hasReachedEndboss() {
         if (this.world && this.world.character && this.world.character.x >= this.REACH_END_BOSS_X_POSITION) {
             this.characterReachesEndboss = true;
         }
     }
+
 
     playJumpSound() {
         if (!this.isJumpingSoundPlaying && this.world && this.world.sounds) {
@@ -236,6 +253,7 @@ class  MoveableObject extends DrawableObject {
         }
     }
 
+
     playEnemyIsHitSound() {
         if (!this.isEnemyHitSoundPlaying && this.world && this.world.sounds) {
             this.isEnemyHitSoundPlaying = true;
@@ -244,6 +262,29 @@ class  MoveableObject extends DrawableObject {
             this.world.sounds.ENEMY_HIT_SOUND.play();
             this.world.sounds.ENEMY_HIT_SOUND.onended = () => this.isEnemyHitSoundPlaying = false;
         }
+    }
+
+
+    jumpRandomly() {
+        let interval_jumpRandomly = setInterval(() => {
+            if (this.dead) {
+                return;
+            }
+            if (Math.random() < 0.01 && !this.pauseJumping()) {
+                this.jump();
+                this.lastJumpTime = new Date().getTime();
+            }
+        }, 1000 / 30);
+        window.activeIntervals.push(interval_jumpRandomly);
+    }
+
+
+    pauseJumping(){
+        let currentTime = new Date().getTime();
+        if (currentTime - this.lastJumpTime < this.JUMPCOOLDOWN) {
+            return true; // still in cooldown, pause jumping
+        }
+        return false; // cooldown finished, allow jumping
     }
 
     

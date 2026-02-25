@@ -27,6 +27,14 @@ class Endboss extends MoveableObject {
         './img/4_enemie_boss_chicken/3_attack/G19.png',
         './img/4_enemie_boss_chicken/3_attack/G20.png',
     ];
+    ENDBOSS_JUMP_IMAGES = [
+        './img/4_enemie_boss_chicken/3_attack/G14.png',
+        './img/4_enemie_boss_chicken/3_attack/G14.png',
+        './img/4_enemie_boss_chicken/3_attack/G15.png',
+        './img/4_enemie_boss_chicken/3_attack/G15.png',
+        './img/4_enemie_boss_chicken/3_attack/G16.png',
+        './img/4_enemie_boss_chicken/3_attack/G16.png'
+    ];
     ENDBOSS_HURT_IMAGES = [
         './img/4_enemie_boss_chicken/4_hurt/G21.png',
         './img/4_enemie_boss_chicken/4_hurt/G22.png',
@@ -51,6 +59,8 @@ class Endboss extends MoveableObject {
         right: 30,
         bottom: 50
     };
+    lastJumpTime = 0;
+    JUMPCOOLDOWN = 2000; // in milliseconds
 
     constructor() {
         super().loadImage(this.ENDBOSS_ALERT_IMAGES[0]);
@@ -61,6 +71,7 @@ class Endboss extends MoveableObject {
         this.loadImages(this.ENDBOSS_ATTACK_IMAGES);
         this.loadImages(this.ENDBOSS_HURT_IMAGES);
         this.loadImages(this.ENDBOSS_DEAD_IMAGES);
+        this.applyGravity();
         this.animate(this.ENDBOSS_ALERT_IMAGES, 10);
         this.energy = 50;
         this.otherDirection = false;
@@ -68,7 +79,7 @@ class Endboss extends MoveableObject {
     }
 
     animate(imagePathsArr, speedAnimation) {
-        let interval_moveEndboss = setInterval(() => this.autoMoveEndboss(), 1000/30);
+        let interval_moveEndboss = setInterval(() => this.autoMoveEndboss(), 1000/25);
         let interval_playEndboss = setInterval(() => this.playEndboss(imagePathsArr), 1000/speedAnimation);
         window.activeIntervals.push(interval_moveEndboss);
         window.activeIntervals.push(interval_playEndboss);
@@ -82,8 +93,17 @@ class Endboss extends MoveableObject {
         else if (this.startFinalFight()) {
             this.handleMovementThresholds();
             this.moveEndboss();
+            this.handleJumping();
         }
-
+    }
+    
+    
+    handleJumping() {
+        this.jumpRandomly();
+        if (this.isAboveGround()) {
+            this.playMultiLoopAnimation(this.ENDBOSS_JUMP_IMAGES);
+        }
+    
     }
 
     playEndboss(imagePathsArr) {
@@ -92,9 +112,9 @@ class Endboss extends MoveableObject {
         } else if (this.isHit()) {
             this.playMultiLoopAnimation(this.ENDBOSS_HURT_IMAGES);
             this.playEnemyIsHitSound();
-        } else if (this.isColliding(this.world.character)) {
+        } else if (this.isColliding(this.world.character) && !this.isAboveGround()) {
             this.playMultiLoopAnimation(this.ENDBOSS_ATTACK_IMAGES);
-        } else if (this.startFinalFight()) {
+        } else if (this.startFinalFight() && !this.isAboveGround()) {
             // this.autoMoveAttack();
             this.playMultiLoopAnimation(this.ENDBOSS_WALKING_IMAGES);
             this.playEndbossIsWalkingSound();

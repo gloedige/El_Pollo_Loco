@@ -181,7 +181,7 @@ class World {
         drawableObject.draw(this.ctx);
         // if (!(drawableObject instanceof Character || drawableObject instanceof StatusBar || drawableObject instanceof ThrowableObject || drawableObject instanceof Coin || drawableObject instanceof Bottle || drawableObject instanceof Cloud || drawableObject instanceof Chicken || drawableObject instanceof ChickenSmall || drawableObject instanceof Endboss)) {
         if (drawableObject instanceof Endboss) {
-            drawableObject.drawLines(this.ctx);
+            // drawableObject.drawLines(this.ctx);
         }
 
         if (!(drawableObject instanceof StatusBar) && drawableObject.otherDirection) {

@@ -53,30 +53,5 @@ class ChickenSmall extends MoveableObject {
         else {
             this.playSingleLoopAnimation(this.CHICKEN_SMALL_WAIT_IMAGES);
         }
-    }
-
-
-    jumpRandomly() {
-        let interval_jumpRandomly = setInterval(() => {
-            if (this.dead) {
-                return;
-            }
-            if (Math.random() < 0.01 && !this.pauseJumping()) {
-                this.jump();
-                this.lastJumpTime = new Date().getTime();
-            }
-        }, 1000 / 50);
-        window.activeIntervals.push(interval_jumpRandomly);
-    }
-
-    pauseJumping(){
-        let currentTime = new Date().getTime();
-        if (currentTime - this.lastJumpTime < this.JUMPCOOLDOWN) {
-            return true; // still in cooldown, pause jumping
-        }
-        return false; // cooldown finished, allow jumping
-    }
-
-    
-
+    } 
 }
