@@ -6,6 +6,7 @@ class Sounds {
         this.JUMP_SOUND = new Audio('./audio/cartoon_jump_sound_short.mp3');
         this.ENEMY_HIT_SOUND = new Audio('./audio/chicken_is_dead_sound.mp3');
         this.CHARACTER_HIT_SOUND = new Audio('./audio/character_hurt_sound.mp3');
+        this.CHARACTER_SLEEPING_SOUND = new Audio('./audio/snoring_man_sound.mp3');
         this.YOU_WON_SOUND = new Audio('./audio/you_won_sound.mp3');
         this.GAME_OVER_SOUND = new Audio('./audio/game_over_sound.mp3');
         this.GAME_MUSIC_LOOP = new Audio('./audio/game_music_loop.mp3');
@@ -23,6 +24,7 @@ class Sounds {
             this.JUMP_SOUND,
             this.ENEMY_HIT_SOUND,
             this.CHARACTER_HIT_SOUND,
+            this.CHARACTER_SLEEPING_SOUND,
             this.GET_COIN_SOUND,
             this.GET_BOTTLE_SOUND
         ];

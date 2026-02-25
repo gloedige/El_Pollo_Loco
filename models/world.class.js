@@ -32,11 +32,11 @@ class World {
         let interval_checkCollisions = setInterval(() => {
             this.checkCollisionsOfCharacter();
             this.checkThrowObjects();
-        }, 200);
+        }, 1000/5);
         let interval_checkJumpingOnTop = setInterval(() => {
             this.checkJumpingOnTop();
             this.checkHitByBottle();
-        }, 16);
+        }, 1000/60);
         window.activeIntervals.push(interval_checkCollisions, interval_checkJumpingOnTop);
     }
 
@@ -63,8 +63,7 @@ class World {
                 if (this.character.colliding_detecting && this.character.isColliding(bottle)) {
                     this.character.collectBottles();
                     this.playCollectBottleSound();
-                    this.statusBarBottles.setPercentage(this.character.bottlesCollected / numberOfBottles * 100);
-                    console.log(this.character.bottlesCollected);
+                    this.updateStatusBarBottles();
                     bottle.colliding_detecting = false;
                     this.character.deleteElement(bottle);                    
                 }
@@ -110,7 +109,13 @@ class World {
             let bottle = new ThrowableObject(this.character.x + this.character.width/2, this.character.y + this.character.height / 3, this.character.otherDirection);
             this.throwableObjects.push(bottle);
             this.character.removeCollectedBottle();
+            this.updateStatusBarBottles();
         }
+    }
+
+
+    updateStatusBarBottles() {
+        this.statusBarBottles.setPercentage(this.character.bottlesCollected / numberOfBottles * 100);
     }
 
 

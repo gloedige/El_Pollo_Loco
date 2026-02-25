@@ -48,8 +48,8 @@ class Endboss extends MoveableObject {
     TIME_RESET_HURT = 1;
     GROUND_LEVEL_ENDBOSS = 30;
     ENDBOSS_START_X_POSITION = 3500;
-    ENDBOSS_LEFT_EDGE = this.ENDBOSS_START_X_POSITION - 500; // 500 Pixel vor dem Charakter
-    ENDBOSS_RIGHT_EDGE = this.ENDBOSS_START_X_POSITION + 220 - this.width; // 220 Pixel hinter dem Charakter
+    ENDBOSS_LEFT_EDGE = this.ENDBOSS_START_X_POSITION - 500;
+    ENDBOSS_RIGHT_EDGE = this.ENDBOSS_START_X_POSITION + 220 - this.width;
     
     world;
     direction = 'left';
@@ -60,7 +60,8 @@ class Endboss extends MoveableObject {
         bottom: 50
     };
     lastJumpTime = 0;
-    JUMPCOOLDOWN = 2000; // in milliseconds
+    JUMPCOOLDOWN = 2000;
+
 
     constructor() {
         super().loadImage(this.ENDBOSS_ALERT_IMAGES[0]);
@@ -77,6 +78,7 @@ class Endboss extends MoveableObject {
         this.otherDirection = false;
         this.speed = 10;
     }
+
 
     animate(imagePathsArr, speedAnimation) {
         let interval_moveEndboss = setInterval(() => this.autoMoveEndboss(), 1000/25);
@@ -106,6 +108,7 @@ class Endboss extends MoveableObject {
     
     }
 
+
     playEndboss(imagePathsArr) {
         if (this.dead) {
             this.playSingleLoopAnimation(this.ENDBOSS_DEAD_IMAGES);
@@ -115,7 +118,6 @@ class Endboss extends MoveableObject {
         } else if (this.isColliding(this.world.character) && !this.isAboveGround()) {
             this.playMultiLoopAnimation(this.ENDBOSS_ATTACK_IMAGES);
         } else if (this.startFinalFight() && !this.isAboveGround()) {
-            // this.autoMoveAttack();
             this.playMultiLoopAnimation(this.ENDBOSS_WALKING_IMAGES);
             this.playEndbossIsWalkingSound();
         } else if (!this.startFinalFight()){
@@ -123,6 +125,7 @@ class Endboss extends MoveableObject {
             this.playMultiLoopAnimation(imagePathsArr);
         }
     }
+
     
     playEndbossIsWalkingSound() {
         if (!this.isEndbossWalkingSoundPlaying && this.world && this.world.sounds) {
@@ -169,21 +172,7 @@ class Endboss extends MoveableObject {
             this.x = this.ENDBOSS_RIGHT_EDGE;
             this.otherDirection = false;
          }
-    }   
-
-
-    // moveTowardsPlayer() {
-    //     if(this.x > this.world.character.x) {
-    //         this.moveLeft();
-    //         this.flipImage = false;
-    //     }else if(this.x < this.world.character.x) {
-    //         this.moveRight();
-    //         this.flipImage = true;
-    //     }
-    // }
-
-
-    
+    }  
 
 
     /**

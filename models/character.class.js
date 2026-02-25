@@ -59,6 +59,7 @@ class Character extends MoveableObject {
         './img/2_character_pepe/5_dead/D-57.png',
     ];
     TIME_RESET_HURT = 1; // in seconds
+    SLEEP_TIME_THRESHOLD = 15000; // in milliseconds
     world;
     speed = 6;
     offset = {
@@ -70,6 +71,7 @@ class Character extends MoveableObject {
     lastMoveTime = new Date().getTime();
     hasFallingAnimationStarted = false;
     isJumping = false;
+    isCharacterSleepingSoundPlaying = false;
         
     constructor() {
         super().loadImage(this.CHARACTER_WALKING_IMAGES[0]);
@@ -102,8 +104,9 @@ class Character extends MoveableObject {
 
     sleepCharacter() {
         let currentTime = new Date().getTime();
-        if (currentTime - this.lastMoveTime > 15000) { // 15 seconds of inactivity
+        if (currentTime - this.lastMoveTime > this.SLEEP_TIME_THRESHOLD) { // 15 seconds of inactivity
             this.playMultiLoopAnimation(this.CHARACTER_IDLE_LONG_IMAGES);
+            this.playCharacterIsSleepingSound();
         }
         else {
             this.playMultiLoopAnimation(this.CHARACTER_IDLE_SHORT_IMAGES);
@@ -149,18 +152,23 @@ class Character extends MoveableObject {
     playCharacter(imagePathsArr) {
         if (this.isJumping && this.speedY > 0   ) {
             this.playSingleLoopAnimation(this.CHARACTER_JUMPING_PART_1_IMAGES);
+            this.stopCharacterSleepingSound();
         }
         else if (this.isJumpingDown()) {
             this.playSingleLoopAnimation(this.CHARACTER_JUMPING_PART_2_IMAGES);
+            this.stopCharacterSleepingSound();
         }
         else if (this.isMoving()) {
             this.playMultiLoopAnimation(imagePathsArr);
+            this.stopCharacterSleepingSound();
         }
         else if (this.dead) {
             this.playSingleLoopAnimation(this.CHARACTER_DEAD_IMAGES);
+            this.stopCharacterSleepingSound();
         }
         else if (this.isHit()) {
             this.playMultiLoopAnimation(this.CHARACTER_HURT_IMAGES);
+            this.stopCharacterSleepingSound();
             this.playCharacterIsHitSound();
         }
         else {
@@ -204,6 +212,26 @@ class Character extends MoveableObject {
             this.world.sounds.CHARACTER_HIT_SOUND.muted = window.isMuted || false;
             this.world.sounds.CHARACTER_HIT_SOUND.play();
             this.world.sounds.CHARACTER_HIT_SOUND.onended = () => this.isCharacterHitSoundPlaying = false;
+        }
+    }
+
+
+    playCharacterIsSleepingSound() {
+        if (!this.isCharacterSleepingSoundPlaying) {
+            this.isCharacterSleepingSoundPlaying = true;
+            this.world.sounds.CHARACTER_SLEEPING_SOUND.volume = 0.5;
+            this.world.sounds.CHARACTER_SLEEPING_SOUND.muted = window.isMuted || false;
+            this.world.sounds.CHARACTER_SLEEPING_SOUND.play();
+            this.world.sounds.CHARACTER_SLEEPING_SOUND.onended = () => this.isCharacterSleepingSoundPlaying = false;
+        }
+    }
+
+
+    stopCharacterSleepingSound() {
+        if (this.world && this.world.sounds && this.isCharacterSleepingSoundPlaying) {
+            this.world.sounds.CHARACTER_SLEEPING_SOUND.pause();
+            this.world.sounds.CHARACTER_SLEEPING_SOUND.currentTime = 0;
+            this.isCharacterSleepingSoundPlaying = false;
         }
     }
 }
