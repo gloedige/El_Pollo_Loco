@@ -30,8 +30,6 @@ class  MoveableObject extends DrawableObject {
     energy = 100;
     isJumpingSoundPlaying = false;
     isEnemyHitSoundPlaying = false;
-    isCharacterHitSoundPlaying = false;
-    isEndbossWalkingSoundPlaying = false;
     
     constructor(x, y, img) {
         super();

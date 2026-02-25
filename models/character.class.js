@@ -72,6 +72,7 @@ class Character extends MoveableObject {
     hasFallingAnimationStarted = false;
     isJumping = false;
     isCharacterSleepingSoundPlaying = false;
+    isCharacterHitSoundPlaying = false;
         
     constructor() {
         super().loadImage(this.CHARACTER_WALKING_IMAGES[0]);

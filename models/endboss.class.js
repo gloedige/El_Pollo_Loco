@@ -59,6 +59,7 @@ class Endboss extends MoveableObject {
         right: 30,
         bottom: 50
     };
+    isEndbossWalkingSoundPlaying = false;
     lastJumpTime = 0;
     JUMPCOOLDOWN = 2000;
 

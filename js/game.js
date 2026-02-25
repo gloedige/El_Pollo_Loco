@@ -38,7 +38,7 @@ function endGame() {
     if (world) {
         window.activeIntervals.forEach(clearInterval);
         window.activeIntervals = [];
-        stopLoopingGameMusic();
+        stopMusicAndSoundsLoops();
         world = null;
     }
 }
@@ -53,10 +53,9 @@ function restartGame() {
 }
 
 
-function stopLoopingGameMusic() {
+function stopMusicAndSoundsLoops() {
     world.sounds.stop(world.sounds.GAME_MUSIC_LOOP);
     world.sounds.stop(world.sounds.WALKING_ENDBOSS_SOUND);
-    // window.sounds.stop(window.sounds.WALKING_ENDBOSS_SOUND);
 }
 
 
@@ -83,7 +82,7 @@ function toggleMute() {
     you_won_sound.muted = window.isMuted;
     game_over_sound.muted = window.isMuted;
     game_music_loop.muted = window.isMuted;
-    // Optionally, update button icon
+    window.sounds.soundEffectsArray.forEach(sound => sound.muted = window.isMuted);
     document.getElementById('muteButton').textContent = window.isMuted ? '🔇' : '🔈';
     saveMuteStateInLocalStorage();
 }
@@ -138,4 +137,5 @@ function setMuteStateToSounds() {
     you_won_sound.muted = window.isMuted;
     game_over_sound.muted = window.isMuted;
     game_music_loop.muted = window.isMuted;
+    window.sounds.soundEffectsArray.forEach(sound => sound.muted = window.isMuted);
 }
