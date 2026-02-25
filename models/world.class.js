@@ -1,8 +1,8 @@
 class World {
     character = new Character();
-    statusBarHealth = new StatusBar(10, 0, 'health', 100);
-    statusBarCoins = new StatusBar(10, 40, 'coins', 0);
-    statusBarBottles = new StatusBar(10, 80, 'bottles', 0);
+    statusBarHealth = new StatusBar(10, 0, 'health', 100, this.character.energy);
+    statusBarCoins = new StatusBar(10, 40, 'coins', 0, numberOfCoins);
+    statusBarBottles = new StatusBar(10, 80, 'bottles', 0, numberOfBottles);
     throwableObjects = [];
     level = level1;
     
@@ -54,7 +54,7 @@ class World {
                 if (this.character.colliding_detecting && this.character.isColliding(coin)) {
                     this.character.collectCoin();
                     this.playCollectCoinSound();
-                    this.statusBarCoins.setPercentage(this.character.coinsCollected / numberOfCoins * 100);
+                    this.statusBarCoins.setPercentage(this.character.coinsCollected);
                     coin.colliding_detecting = false;
                     this.character.deleteElement(coin);
                 }
@@ -115,7 +115,7 @@ class World {
 
 
     updateStatusBarBottles() {
-        this.statusBarBottles.setPercentage(this.character.bottlesCollected / numberOfBottles * 100);
+        this.statusBarBottles.setPercentage(this.character.bottlesCollected);
     }
 
 

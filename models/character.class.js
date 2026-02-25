@@ -62,6 +62,7 @@ class Character extends MoveableObject {
     SLEEP_TIME_THRESHOLD = 15000; // in milliseconds
     world;
     speed = 6;
+    energy = 200;
     offset = {
         top: 120,
         left: 40,

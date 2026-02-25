@@ -2,13 +2,14 @@ let level1;
 const numberOfCoins = 40;
 const numberOfCoinsHarmonic = numberOfCoins / 2;
 const numberOfCoinsBlock = numberOfCoins / 2;
-const numberOfChickens = 0;
-const numberOfSmallChickens = 1;
+const numberOfChickens = 5;
+const numberOfSmallChickens = 5;
 const numberOfBottles = 10;
 const coins = [];
 // initLevel();
 
 function initLevel() {
+    coins.length = 0; // Clear existing coins before creating new ones
     level1 = new Level(
         [
             ...createArrayOfObjects(numberOfSmallChickens, ChickenSmall),

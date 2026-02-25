@@ -14,7 +14,9 @@ class  MoveableObject extends DrawableObject {
     lastHit = 0;
     colliding_detecting = true;
     coinsCollected = 0;
-    bottlesCollected = 0;    
+    bottlesCollected = 0;
+
+    TIME_RESET_HURT = 1; // in seconds
 
     offset = {
         top: 0,
@@ -22,7 +24,7 @@ class  MoveableObject extends DrawableObject {
         right: 0,
         bottom: 0
     };
-    energy = 100;
+    energy = 10;
     
     constructor(x, y, img) {
         super();
