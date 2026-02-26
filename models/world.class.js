@@ -44,7 +44,7 @@ class World {
     checkCollisionsOfCharacter() {
         if (this.level instanceof Level) {
             this.level.enemies.forEach(enemy => {
-                if (this.character.colliding_detecting && this.character.isColliding(enemy) && !this.character.isJumpingOnTop(enemy) && !enemy.dead) {
+                if (this.character.colliding_detecting && this.character.isColliding(enemy) && !this.character.isJumpingOnTop(enemy) && !enemy.dead && !this.character.isHit()) {
                     this.character.hit();
                     this.statusBarHealth.setPercentage(this.character.energy);
                     this.character.checkIsDead();
