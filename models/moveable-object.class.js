@@ -33,17 +33,6 @@ class  MoveableObject extends DrawableObject {
         this.img = img;
     }
 
-
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottle) {
-            ctx.beginPath();
-            ctx.lineWidth = '2';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right - this.offset.left, this.height - this.offset.top - this.offset.bottom);
-            ctx.stroke();
-        }
-    }
-
     
     autoMoveLeft(start_position_x, width_object) {
         this.x = start_position_x;

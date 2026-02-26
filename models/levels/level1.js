@@ -6,10 +6,10 @@ const numberOfChickens = 5;
 const numberOfSmallChickens = 5;
 const numberOfBottles = 10;
 const coins = [];
-// initLevel();
+
 
 function initLevel() {
-    coins.length = 0; // Clear existing coins before creating new ones
+    coins.length = 0;
     level1 = new Level(
         [
             ...createArrayOfObjects(numberOfSmallChickens, ChickenSmall),
@@ -37,6 +37,13 @@ function initLevel() {
     createRandomCoinBlocks2x2(numberOfCoinsBlock)
 }
 
+
+/**
+ * 
+ * @param {number} numberOfElements 
+ * @param {new (...args: any[]) => any} object - Constructor function of the object type
+ * @returns {any[]} Array of created objects
+ */
 function createArrayOfObjects(numberOfElements, object) {
     return Array.from({ length: numberOfElements }, () => new object());
 }
@@ -45,8 +52,7 @@ function createArrayOfObjects(numberOfElements, object) {
  * Erzeugt ein Array von Coins, die harmonisch (z.B. sinusförmig) im Bereich x=300..1500 und y=150..400 angeordnet sind.
  * Die Coins werden wie in Sonic the Hedgehog platziert.
  * @param {number} count - Anzahl der Coins
- * @returns {Coin[]} Array von Coin-Objekten mit passenden x/y-Koordinaten
- */
+ * @returns {Array<>} Array von Coin-Objekten mit passenden x/y-Koordinaten */
 function createHarmonicCoins(count) {
     const frequency = 2;
     const xStart = 300;
@@ -71,7 +77,7 @@ function createHarmonicCoins(count) {
  * @param {number} [xEnd=3000] - End-x-Position
  * @param {number} [yStart=150] - Start-y-Position
  * @param {number} [yEnd=400] - End-y-Position
- * @returns {Coin[]} Array von Coin-Objekten als zufällig verteilte 2x2 Blöcke
+ * @returns {Array} Array von Coin-Objekten als zufällig verteilte 2x2 Blöcke
  */
 function createRandomCoinBlocks2x2(totalCoins, xStart = 1700, xEnd = 3000, yStart = 120, yEnd = 360) {
     const blockWidthPx = 40;

@@ -105,6 +105,7 @@ class Character extends MoveableObject {
         let interval_playCharacter = setInterval(() => this.playCharacter(imagePathsArr), 1000/speedAnimation);
         window.activeIntervals.push(interval_moveCharacter, interval_playCharacter);
     }
+    
 
     sleepCharacter() {
         let currentTime = new Date().getTime();
@@ -116,6 +117,7 @@ class Character extends MoveableObject {
             this.playMultiLoopAnimation(this.CHARACTER_IDLE_SHORT_IMAGES);
         }
     }
+
     
     moveCharacter() {
         if (this.dead) {
@@ -124,18 +126,15 @@ class Character extends MoveableObject {
         if (this.canMoveRight()) {
             this.moveRight();
             this.getLastMoveTime();
-            // this.walking_sound.play();
         }
         if (this.canMoveLeft()) {
             this.moveLeft();
             this.getLastMoveTime();
-            // this.walking_sound.play();
         }
         if (this.canJump()) {
             this.currentImageIndex = 0;
             this.canFallDownState = true;
             this.world.sounds.playJumpSound();
-            // this.playJumpSound();
             this.jump();
             this.isJumping = true;
             this.getLastMoveTime();
@@ -153,6 +152,7 @@ class Character extends MoveableObject {
         }
         this.world.camera_x = -this.x + 100;
     }
+
     
     playCharacter(imagePathsArr) {
         if (this.isJumping && this.speedY > 0   ) {
@@ -181,9 +181,11 @@ class Character extends MoveableObject {
         }
     }
 
+
     canMoveRight() {
         return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
     };
+
 
     canMoveLeft() {
         return this.world.keyboard.LEFT && this.x > this.world.level.level_start_x;

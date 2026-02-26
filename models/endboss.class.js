@@ -174,27 +174,6 @@ class Endboss extends MoveableObject {
             this.x = this.ENDBOSS_RIGHT_EDGE;
             this.otherDirection = false;
          }
-    }  
-
-
-    /**
-     * Zeichnet die Begrenzungslinien für den Endboss-Bereich
-     * @param {CanvasRenderingContext2D} ctx - Canvas Kontext
-     */
-    drawLines(ctx) {
-        // Linke Begrenzung
-        ctx.beginPath();
-        ctx.strokeStyle = 'red';
-        ctx.moveTo(this.ENDBOSS_LEFT_EDGE, 0);
-        ctx.lineTo(this.ENDBOSS_LEFT_EDGE, this.HEIGHT_CANVAS);
-        ctx.stroke();
-
-        // Rechte Begrenzung
-        ctx.beginPath();
-        ctx.strokeStyle = 'red';
-        ctx.moveTo(this.ENDBOSS_RIGHT_EDGE + this.width, 0);
-        ctx.lineTo(this.ENDBOSS_RIGHT_EDGE + this.width, this.HEIGHT_CANVAS);
-        ctx.stroke();
     }
 
 
