@@ -3,7 +3,7 @@ let world;
 let keyboard = new Keyboard();
 let sounds = new Sounds();
 let stateOfFullscreen = false;
-window.sounds = sounds; // Make sounds globally accessible for other classes
+window.sounds = sounds;
 window.activeIntervals = [];
 window.isMuted = false;
 
@@ -20,6 +20,9 @@ game_over_sound.volume = 0.8;
 game_music_loop.volume = 0.1;
 
 
+/**
+ * Initializes the game, sets up canvas and containers, starts music, and sets mute state.
+ */
 function init() {
     canvas = document.getElementById('canvas');
     document.getElementById('canvas_container').classList.remove('d-none');
@@ -35,6 +38,9 @@ function init() {
 }
 
 
+/**
+ * Ends the game, clears intervals, stops music, and resets world.
+ */
 function endGame() {
     if (world) {
         window.activeIntervals.forEach(clearInterval);
@@ -45,6 +51,9 @@ function endGame() {
 }
 
 
+/**
+ * Restarts the game, clears state, reinitializes level and game.
+ */
 function restartGame() {
     world = null;
     window.activeIntervals.forEach(clearInterval);
@@ -54,12 +63,18 @@ function restartGame() {
 }
 
 
+/**
+ * Stops game music loop and other sound loops.
+ */
 function stopMusicAndSoundsLoops() {
     world.sounds.stop(world.sounds.GAME_MUSIC_LOOP);
     world.sounds.stop(world.sounds.WALKING_ENDBOSS_SOUND);
 }
 
 
+/**
+ * Shows the win screen, updates containers, plays win sound.
+ */
 function showYouWinScreen() {
     document.getElementById('you_win_container').classList.remove('d-none');
     document.getElementById('canvas_container').classList.add('d-none');
@@ -69,6 +84,9 @@ function showYouWinScreen() {
 }
 
 
+/**
+ * Shows game over screen, updates containers, plays game over sound.
+ */
 function showGameOverScreen() {
     document.getElementById('game_over_container').classList.remove('d-none');
     document.getElementById('canvas_container').classList.add('d-none');
@@ -78,6 +96,9 @@ function showGameOverScreen() {
 }
 
 
+/**
+ * Toggles mute state for all sounds and updates mute button and local storage.
+ */
 function toggleMute() {
     window.isMuted = !window.isMuted;
     you_won_sound.muted = window.isMuted;
@@ -86,6 +107,51 @@ function toggleMute() {
     window.sounds.soundEffectsArray.forEach(sound => sound.muted = window.isMuted);
     document.getElementById('muteButton').textContent = window.isMuted ? '🔇' : '🔈';
     saveMuteStateInLocalStorage();
+}
+
+
+/**
+ * Retrieves mute state from local storage and updates global variable.
+ */
+function getMuteStateFromLocalStorage(){
+    let storedMuteState = localStorage.getItem('isMuted');
+    if (storedMuteState !== null){
+        window.isMuted = JSON.parse(storedMuteState);
+    }
+}
+
+
+/**
+ * Saves current mute state in local storage.
+ */
+function saveMuteStateInLocalStorage(){
+    localStorage.setItem("isMuted", JSON.stringify(window.isMuted));
+}
+
+
+/**
+ * Sets last mute state on mute button and updates all sounds.
+ */
+function setLastMutedStateOnButton() {
+    getMuteStateFromLocalStorage();
+    const muteButton = document.getElementById('muteButton');
+    if (window.isMuted) {
+        muteButton.textContent = '🔇';
+    } else {
+        muteButton.textContent = '🔈';
+    }
+    setMuteStateToSounds();
+}
+
+
+/**
+ * Sets mute state for all sounds based on window.isMuted.
+ */
+function setMuteStateToSounds() {
+    you_won_sound.muted = window.isMuted;
+    game_over_sound.muted = window.isMuted;
+    game_music_loop.muted = window.isMuted;
+    window.sounds.soundEffectsArray.forEach(sound => sound.muted = window.isMuted);
 }
 
 
@@ -107,36 +173,3 @@ window.addEventListener("keyup", (e) => {
     if (e.key === " ") keyboard.SPACE = false;
     if (e.key === "d") keyboard.D = false;
 });
-
-
-function getMuteStateFromLocalStorage(){
-  let storedMuteState = localStorage.getItem('isMuted');
-  if (storedMuteState !== null){
-    window.isMuted = JSON.parse(storedMuteState);
-  }
-}
-
-
-function saveMuteStateInLocalStorage(){
-  localStorage.setItem("isMuted", JSON.stringify(window.isMuted));
-}
-
-
-function setLastMutedStateOnButton() {
-    getMuteStateFromLocalStorage();
-    const muteButton = document.getElementById('muteButton');
-    if (window.isMuted) {
-        muteButton.textContent = '🔇';
-    } else {
-        muteButton.textContent = '🔈';
-    }
-    setMuteStateToSounds();
-}
-
-
-function setMuteStateToSounds() {
-    you_won_sound.muted = window.isMuted;
-    game_over_sound.muted = window.isMuted;
-    game_music_loop.muted = window.isMuted;
-    window.sounds.soundEffectsArray.forEach(sound => sound.muted = window.isMuted);
-}
