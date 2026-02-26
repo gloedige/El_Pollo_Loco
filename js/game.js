@@ -19,6 +19,7 @@ you_won_sound.volume = 0.4;
 game_over_sound.volume = 0.8;
 game_music_loop.volume = 0.1;
 
+
 function init() {
     canvas = document.getElementById('canvas');
     document.getElementById('canvas_container').classList.remove('d-none');

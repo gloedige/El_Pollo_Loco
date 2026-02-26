@@ -22,6 +22,7 @@ class ChickenSmall extends MoveableObject {
     lastJumpTime = 0;
     JUMPCOOLDOWN = 1000; // in milliseconds
     speed = 0;
+    
 
     constructor() {
         super().loadImage(this.CHICKEN_SMALL_WALKING_IMAGES[0]);
