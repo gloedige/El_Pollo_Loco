@@ -1,3 +1,6 @@
+/**
+ * ChickenSmall class represents the small chicken enemy, handling its movement, animations, and behavior.
+ */
 class ChickenSmall extends MoveableObject {
     height = 60;
     width = 50;
@@ -20,10 +23,13 @@ class ChickenSmall extends MoveableObject {
         bottom: 10
     };
     lastJumpTime = 0;
-    JUMPCOOLDOWN = 1000; // in milliseconds
+    JUMPCOOLDOWN = 1000;
     speed = 0;
     
 
+    /**
+     * Creates a new ChickenSmall instance, sets initial position, loads images, starts animation, and applies gravity.
+     */
     constructor() {
         super().loadImage(this.CHICKEN_SMALL_WALKING_IMAGES[0]);
         this.x = 300 + Math.random() * 2470;
@@ -37,12 +43,20 @@ class ChickenSmall extends MoveableObject {
     }
 
 
+    /**
+     * Starts animation interval for chicken jump.
+     * @param {string[]} imagePathsArr - Array of image paths for animation.
+     */
     animateOnJump(imagePathsArr) {
         let interval_playChicken = setInterval(() => this.playChickenOnJump(imagePathsArr), 1000/12);
         window.activeIntervals.push(interval_playChicken);
     }
 
 
+    /**
+     * Plays the appropriate animation based on chicken state (dead, jumping, or waiting).
+     * @param {string[]} imagePathsArr - Array of image paths for animation.
+     */
     playChickenOnJump(imagePathsArr) {
         if (this.dead) {
             this.playSingleLoopAnimation(this.CHICKEN_SMALL_DEAD_IMAGE);
