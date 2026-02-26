@@ -63,6 +63,8 @@ class Character extends MoveableObject {
     world;
     speed = 6;
     energy = 200;
+    lastThrowTime = 0;
+    TIME_RESET_THROW = 1000; // in milliseconds
     offset = {
         top: 120,
         left: 40,
@@ -260,5 +262,15 @@ class Character extends MoveableObject {
         if (this.bottlesCollected > 0) {
             this.bottlesCollected--;
         }
+    }
+
+
+    allowThrow() {
+        let currentTime = new Date().getTime();
+        let timeSinceLastThrow = currentTime - this.lastThrowTime;
+        if (timeSinceLastThrow > this.TIME_RESET_THROW) {
+            return true;
+        }
+        return false;
     }
 }

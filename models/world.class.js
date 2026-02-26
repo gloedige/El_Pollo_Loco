@@ -30,8 +30,8 @@ class World {
 
     run(){
         let interval_checkCollisions = setInterval(() => {
-            this.checkCollisionsOfCharacter();
             this.checkThrowObjects();
+            this.checkCollisionsOfCharacter();
         }, 1000/10);
         let interval_checkJumpingOnTop = setInterval(() => {
             this.checkJumpingOnTop();
@@ -105,11 +105,12 @@ class World {
 
     
     checkThrowObjects() {
-        if (this.keyboard.SPACE && this.character.bottlesCollected > 0) {;
+        if (this.keyboard.SPACE && this.character.bottlesCollected > 0 && this.character.allowThrow()) {;
             let bottle = new ThrowableObject(this.character.x + this.character.width/2, this.character.y + this.character.height / 3, this.character.otherDirection);
             this.throwableObjects.push(bottle);
             this.character.removeCollectedBottle();
             this.updateStatusBarBottles();
+            this.character.lastThrowTime = new Date().getTime();
         }
     }
 

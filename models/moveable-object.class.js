@@ -215,9 +215,9 @@ class  MoveableObject extends DrawableObject {
     pauseJumping(){
         let currentTime = new Date().getTime();
         if (currentTime - this.lastJumpTime < this.JUMPCOOLDOWN) {
-            return true; // still in cooldown, pause jumping
+            return true;
         }
-        return false; // cooldown finished, allow jumping
+        return false;
     }
 
     
