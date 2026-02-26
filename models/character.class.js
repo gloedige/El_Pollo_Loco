@@ -1,3 +1,6 @@
+/**
+ * Character class represents the main character in the game, handling movement, animations, and interactions.
+ */
 class Character extends MoveableObject {
     width = 140;
     CHARACTER_IDLE_SHORT_IMAGES = [
@@ -58,13 +61,13 @@ class Character extends MoveableObject {
         './img/2_character_pepe/5_dead/D-56.png',
         './img/2_character_pepe/5_dead/D-57.png',
     ];
-    TIME_RESET_HURT = 1.5; // in seconds
-    SLEEP_TIME_THRESHOLD = 15000; // in milliseconds
+    TIME_RESET_HURT = 1.5;
+    SLEEP_TIME_THRESHOLD = 15000;
     world;
     speed = 6;
     energy = 200;
     lastThrowTime = 0;
-    TIME_RESET_THROW = 1000; // in milliseconds
+    TIME_RESET_THROW = 1000;
     offset = {
         top: 120,
         left: 40,
@@ -76,7 +79,11 @@ class Character extends MoveableObject {
     isJumping = false;
     isCharacterSleepingSoundPlaying = false;
     isCharacterHitSoundPlaying = false;
+
         
+    /**
+     * Creates a new Character instance, loads images, sets initial position, and starts animation.
+     */
     constructor() {
         super().loadImage(this.CHARACTER_WALKING_IMAGES[0]);
         this.height = 250;
@@ -91,15 +98,22 @@ class Character extends MoveableObject {
         this.loadImages(this.CHARACTER_DEAD_IMAGES);
         this.animate(this.CHARACTER_WALKING_IMAGES, 10);
         this.applyGravity();
-        
     }
 
 
+    /**
+     * Updates the last move time to the current time.
+     */
     getLastMoveTime() {
         this.lastMoveTime = new Date().getTime();
     }
     
     
+    /**
+     * Starts character movement and animation intervals.
+     * @param {string[]} imagePathsArr - Array of image paths for animation.
+     * @param {number} speedAnimation - Animation speed.
+     */
     animate(imagePathsArr, speedAnimation) {
         let interval_moveCharacter = setInterval(() => this.moveCharacter(), 1000/60);        
         let interval_playCharacter = setInterval(() => this.playCharacter(imagePathsArr), 1000/speedAnimation);
@@ -107,6 +121,9 @@ class Character extends MoveableObject {
     }
     
 
+    /**
+     * Plays sleeping animation and sound if character is inactive.
+     */
     sleepCharacter() {
         let currentTime = new Date().getTime();
         if (currentTime - this.lastMoveTime > this.SLEEP_TIME_THRESHOLD) { // 15 seconds of inactivity
@@ -119,99 +136,190 @@ class Character extends MoveableObject {
     }
 
     
+    /**
+     * Handles character movement based on keyboard input and updates camera position.
+     */
     moveCharacter() {
-        if (this.dead) {
-            return;
-        }
-        if (this.canMoveRight()) {
-            this.moveRight();
-            this.getLastMoveTime();
-        }
-        if (this.canMoveLeft()) {
-            this.moveLeft();
-            this.getLastMoveTime();
-        }
-        if (this.canJump()) {
-            this.currentImageIndex = 0;
-            this.canFallDownState = true;
-            this.world.sounds.playJumpSound();
-            this.jump();
-            this.isJumping = true;
-            this.getLastMoveTime();
-        }
-        
-        if (this.canFallDown()) {
-            if (!this.hasFallingAnimationStarted) {
-                this.currentImageIndex = 0;
-                this.isJumping = false;
-                this.hasFallingAnimationStarted = true;
-            }
-        }
-        else {
-            this.hasFallingAnimationStarted = false;
-        }
+        if (this.dead) return;
+        if (this.canMoveRight()) this.handleCharacterMoveRight();
+        if (this.canMoveLeft()) this.handleCharacterMoveLeft();
+        if (this.canJump()) this.handleCharacterJump();
+        if (this.canFallDown()) this.handleCharacterCanFallDown();
+        else this.hasFallingAnimationStarted = false;
         this.world.camera_x = -this.x + 100;
     }
 
     
+    /**
+     * Plays the appropriate animation based on character state.
+     * @param {string[]} imagePathsArr - Array of image paths for animation.
+     */
     playCharacter(imagePathsArr) {
-        if (this.isJumping && this.speedY > 0   ) {
-            this.playSingleLoopAnimation(this.CHARACTER_JUMPING_PART_1_IMAGES);
-            this.stopCharacterSleepingSound();
-        }
-        else if (this.isJumpingDown()) {
-            this.playSingleLoopAnimation(this.CHARACTER_JUMPING_PART_2_IMAGES);
-            this.stopCharacterSleepingSound();
-        }
-        else if (this.isMoving()) {
-            this.playMultiLoopAnimation(imagePathsArr);
-            this.stopCharacterSleepingSound();
-        }
-        else if (this.dead) {
-            this.playSingleLoopAnimation(this.CHARACTER_DEAD_IMAGES);
-            this.stopCharacterSleepingSound();
-        }
-        else if (this.isHit()) {
-            this.playMultiLoopAnimation(this.CHARACTER_HURT_IMAGES);
-            this.stopCharacterSleepingSound();
-            this.playCharacterIsHitSound();
-        }
-        else {
-            this.sleepCharacter();
-        }
+        if (this.checkCharacterIsJumping()) this.handleJumpAnimations();
+        else if (this.isFallingDown()) this.handleFallingDownAnimations();
+        else if (this.isMoving()) this.handleIsMovingAnimations(imagePathsArr);
+        else if (this.dead) this.handleDeadAnimations();
+        else if (this.isHit()) this.handleCharacterIsHitAnimations();
+        else this.sleepCharacter();
     }
 
 
+    /**
+     * Moves character right and updates last move time.
+     */
+    handleCharacterMoveRight() {
+        this.moveRight();
+        this.getLastMoveTime();
+    }
+
+
+    /**
+     * Moves character left and updates last move time.
+     */
+    handleCharacterMoveLeft() {
+        this.moveLeft();
+        this.getLastMoveTime();
+    }
+
+
+    /**
+     * Handles character jump, plays jump sound, and updates state.
+     */
+    handleCharacterJump() {
+        this.currentImageIndex = 0;
+        this.canFallDownState = true;
+        this.world.sounds.playJumpSound();
+        this.jump();
+        this.isJumping = true;
+        this.getLastMoveTime();
+    }
+
+
+    /**
+     * Handles character falling down animation and state.
+     */
+    handleCharacterCanFallDown() {
+        if (!this.hasFallingAnimationStarted) {
+            this.currentImageIndex = 0;
+            this.isJumping = false;
+            this.hasFallingAnimationStarted = true;
+        }
+    }
+    
+
+    /**
+     * Plays dead animation and stops sleeping sound.
+     */
+    handleDeadAnimations() {
+        this.playSingleLoopAnimation(this.CHARACTER_DEAD_IMAGES);
+        this.stopCharacterSleepingSound();
+    }
+
+
+    /**
+     * Plays hit animation, stops sleeping sound, and plays hit sound.
+     */
+    handleCharacterIsHitAnimations() {
+        this.playMultiLoopAnimation(this.CHARACTER_HURT_IMAGES);
+        this.stopCharacterSleepingSound();
+        this.playCharacterIsHitSound();
+    }
+
+
+    /**
+     * Checks if character is jumping upwards.
+     * @returns {boolean}
+     */
+    checkCharacterIsJumping() {
+        return this.isJumping && this.speedY > 0;
+    }
+
+
+    /**
+     * Plays jump animation and stops sleeping sound.
+     */
+    handleJumpAnimations() {
+        this.playSingleLoopAnimation(this.CHARACTER_JUMPING_PART_1_IMAGES);
+        this.stopCharacterSleepingSound();
+    }
+
+
+    /**
+     * Plays falling down animation and stops sleeping sound.
+     */
+    handleFallingDownAnimations() {
+        this.playSingleLoopAnimation(this.CHARACTER_JUMPING_PART_2_IMAGES);
+        this.stopCharacterSleepingSound();
+    }
+
+
+    /**
+     * Plays moving animation and stops sleeping sound.
+     * @param {string[]} imagePathsArr - Array of image paths for animation.
+     */
+    handleIsMovingAnimations(imagePathsArr) {
+        this.playMultiLoopAnimation(imagePathsArr);
+        this.stopCharacterSleepingSound();
+    }
+
+
+    /**
+     * Checks if character can move right.
+     * @returns {boolean}
+     */
     canMoveRight() {
         return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
     };
 
 
+    /**
+     * Checks if character can move left.
+     * @returns {boolean}
+     */
     canMoveLeft() {
         return this.world.keyboard.LEFT && this.x > this.world.level.level_start_x;
     };
 
 
+    /**
+     * Checks if character can jump.
+     * @returns {boolean}
+     */
     canJump() {
         return this.world.keyboard.UP && !this.isAboveGround();
     }
 
 
+    /**
+     * Checks if character can fall down.
+     * @returns {boolean}
+     */
     canFallDown() {
         return this.isAboveGround() && (this.speedY <= 0);
     }
 
 
-    isJumpingDown() {
+    /**
+     * Checks if character is falling down.
+     * @returns {boolean}
+     */
+    isFallingDown() {
         return this.isAboveGround() && !this.dead && this.speedY < 0;
     }
 
 
+    /**
+     * Checks if character is moving.
+     * @returns {boolean}
+     */
     isMoving() {
         return (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.dead && !this.isAboveGround() && !this.isHurt();
     }
 
 
+    /**
+     * Plays character hit sound if not already playing.
+     */
     playCharacterIsHitSound() {
         if (!this.isCharacterHitSoundPlaying) {
             this.isCharacterHitSoundPlaying = true;
@@ -223,6 +331,9 @@ class Character extends MoveableObject {
     }
 
 
+    /**
+     * Plays character sleeping sound if not already playing.
+     */
     playCharacterIsSleepingSound() {
         if (!this.isCharacterSleepingSoundPlaying) {
             this.isCharacterSleepingSoundPlaying = true;
@@ -234,6 +345,9 @@ class Character extends MoveableObject {
     }
 
 
+    /**
+     * Stops character sleeping sound if playing.
+     */
     stopCharacterSleepingSound() {
         if (this.world && this.world.sounds && this.isCharacterSleepingSoundPlaying) {
             this.world.sounds.CHARACTER_SLEEPING_SOUND.pause();
@@ -243,6 +357,11 @@ class Character extends MoveableObject {
     }
 
 
+    /**
+     * Checks if character is jumping on top of another object.
+     * @param {MoveableObject} movableObject - The object to check against.
+     * @returns {boolean}
+     */
     isJumpingOnTop(movableObject) {
         return  this.y + this.height - this.offset.bottom < movableObject.y + movableObject.height/2 &&
                 this.y + this.height - this.offset.bottom > movableObject.y + movableObject.offset.top &&
@@ -250,29 +369,38 @@ class Character extends MoveableObject {
     }
 
 
+    /**
+     * Increments the number of coins collected by the character.
+     */
     collectCoin() {
         this.coinsCollected = (this.coinsCollected || 0) + 1;
     }
 
 
+    /**
+     * Increments the number of bottles collected by the character.
+     */
     collectBottles() {
         this.bottlesCollected = (this.bottlesCollected || 0) + 1;
     }
 
 
+    /**
+     * Decrements the number of bottles collected if greater than zero.
+     */
     removeCollectedBottle() {
-        if (this.bottlesCollected > 0) {
-            this.bottlesCollected--;
-        }
+        if (this.bottlesCollected > 0) this.bottlesCollected--;
     }
 
 
+    /**
+     * Checks if enough time has passed since the last throw to allow another.
+     * @returns {boolean}
+     */
     allowThrow() {
         let currentTime = new Date().getTime();
         let timeSinceLastThrow = currentTime - this.lastThrowTime;
-        if (timeSinceLastThrow > this.TIME_RESET_THROW) {
-            return true;
-        }
+        if (timeSinceLastThrow > this.TIME_RESET_THROW) return true;
         return false;
     }
 }

@@ -1,3 +1,7 @@
+/**
+ * Class representing a bottle in the game. Bottles are collectible items that the player can pick up.
+ * They have a random image from a predefined set and are placed at random positions on the ground.
+ */
 class Bottle extends MoveableObject {
     height = 100;
     width = 100;
@@ -15,6 +19,10 @@ class Bottle extends MoveableObject {
         bottom: 10
     };
 
+
+    /**
+     * Initializes a new bottle with a random image and random position on the ground.
+     */
     constructor() {
         super().loadImage(this.BOTTLE_IMAGES[0]);
         this.x = 300 + Math.random() * (this.level_end_x - 300);
@@ -24,6 +32,11 @@ class Bottle extends MoveableObject {
     }
 
 
+    
+    /**
+     * Selects a random image from the provided array of image paths and sets it as the bottle's current image.
+     * @param {string[]} imagePathsArr - Array of image paths
+     */
     selectRandomImage(imagePathsArr) {
         let i = Math.floor(Math.random() * imagePathsArr.length);
         let path = imagePathsArr[i];
