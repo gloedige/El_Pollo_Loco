@@ -1,3 +1,7 @@
+/**
+ * Represents the Endboss enemy in the game.
+ * @extends MoveableObject
+ */
 class Endboss extends MoveableObject {
     height = 400;
     width = 250;
@@ -65,6 +69,9 @@ class Endboss extends MoveableObject {
     REACH_END_BOSS_X_POSITION = 3000;
     characterReachesEndboss = false;
 
+    /**
+     * Creates a new Endboss instance and initializes its properties.
+     */
     constructor() {
         super().loadImage(this.ENDBOSS_ALERT_IMAGES[0]);
         this.x = this.ENDBOSS_START_X_POSITION;
@@ -82,6 +89,11 @@ class Endboss extends MoveableObject {
     }
 
 
+    /**
+     * Starts the endboss animation loop and movement.
+     * @param {string[]} imagePathsArr - Array of image paths for animation.
+     * @param {number} speedAnimation - Animation speed (frames per second).
+     */
     animate(imagePathsArr, speedAnimation) {
         let interval_moveEndboss = setInterval(() => this.autoMoveEndboss(), 1000/25);
         let interval_playEndboss = setInterval(() => this.playEndboss(imagePathsArr), 1000/speedAnimation);
@@ -90,6 +102,9 @@ class Endboss extends MoveableObject {
     }
 
 
+    /**
+     * Handles automatic movement and actions of the endboss.
+     */
     autoMoveEndboss() {
         if (this.dead) {
             return;
@@ -100,17 +115,23 @@ class Endboss extends MoveableObject {
             this.handleJumping();
         }
     }
-    
-    
+
+
+    /**
+     * Handles endboss jumping logic and animation.
+     */
     handleJumping() {
         this.jumpRandomly();
         if (this.isAboveGround() && !this.isHit()) {
             this.playMultiLoopAnimation(this.ENDBOSS_JUMP_IMAGES);
         }
-    
     }
 
 
+    /**
+     * Plays the endboss animation depending on its state (dead, hurt, attacking, walking, or alert).
+     * @param {string[]} imagePathsArr - Array of image paths for animation.
+     */
     playEndboss(imagePathsArr) {
         if (this.dead) {
             this.playSingleLoopAnimation(this.ENDBOSS_DEAD_IMAGES);
@@ -128,7 +149,10 @@ class Endboss extends MoveableObject {
         }
     }
 
-    
+
+    /**
+     * Plays the endboss walking sound if not already playing.
+     */
     playEndbossIsWalkingSound() {
         if (!this.isEndbossWalkingSoundPlaying && this.world && this.world.sounds) {
             this.isEndbossWalkingSoundPlaying = true;
@@ -138,8 +162,11 @@ class Endboss extends MoveableObject {
             this.world.sounds.WALKING_ENDBOSS_SOUND.loop = true;
         }
     }
-    
-    
+
+
+    /**
+     * Stops the endboss walking sound and resets its state.
+     */
     stopEndbossWalkingSound() {
         if (this.world && this.world.sounds) {
             this.world.sounds.WALKING_ENDBOSS_SOUND.loop = false;
@@ -147,13 +174,20 @@ class Endboss extends MoveableObject {
             this.world.sounds.WALKING_ENDBOSS_SOUND.currentTime = 0;
         }
     }
-    
-    
+
+
+    /**
+     * Determines if the final fight with the endboss should start.
+     * @returns {boolean}
+     */
     startFinalFight() {
         return this.characterReachesEndboss && !(this.world.character && this.world.character.dead);
     }
-    
-    
+
+
+    /**
+     * Moves the endboss left or right based on direction.
+     */
     moveEndboss() {
         if (!this.otherDirection){
             this.x -= this.speed;
@@ -164,7 +198,10 @@ class Endboss extends MoveableObject {
         }
     }
 
-    
+
+    /**
+     * Handles movement boundaries for the endboss.
+     */
     handleMovementThresholds() {
         if (this.x <= this.ENDBOSS_LEFT_EDGE) {
             this.x = this.ENDBOSS_LEFT_EDGE;
@@ -175,12 +212,14 @@ class Endboss extends MoveableObject {
             this.otherDirection = false;
          }
     }
+    
 
-
+    /**
+     * Checks if the character has reached the endboss and updates state.
+     */
     hasReachedEndboss() {
         if (this.world && this.world.character && this.world.character.x >= this.REACH_END_BOSS_X_POSITION) {
             this.characterReachesEndboss = true;
         }
     }
-
 }
