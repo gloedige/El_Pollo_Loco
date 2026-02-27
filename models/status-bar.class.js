@@ -1,3 +1,7 @@
+/**
+ * Class representing a status bar (health, coins, bottles).
+ * @extends DrawableObject
+ */
 class StatusBar extends DrawableObject {
     percentage = 100;
     HEALTH_STATUS_BAR_IMAGES = [
@@ -27,6 +31,15 @@ class StatusBar extends DrawableObject {
 
     STATUS_BAR_IMAGES = [];
     
+
+    /**
+     * Creates a new status bar.
+     * @param {number} x - X position.
+     * @param {number} y - Y position.
+     * @param {string} imageString - Type of status bar ('health', 'coins', 'bottles').
+     * @param {number} energy - Current energy value.
+     * @param {number} totalEnergy - Total energy value for percentage calculation.
+     */
     constructor(x, y, imageString, energy, totalEnergy) {
         super();
         this.STATUS_BAR_IMAGES = this[imageString.toUpperCase() + '_STATUS_BAR_IMAGES'];
@@ -40,6 +53,11 @@ class StatusBar extends DrawableObject {
         this.height = 50;
     }
 
+
+    /**
+     * Sets the current energy and updates the status bar image.
+     * @param {number} currentEnergy - The current energy value.
+     */
     setPercentage(currentEnergy) {
         this.energy = currentEnergy;
         this.getPercentage();
@@ -48,6 +66,11 @@ class StatusBar extends DrawableObject {
 
     }
 
+
+    /**      
+     * Determines the index of the image to display based on the current percentage.
+     * @returns {number} The index of the image to display.
+     */
     getIndexOfImageForPercentage() {
         if (this.percentage <= 0) {
             return 0;
@@ -60,7 +83,10 @@ class StatusBar extends DrawableObject {
         return index;
     }
 
-
+    
+    /**
+     * Calculates the current percentage based on energy and total energy.
+     */
     getPercentage() {
         this.percentage = (this.energy / this.totalEnergy) * 100;
     }
