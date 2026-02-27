@@ -1,3 +1,6 @@
+/**
+ * Class representing a drawable object in the game.
+ */
 class DrawableObject {
     x;
     y;
@@ -7,6 +10,11 @@ class DrawableObject {
     imagesCache = {};
     currentImageIndex = 0;
 
+
+    /**
+     * Draws the object on the canvas.
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+     */
     draw(ctx) {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
@@ -16,13 +24,20 @@ class DrawableObject {
         }
     }
 
-
+    /**
+     * Loads an image from the specified path.
+     * @param {string} path - The path to the image file.
+     */
     loadImage(path) {
         this.img = new Image(); // <img>
         this.img.src = path;
     }
     
     
+    /**
+     * Loads multiple images from the specified paths.
+     * @param {Array<string>} arr - Array of image paths.
+     */
     loadImages(arr){
         arr.forEach ((path) => {
             try {
