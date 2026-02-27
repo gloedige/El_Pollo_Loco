@@ -7,7 +7,7 @@ class World {
     statusBarHealth = new StatusBar(10, 0, 'health', this.character.TOTAL_ENERGY, this.character.energy);
     statusBarCoins = new StatusBar(10, 40, 'coins', 0, numberOfCoins);
     statusBarBottles = new StatusBar(10, 80, 'bottles', 0, numberOfBottles);
-    statusBarEndboss = new StatusBar(500, 5, 'endboss', this.getTotalEnergyOfEndboss(), this.getEndbossEnergy());
+    statusBarEndboss = new StatusBar(500, 45, 'endboss', this.getTotalEnergyOfEndboss(), this.getEndbossEnergy());
     throwableObjects = [];
     
     start_background_x_1 = 0;
