@@ -149,9 +149,107 @@ canvas {
 .mute-btn {
     position: absolute;
     top: 16px;
+    right: 64px;
+    z-index: 10;
+    background: transparent;
+    background-image: url('./img/10_button/unmuted_icon.svg');
+    background-size: cover;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.close-btn {
+    position: absolute;
+    top: 16px;
     right: 16px;
     z-index: 10;
-    background: rgba(255,255,255,0.5);
+    background: transparent;
+    background-image: url('./img/10_button/close_icon.svg');
+    background-size: cover;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.restart-btn {
+    position: absolute;
+    top: 16px;
+    right: 114px;
+    z-index: 10;
+    background: transparent;
+    background-image: url('./img/10_button/restart_game_icon.svg');
+    background-size: cover;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.throw-bottle-btn {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    z-index: 10;
+    background: transparent;
+    background-image: url('./img/10_button/attack_icon.svg');
+    background-size: cover;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.jump-btn {
+    position: absolute;
+    bottom: 16px;
+    left: 70px;
+    z-index: 10;
+    background: transparent;
+    background-image: url('./img/10_button/jump_icon.svg');
+    background-size: cover;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.move-right-btn {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    z-index: 10;
+    background: transparent;
+    background-image: url('./img/10_button/move_right_icon.svg');
+    background-size: cover;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.move-left-btn {
+    position: absolute;
+    bottom: 16px;
+    right: 70px;
+    z-index: 10;
+    background: transparent;
+    background-image: url('./img/10_button/move_left_icon.svg');
+    background-size: cover;
     border: none;
     border-radius: 50%;
     width: 40px;
