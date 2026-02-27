@@ -55,6 +55,7 @@ function endGame() {
  * Restarts the game, clears state, reinitializes level and game.
  */
 function restartGame() {
+    endGame();
     world = null;
     window.activeIntervals.forEach(clearInterval);
     window.activeIntervals = [];
