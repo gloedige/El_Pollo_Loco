@@ -18,9 +18,9 @@ function initLevel() {
     coins.length = 0;
     level1 = new Level(
         [
+            new Endboss(),
             ...createArrayOfObjects(numberOfSmallChickens, ChickenSmall),
-            ...createArrayOfObjects(numberOfChickens, Chicken),
-            new Endboss()
+            ...createArrayOfObjects(numberOfChickens, Chicken)
         ],
         [
             new Cloud(20),

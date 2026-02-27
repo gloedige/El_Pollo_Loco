@@ -54,7 +54,8 @@ class Endboss extends MoveableObject {
     ENDBOSS_START_X_POSITION = 3500;
     ENDBOSS_LEFT_EDGE = this.ENDBOSS_START_X_POSITION - 500;
     ENDBOSS_RIGHT_EDGE = this.ENDBOSS_START_X_POSITION + 220 - this.width;
-    
+    TOTAL_ENERGY = 50;
+    energy = this.TOTAL_ENERGY;
     world;
     direction = 'left';
     offset = {
@@ -83,7 +84,6 @@ class Endboss extends MoveableObject {
         this.loadImages(this.ENDBOSS_DEAD_IMAGES);
         this.applyGravity();
         this.animate(this.ENDBOSS_ALERT_IMAGES, 10);
-        this.energy = 50;
         this.otherDirection = false;
         this.speed = 10;
     }
@@ -212,7 +212,7 @@ class Endboss extends MoveableObject {
             this.otherDirection = false;
          }
     }
-    
+
 
     /**
      * Checks if the character has reached the endboss and updates state.

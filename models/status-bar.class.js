@@ -28,7 +28,14 @@ class StatusBar extends DrawableObject {
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/80.png',
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png'
     ];
-
+    ENDBOSS_STATUS_BAR_IMAGES = [
+        './img/7_statusbars/2_statusbar_endboss/orange/orange0.png',
+        './img/7_statusbars/2_statusbar_endboss/orange/orange20.png',
+        './img/7_statusbars/2_statusbar_endboss/orange/orange40.png',
+        './img/7_statusbars/2_statusbar_endboss/orange/orange60.png',
+        './img/7_statusbars/2_statusbar_endboss/orange/orange80.png',
+        './img/7_statusbars/2_statusbar_endboss/orange/orange100.png'
+    ];
     STATUS_BAR_IMAGES = [];
     
 
@@ -36,7 +43,7 @@ class StatusBar extends DrawableObject {
      * Creates a new status bar.
      * @param {number} x - X position.
      * @param {number} y - Y position.
-     * @param {string} imageString - Type of status bar ('health', 'coins', 'bottles').
+     * @param {string} imageString - Type of status bar ('health', 'coins', 'bottles', 'endboss').
      * @param {number} energy - Current energy value.
      * @param {number} totalEnergy - Total energy value for percentage calculation.
      */

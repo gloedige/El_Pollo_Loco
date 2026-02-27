@@ -3,11 +3,12 @@
  */
 class World {
     character = new Character();
+    level = level1;
     statusBarHealth = new StatusBar(10, 0, 'health', this.character.TOTAL_ENERGY, this.character.energy);
     statusBarCoins = new StatusBar(10, 40, 'coins', 0, numberOfCoins);
     statusBarBottles = new StatusBar(10, 80, 'bottles', 0, numberOfBottles);
+    statusBarEndboss = new StatusBar(500, 5, 'endboss', this.getTotalEnergyOfEndboss(), this.getEndbossEnergy());
     throwableObjects = [];
-    level = level1;
     
     start_background_x_1 = 0;
     start_background_x_2 = 719;
@@ -36,6 +37,24 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+    }
+
+
+    /**
+     * This function retrieves the current energy of the endboss from the level's enemies array.
+     * @returns {number} The current energy of the endboss.
+     */
+    getEndbossEnergy() {
+        return this.level.enemies.find(enemy => enemy instanceof Endboss).energy;
+    }
+
+
+    /**
+     * This function is called when the game ends, either by the character's death or by defeating the endboss.
+     * @returns {number} The total energy of the endboss, used for resetting the status bar if the player wins.
+     */
+    getTotalEnergyOfEndboss() {
+        return this.level.enemies.find(enemy => enemy instanceof Endboss).TOTAL_ENERGY;
     }
 
 
@@ -142,6 +161,7 @@ class World {
                         enemy.checkIsDead();
                         bottle.colliding_detecting = false;
                         this.handleDeleteThrowableObject(bottle);
+                        this.statusBarEndboss.setPercentage(this.getEndbossEnergy());
                     }
                 });
             });
@@ -259,6 +279,7 @@ class World {
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoins);
         this.addToMap(this.statusBarBottles);
+        this.addToMap(this.statusBarEndboss);
     }
 
     
