@@ -1,8 +1,15 @@
+/**
+ * Represents the game's sound system.
+ */
 class Sounds {
     isJumpingSoundPlaying = false;
     isEnemyHitSoundPlaying = false;
     world;
 
+
+    /**
+     * Initializes the sound system with audio files and categorizes them into music and sound effects.
+     */
     constructor() {
         this.WALKING_ENDBOSS_SOUND = new Audio('./audio/walking_endboss_sound.mp3');
         this.JUMP_SOUND = new Audio('./audio/cartoon_jump_sound_short.mp3');
@@ -32,12 +39,21 @@ class Sounds {
         ];
     }
 
+
+    /**
+     * Stops the given sound.
+     * @param {HTMLAudioElement} sound - The sound to stop.
+     */
     stop(sound) {
         sound.pause();
         sound.currentTime = 0;
         sound.loop = false;
     }
 
+
+    /**
+     * Stops all music and sound effects.
+     */
     playJumpSound() {
         if (!this.isJumpingSoundPlaying && this.world && this.world.sounds) {
             this.isJumpingSoundPlaying = true;
@@ -48,6 +64,10 @@ class Sounds {
         }
     }
 
+
+    /**
+     * Plays the enemy hit sound if not already playing.
+     */
     playEnemyIsHitSound() {
         if (!this.isEnemyHitSoundPlaying && this.world && this.world.sounds) {
             this.isEnemyHitSoundPlaying = true;
