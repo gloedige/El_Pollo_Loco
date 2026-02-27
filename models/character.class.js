@@ -65,7 +65,8 @@ class Character extends MoveableObject {
     SLEEP_TIME_THRESHOLD = 15000;
     world;
     speed = 6;
-    energy = 200;
+    TOTAL_ENERGY = 200;
+    energy = this.TOTAL_ENERGY;
     lastThrowTime = 0;
     TIME_RESET_THROW = 1000;
     offset = {
