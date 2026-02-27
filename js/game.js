@@ -63,6 +63,9 @@ function restartGame() {
 }
 
 
+/**
+ * Closes the game, ends game, updates containers, and resets mute button state.
+ */
 function closeGame() {
     endGame();
     document.getElementById('canvas_container').classList.add('d-none');
@@ -71,6 +74,111 @@ function closeGame() {
     document.getElementById('game_over_container').classList.add('d-none');
     document.getElementById('muteButton').classList.add('d-none');
     setLastMutedStateOnButton();
+}
+
+
+/**
+ * Simulates moving right by setting the RIGHT key state to true while the button is pressed
+ * and to false when the button is released.
+ */
+function moveRight() {
+    keyboard.RIGHT = true;
+    const btn = document.getElementById('moveRightButton');
+    // Remove any previous listeners to avoid stacking
+    btn.onmouseup = btn.onmouseleave = btn.ontouchend = function() {
+        keyboard.RIGHT = false;
+    };
+}
+
+// Add event listeners for mouse/touch down and up for the move right button
+const moveRightBtn = document.getElementById('moveRightButton');
+if (moveRightBtn) {
+    moveRightBtn.onmousedown = moveRightBtn.ontouchstart = function() {
+        keyboard.RIGHT = true;
+    };
+    moveRightBtn.onmouseup = moveRightBtn.onmouseleave = moveRightBtn.ontouchend = function() {
+        keyboard.RIGHT = false;
+    };
+}
+
+
+/**
+ * Simulates moving left by setting the LEFT key state to true while the button is pressed
+ * and to false when the button is released.
+ */
+function moveLeft() {
+    keyboard.LEFT = true;
+    const btn = document.getElementById('moveLeftButton');
+    btn.onmouseup = btn.onmouseleave = btn.ontouchend = function() {
+        keyboard.LEFT = false;
+    };
+}
+
+
+/**
+ * Adds event listeners for mouse/touch down and up for the move left button to simulate left key presses.
+ */
+const moveLeftBtn = document.getElementById('moveLeftButton');
+if (moveLeftBtn) {
+    moveLeftBtn.onmousedown = moveLeftBtn.ontouchstart = function() {
+        keyboard.LEFT = true;
+    };
+    moveLeftBtn.onmouseup = moveLeftBtn.onmouseleave = moveLeftBtn.ontouchend = function() {
+        keyboard.LEFT = false;
+    };
+}
+
+/**
+ * Simulates jumping by setting the UP key state to true while the button is pressed
+ * and to false when the button is released.
+ */
+function jump() {
+    keyboard.UP = true;
+    const btn = document.getElementById('jumpButton');
+    btn.onmouseup = btn.onmouseleave = btn.ontouchend = function() {
+        keyboard.UP = false;
+    };
+}
+
+
+/**
+ * Adds event listeners for mouse/touch down and up for the jump button to simulate up key presses.
+ */
+const jumpBtn = document.getElementById('jumpButton');
+if (jumpBtn) {
+    jumpBtn.onmousedown = jumpBtn.ontouchstart = function() {
+        keyboard.UP = true;
+    };
+    jumpBtn.onmouseup = jumpBtn.onmouseleave = jumpBtn.ontouchend = function() {
+        keyboard.UP = false;
+    };
+}
+
+
+/**
+ * Simulates throwing a bottle by setting the SPACE key state to true while the button is pressed
+ * and to false when the button is released.
+ */
+function throwBottle() {
+    keyboard.SPACE = true;
+    const btn = document.getElementById('throwBottleButton');
+    btn.onmouseup = btn.onmouseleave = btn.ontouchend = function() {
+        keyboard.SPACE = false;
+    };
+}
+
+
+/**
+ * Adds event listeners for mouse/touch down and up for the throw bottle button to simulate space key presses.
+ */
+const throwBottleBtn = document.getElementById('throwBottleButton');
+if (throwBottleBtn) {
+    throwBottleBtn.onmousedown = throwBottleBtn.ontouchstart = function() {
+        keyboard.SPACE = true;
+    };
+    throwBottleBtn.onmouseup = throwBottleBtn.onmouseleave = throwBottleBtn.ontouchend = function() {
+        keyboard.SPACE = false;
+    };
 }
 
 
