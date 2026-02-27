@@ -1,3 +1,7 @@
+/**
+ * Represents a Chicken enemy in the game.
+ * @extends MoveableObject
+ */
 class Chicken extends MoveableObject{
     width = 100;
     CHICKEN_WALKING_IMAGES = [
@@ -9,7 +13,6 @@ class Chicken extends MoveableObject{
         './img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ];
     world;
-
     offset = {
         top: 20,
         left: 10,
@@ -17,7 +20,9 @@ class Chicken extends MoveableObject{
         bottom: 20
     };
 
-    
+    /**
+     * Creates a new Chicken instance and initializes its properties.
+     */
     constructor(){
         super().loadImage(this.CHICKEN_WALKING_IMAGES[0]);
         this.x = 300 + Math.random() * 2470;
@@ -32,12 +37,21 @@ class Chicken extends MoveableObject{
     }
 
 
+    /**
+     * Starts the chicken animation loop.
+     * @param {string[]} imagePathsArr - Array of image paths for animation.
+     * @param {number} speedAnimation - Animation speed (frames per second).
+     */
     animate(imagePathsArr, speedAnimation) {
         let interval_playChicken = setInterval(() => this.playChicken(imagePathsArr), 1000/speedAnimation);
         window.activeIntervals.push(interval_playChicken);
     }
 
 
+    /**
+     * Plays the chicken animation depending on its state (dead or alive).
+     * @param {string[]} imagePathsArr - Array of image paths for animation.
+     */
     playChicken(imagePathsArr) {
         if (this.dead) {
             this.playSingleLoopAnimation(this.CHICKEN_DEAD_IMAGE);
