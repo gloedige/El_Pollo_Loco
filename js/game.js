@@ -63,6 +63,17 @@ function restartGame() {
 }
 
 
+function closeGame() {
+    endGame();
+    document.getElementById('canvas_container').classList.add('d-none');
+    document.getElementById('intro_container').classList.remove('d-none');
+    document.getElementById('you_win_container').classList.add('d-none');
+    document.getElementById('game_over_container').classList.add('d-none');
+    document.getElementById('muteButton').classList.add('d-none');
+    setLastMutedStateOnButton();
+}
+
+
 /**
  * Stops game music loop and other sound loops.
  */
@@ -105,7 +116,7 @@ function toggleMute() {
     game_over_sound.muted = window.isMuted;
     game_music_loop.muted = window.isMuted;
     window.sounds.soundEffectsArray.forEach(sound => sound.muted = window.isMuted);
-    document.getElementById('muteButton').textContent = window.isMuted ? '🔇' : '🔈';
+    document.getElementById('muteButton').style.backgroundImage = window.isMuted ? "url('./img/10_button/muted_icon.svg')" : "url('./img/10_button/unmuted_icon.svg')";
     saveMuteStateInLocalStorage();
 }
 
@@ -136,9 +147,9 @@ function setLastMutedStateOnButton() {
     getMuteStateFromLocalStorage();
     const muteButton = document.getElementById('muteButton');
     if (window.isMuted) {
-        muteButton.textContent = '🔇';
+        muteButton.style.backgroundImage = "url('./img/10_button/muted_icon.svg')";
     } else {
-        muteButton.textContent = '🔈';
+        muteButton.style.backgroundImage = "url('./img/10_button/unmuted_icon.svg')";
     }
     setMuteStateToSounds();
 }
