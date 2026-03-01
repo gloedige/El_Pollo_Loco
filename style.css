@@ -10,6 +10,7 @@ body {
     align-items: center;
     background-image: url('./img/5_background/wild_desert_landscape_02.jpg');
     background-size: cover;
+    
     height: 100vh;
     gap: 16px;
     margin: 0;
@@ -20,6 +21,15 @@ h1 {
     color: white;
     text-shadow: 4px 4px 4px #000000;
     font-size: 80px;
+    letter-spacing: 12px;
+    margin: 100px 20px 20px 20px;
+}
+
+h2{
+    font-family: zabra;
+    color: white;
+    text-shadow: 4px 4px 4px #000000;
+    font-size: 40px;
     letter-spacing: 12px;
     margin: 20px;
 }
@@ -58,7 +68,9 @@ h3 {
     text-shadow: 2px 2px 2px #000000;
     display: flex;
     align-items: center;
-    gap: 24px;
+    justify-content: space-between;
+    max-width: 720px;
+    width: 100%;
 }
 
 .how_to_play_button{
@@ -256,4 +268,60 @@ canvas {
     height: 40px;
     font-size: 24px;
     cursor: pointer;
+}
+
+.turn_device_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    height: 60vh;
+    animation: blink normal 2s infinite ease-in-out;
+}
+
+.turn_device_img {
+    width: 200px;
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 740px) {
+    .intro_outro_container, 
+    .how_to_play, 
+    .canvas_container {
+        display: none;
+
+    }
+
+}
+
+@media (min-width: 739px){
+    .turn_device_info {
+        display: none;
+    }
+
+}
+
+@media (max-width: 550px) {
+    h1 {
+        font-size: 60px;
+    }
+
+    h2 {
+        font-size: 40px;
+    }
 }
