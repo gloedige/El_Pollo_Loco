@@ -80,6 +80,7 @@ class Character extends MoveableObject {
     isJumping = false;
     isCharacterSleepingSoundPlaying = false;
     isCharacterHitSoundPlaying = false;
+    isAttacking = false;
 
         
     /**
@@ -105,7 +106,7 @@ class Character extends MoveableObject {
     /**
      * Updates the last move time to the current time.
      */
-    getLastMoveTime() {
+    setLastMoveTime() {
         this.lastMoveTime = new Date().getTime();
     }
     
@@ -170,7 +171,7 @@ class Character extends MoveableObject {
      */
     handleCharacterMoveRight() {
         this.moveRight();
-        this.getLastMoveTime();
+        this.setLastMoveTime();
     }
 
 
@@ -179,7 +180,7 @@ class Character extends MoveableObject {
      */
     handleCharacterMoveLeft() {
         this.moveLeft();
-        this.getLastMoveTime();
+        this.setLastMoveTime();
     }
 
 
@@ -192,7 +193,7 @@ class Character extends MoveableObject {
         this.world.sounds.playJumpSound();
         this.jump();
         this.isJumping = true;
-        this.getLastMoveTime();
+        this.setLastMoveTime();
     }
 
 
@@ -404,4 +405,16 @@ class Character extends MoveableObject {
         if (timeSinceLastThrow > this.TIME_RESET_THROW) return true;
         return false;
     }
+
+
+    /**
+     * This function is called when the character throws a bottle. It sets 
+     * the attacking state to true, updates the last move time, and resets the 
+     * attacking state after a short delay.
+     */
+    attack() {
+        this.isAttacking = true;
+        this.setLastMoveTime();
+        setTimeout(() => this.isAttacking = false, 500);
+    } 
 }

@@ -189,6 +189,7 @@ class World {
             let bottle = new ThrowableObject(this.character.x + this.character.width/2, this.character.y + this.character.height / 3, this.character.otherDirection);
             this.throwableObjects.push(bottle);
             this.character.removeCollectedBottle();
+            this.character.attack();
             this.updateStatusBarBottles();
             this.character.lastThrowTime = new Date().getTime();
         }
