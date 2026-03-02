@@ -116,7 +116,6 @@ canvas {
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    /* gap: 16px; */
     width: 720px;
     height: 480px;
     background-size: 110% 100%;
@@ -131,10 +130,6 @@ canvas {
 
 .outro_background {
     background-image: url('./img/5_background/first_half_background.png');
-}
-
-.you_win_img, .game_over_img {
-    /* width: 400px; */
 }
 
 .img_container{
@@ -415,7 +410,6 @@ table {
     .canvas_container {
         max-width: 720px;
         width: calc(100vh * 3 / 2);
-        /* height: auto; */
         max-height: 100vh;
     
     }
@@ -448,24 +442,3 @@ table {
         height: 40px;
     }
 }
-
-/* @media (max-width: 1100px) and (max-height: 1300px) {
-    .container_impressum, h2 {
-        color: white;
-    }
-
-    .container_impressum h2 {
-        color: white;
-    }
-}    */
-
-/* @media (max-width: 1000px) and (max-height: 1200px) {
-    .container_impressum, h2 {
-        color: white;
-    }
-
-    .container_impressum h2 {
-        color: white;
-    }   
-} */
-
