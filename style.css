@@ -7,12 +7,9 @@
 body {
     display: flex;
     flex-direction: column;
-    align-items: center;
     background-image: url('./img/5_background/wild_desert_landscape_02.jpg');
     background-size: cover;
-    
     height: 100vh;
-    gap: 16px;
     margin: 0;
 }
 
@@ -286,6 +283,10 @@ canvas {
     h2 {
         font-size: 40px;
     }
+
+    table {
+        font-size: 18px;
+    }
 }
 
 @media screen and (orientation: landscape) and (max-height: 480px) {
@@ -333,4 +334,71 @@ canvas {
         width: 40px;
         height: 40px;
     }
+}
+
+.main_wrapper_impressum{
+    display: flex;
+    height: 100vh;
+    max-width: 1440px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.container_impressum{
+    padding: 8px;
+}
+
+.container_impressum h2{
+    color: black;
+    text-shadow: none;
+}
+
+.first_column_impressum{
+    width: 120px;
+}
+
+table {
+    font-family: zabra;
+    font-size: 24px;
+    border-collapse: collapse;
+    letter-spacing: 4px;
+}
+
+@media (max-width: 800px) {
+    .container_impressum, h2 {
+        color: white;
+    }
+
+    .container_impressum h2 {
+        color: white;
+    }   
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+    position: sticky;
+    bottom: 0;
+    margin: 4px;
+}
+
+footer a{
+    font-family: 'zabra';
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+    text-shadow: 4px 4px 4px #000000;
+    letter-spacing: 4px;
+    cursor: pointer;
 }

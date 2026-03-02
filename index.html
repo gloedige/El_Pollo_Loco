@@ -26,67 +26,71 @@
     <script src="./js/game.js"></script>
 </head>
 <body>
-    <h1>El Pollo Loco</h1>
-    <div class="turn_device_info" id="turn_device">
-        <img src="./img/9_intro_outro_screens/start/turn_phone_image.svg" class="turn_device_img" alt="">
-        <h2>Turn your device to play!</h2>
-    </div>
-    <div class="intro_outro_container intro_background button_top" id="intro_container">
-        <div class="img_container"></div>
-        <button onclick="initLevel(), init()" class="startButton">START GAME</button>
-    </div>
-    <div class="intro_outro_container outro_background d-none" id="you_win_container">
-        <div class="img_container">
-            <img src="./img/You won, you lost/You won A.png" alt="You Win" class="you_win_img">
+    <main>
+        <h1>El Pollo Loco</h1>
+        <div class="turn_device_info" id="turn_device">
+            <img src="./img/9_intro_outro_screens/start/turn_phone_image.svg" class="turn_device_img" alt="">
+            <h2>Turn your device to play!</h2>
         </div>
-        <button onclick="restartGame()" class="startButton">RESTART GAME</button>
-    </div>
-    <div class="intro_outro_container outro_background d-none" id="game_over_container">
-        <div class="img_container">
-            <img src="./img/You won, you lost/Game Over.png" alt="Game Over" class="game_over_img">
+        <div class="intro_outro_container intro_background button_top" id="intro_container">
+            <div class="img_container"></div>
+            <button onclick="initLevel(), init()" class="startButton">START GAME</button>
         </div>
-        <button onclick="restartGame()" class="startButton">RESTART GAME</button>
-    </div>
-    <div class="canvas_container d-none" id="canvas_container">
-        <canvas width="720" height="480" id="canvas">
-            Your browser does not support the HTML5 canvas tag.
-        </canvas>
-        <section class="settings_btn">
-            <button id="muteButton" class="mute-btn move_setting_btn" onclick="toggleMute()"></button>
-            <button id="restartButton" class="restart-btn move_setting_btn" onclick="restartGame()"></button>
-            <button id="closeButton" class="close-btn move_setting_btn" onclick="closeGame()"></button>
-        </section>
-        <section class="mobile_control_btn">
-            <div class="control_btn_left">
-                <button id="throwBottleButton" class="throw-bottle-btn move_setting_btn" onclick="throwBottle()"></button>
-                <button id="jumpButton" class="jump-btn move_setting_btn" onclick="jump()"></button>
+        <div class="intro_outro_container outro_background d-none" id="you_win_container">
+            <div class="img_container">
+                <img src="./img/You won, you lost/You won A.png" alt="You Win" class="you_win_img">
             </div>
-            <div class="control_btn_right">
-                <button id="moveLeftButton" class="move-left-btn move_setting_btn" onclick="moveLeft()"></button>
-                <button id="moveRightButton" class="move-right-btn move_setting_btn" onclick="moveRight()"></button>
+            <button onclick="restartGame()" class="startButton">RESTART GAME</button>
+        </div>
+        <div class="intro_outro_container outro_background d-none" id="game_over_container">
+            <div class="img_container">
+                <img src="./img/You won, you lost/Game Over.png" alt="Game Over" class="game_over_img">
             </div>
-        </section>
-    </div>
-    <div class="how_to_play">
-        <h3>How To Play:</h3>
-        <div class="how_to_play_button">
-            <img src="./img/10_button/arrow_left_50dp.png" alt="left arrow icon" class="how_to_play_img">
-            <p class="how_to_play_text">walk left</p>
+            <button onclick="restartGame()" class="startButton">RESTART GAME</button>
         </div>
-        <div class="how_to_play_button">
-            <img src="./img/10_button/arrow_right_50dp.png" alt="right arrow icon" class="how_to_play_img">
-            <p class="how_to_play_text">walk right</p>
+        <div class="canvas_container d-none" id="canvas_container">
+            <canvas width="720" height="480" id="canvas">
+                Your browser does not support the HTML5 canvas tag.
+            </canvas>
+            <section class="settings_btn">
+                <button id="muteButton" class="mute-btn move_setting_btn" onclick="toggleMute()"></button>
+                <button id="restartButton" class="restart-btn move_setting_btn" onclick="restartGame()"></button>
+                <button id="closeButton" class="close-btn move_setting_btn" onclick="closeGame()"></button>
+            </section>
+            <section class="mobile_control_btn">
+                <div class="control_btn_left">
+                    <button id="throwBottleButton" class="throw-bottle-btn move_setting_btn" onclick="throwBottle()"></button>
+                    <button id="jumpButton" class="jump-btn move_setting_btn" onclick="jump()"></button>
+                </div>
+                <div class="control_btn_right">
+                    <button id="moveLeftButton" class="move-left-btn move_setting_btn" onclick="moveLeft()"></button>
+                    <button id="moveRightButton" class="move-right-btn move_setting_btn" onclick="moveRight()"></button>
+                </div>
+            </section>
         </div>
-        <div class="how_to_play_button">
-            <img src="./img/10_button/arrow_drop_up_50dp.png" alt="up arrow icon" class="how_to_play_img">
-            <p class="how_to_play_text">jump</p>
+        <div class="how_to_play">
+            <h3>How To Play:</h3>
+            <div class="how_to_play_button">
+                <img src="./img/10_button/arrow_left_50dp.png" alt="left arrow icon" class="how_to_play_img">
+                <p class="how_to_play_text">walk left</p>
+            </div>
+            <div class="how_to_play_button">
+                <img src="./img/10_button/arrow_right_50dp.png" alt="right arrow icon" class="how_to_play_img">
+                <p class="how_to_play_text">walk right</p>
+            </div>
+            <div class="how_to_play_button">
+                <img src="./img/10_button/arrow_drop_up_50dp.png" alt="up arrow icon" class="how_to_play_img">
+                <p class="how_to_play_text">jump</p>
+            </div>
+            <div class="how_to_play_button">
+                <p class="how_to_play_text black">space</p>
+                <img src="./img/6_salsa_bottle/salsa_bottle.png" alt="salsa bottle icon" class="how_to_play_img">
+                <p class="how_to_play_text">attack</p>
+            </div>
         </div>
-        <div class="how_to_play_button">
-            <p class="how_to_play_text black">space</p>
-            <img src="./img/6_salsa_bottle/salsa_bottle.png" alt="salsa bottle icon" class="how_to_play_img">
-            <p class="how_to_play_text">attack</p>
-        </div>
-    </div>
-    
+    </main>
+    <footer>
+        <a href="./impressum.html">Impressum</a>
+    </footer>
 </body>
 </html>
