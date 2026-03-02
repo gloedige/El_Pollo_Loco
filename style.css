@@ -258,6 +258,72 @@ canvas {
     }
 }
 
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+    position: sticky;
+    bottom: 0;
+    margin: 4px;
+}
+
+footer a{
+    font-family: 'zabra';
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+    text-shadow: 4px 4px 4px #000000;
+    letter-spacing: 4px;
+    cursor: pointer;
+}
+
+.main_wrapper_impressum{
+    display: flex;
+    height: 100vh;
+    max-width: 1440px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.container_impressum{
+    color: white;
+    text-shadow: 2px 2px 2px #000000;
+    padding: 8px;
+}
+
+.container_impressum h2{
+    color: white;
+    text-shadow: 2px 2px 2px #000000;
+}
+
+.first_column_impressum{
+    width: 120px;
+}
+
+table {
+    font-family: zabra;
+    font-size: 24px;
+    border-collapse: collapse;
+    letter-spacing: 4px;
+}
+
+@media (max-height: 700px) {
+    footer {
+        display: none;
+        position: unset;
+    }
+}
+
 @media (max-width: 639px) {
     .intro_outro_container, 
     .how_to_play, 
@@ -290,9 +356,11 @@ canvas {
 }
 
 @media screen and (orientation: landscape) and (max-height: 480px) {
-    h1,
-    .how_to_play{
+    h1, 
+    .how_to_play,
+    footer {
         display: none;
+        position: unset;
     }
     
     canvas {
@@ -327,7 +395,7 @@ canvas {
 
 @media screen and (orientation: landscape) and (max-height: 400px) {
     .mobile_control_btn {
-    bottom: 8px;
+        bottom: 8px;
     }
 
     .move_setting_btn {
@@ -336,37 +404,17 @@ canvas {
     }
 }
 
-.main_wrapper_impressum{
-    display: flex;
-    height: 100vh;
-    max-width: 1440px;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-}
+/* @media (max-width: 1100px) and (max-height: 1300px) {
+    .container_impressum, h2 {
+        color: white;
+    }
 
+    .container_impressum h2 {
+        color: white;
+    }
+}    */
 
-.container_impressum{
-    padding: 8px;
-}
-
-.container_impressum h2{
-    color: black;
-    text-shadow: none;
-}
-
-.first_column_impressum{
-    width: 120px;
-}
-
-table {
-    font-family: zabra;
-    font-size: 24px;
-    border-collapse: collapse;
-    letter-spacing: 4px;
-}
-
-@media (max-width: 800px) {
+/* @media (max-width: 1000px) and (max-height: 1200px) {
     .container_impressum, h2 {
         color: white;
     }
@@ -374,31 +422,5 @@ table {
     .container_impressum h2 {
         color: white;
     }   
-}
+} */
 
-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-}
-
-footer {
-    display: flex;
-    justify-content: center;
-    margin-top: 16px;
-    position: sticky;
-    bottom: 0;
-    margin: 4px;
-}
-
-footer a{
-    font-family: 'zabra';
-    font-size: 24px;
-    color: white;
-    text-decoration: none;
-    text-shadow: 4px 4px 4px #000000;
-    letter-spacing: 4px;
-    cursor: pointer;
-}
