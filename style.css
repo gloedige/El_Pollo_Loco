@@ -73,6 +73,9 @@ h3 {
     justify-content: space-between;
     max-width: 720px;
     width: 100%;
+    gap: 12px;
+    box-sizing: border-box;
+    padding: 0 8px;
 }
 
 .how_to_play_button{
@@ -89,7 +92,7 @@ h3 {
 
 .black {
     color: black;
-    margin-right: -12px;
+    margin-left: 8px;
     text-shadow: none;
 }
 
@@ -97,7 +100,7 @@ h3 {
 .how_to_play_img{
     width: 50px;
     height: 50px;
-    margin-right: -8px;
+    margin: 0 -10px;
 }
 
 canvas {
@@ -272,7 +275,7 @@ footer {
     margin-top: 16px;
     position: sticky;
     bottom: 0;
-    margin: 4px;
+    margin: 8px;
 }
 
 footer a{
@@ -317,10 +320,23 @@ table {
     letter-spacing: 4px;
 }
 
+.how_to_play_mobile {
+    display: none;
+    padding-bottom: 8px;
+}
+
 @media (max-height: 700px) {
     footer {
         display: none;
         position: unset;
+    }
+
+    .how_to_play_mobile.how_to_play_mobile {
+        display: flex;
+    }
+
+    .how_to_play {
+        display: none;
     }
 }
 
@@ -355,12 +371,27 @@ table {
     }
 }
 
-@media screen and (orientation: landscape) and (max-height: 480px) {
-    h1, 
+@media screen and (orientation: landscape) and (max-height: 550px) {
+    h1 {
+        display: none;
+        position: unset;
+    }
+}
+
+@media screen and (orientation: landscape) and (max-height: 650px) {
     .how_to_play,
     footer {
         display: none;
         position: unset;
+    }
+
+    h1 {
+        font-size: 48px;
+        margin: 10px
+    }
+
+    main {
+        gap: 4px;
     }
     
     canvas {
@@ -374,7 +405,7 @@ table {
     .canvas_container {
         max-width: 720px;
         width: calc(100vh * 3 / 2);
-        height: auto;
+        /* height: auto; */
         max-height: 100vh;
     
     }
@@ -384,7 +415,11 @@ table {
     .move-right-btn,
     .move-left-btn {
         display: inline-block;
-    } 
+    }
+
+    .how_to_play{
+        font-size: 18px;
+    }
 }
 
 @media (pointer: coarse) and (orientation: landscape) {
