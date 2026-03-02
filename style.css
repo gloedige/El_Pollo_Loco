@@ -45,19 +45,21 @@ h3 {
 .startButton{
     font-family: zabra;
     font-size: 30px;
+    color: #512B0C;
     letter-spacing: 3px;
     padding: 10px 20px;
-    background-color: #F7BF64;
+    background: radial-gradient(circle, rgba(255, 221, 0, 1) 50%, rgba(255, 154, 0, 1) 100%);
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    box-shadow: 4px 4px 4px #000000;
-    border: 2px solid #000000;
+    box-shadow: 4px 4px 4px #512B0C;
+    border: 2px solid #512B0C;
     margin: 16px 0;
 }
 
 .startButton:hover {
-    background-color: #994409;
+    transform: scale(1.05);
+    transition: transform 0.1s ease-in-out;
 }
 
 .button_top{
@@ -161,117 +163,49 @@ canvas {
     display: inline-block;
 }
 
-.mute-btn {
-    position: absolute;
-    top: 16px;
-    right: 64px;
+.move_setting_btn {
     z-index: 10;
     background: transparent;
-    background-image: url('./img/10_button/unmuted_icon.svg');
     background-size: cover;
     border: none;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
+    width: 50px;
+    height: 50px;
     cursor: pointer;
+}
+
+.mute-btn {
+    background-image: url('./img/10_button/unmuted_icon.svg');
 }
 
 .close-btn {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    z-index: 10;
-    background: transparent;
     background-image: url('./img/10_button/close_icon.svg');
-    background-size: cover;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    cursor: pointer;
 }
 
 .restart-btn {
-    position: absolute;
-    top: 16px;
-    right: 114px;
-    z-index: 10;
-    background: transparent;
     background-image: url('./img/10_button/restart_game_icon.svg');
-    background-size: cover;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    cursor: pointer;
 }
 
 .throw-bottle-btn {
-    position: absolute;
-    bottom: 16px;
-    left: 16px;
-    z-index: 10;
-    background: transparent;
     background-image: url('./img/10_button/attack_icon.svg');
-    background-size: cover;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    cursor: pointer;
+    display: none;
 }
 
 .jump-btn {
-    position: absolute;
-    bottom: 16px;
-    left: 70px;
-    z-index: 10;
-    background: transparent;
     background-image: url('./img/10_button/jump_icon.svg');
-    background-size: cover;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    cursor: pointer;
+    display: none;
 }
 
 .move-right-btn {
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
-    z-index: 10;
-    background: transparent;
     background-image: url('./img/10_button/move_right_icon.svg');
-    background-size: cover;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    cursor: pointer;
+    display: none;
 }
 
 .move-left-btn {
-    position: absolute;
-    bottom: 16px;
-    right: 70px;
-    z-index: 10;
-    background: transparent;
     background-image: url('./img/10_button/move_left_icon.svg');
-    background-size: cover;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    cursor: pointer;
+    display: none;
 }
+
 
 .turn_device_info {
     display: flex;
@@ -288,6 +222,31 @@ canvas {
     height: 200px;
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 50%;
+}
+
+.settings_btn{
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.mobile_control_btn {
+    position: absolute;
+    bottom: 10px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.control_btn_left,
+.control_btn_right {
+    display: flex;
+    gap:20px;
+    margin: 0 20px;
 }
 
 @keyframes blink {
@@ -330,7 +289,8 @@ canvas {
 }
 
 @media screen and (orientation: landscape) and (max-height: 480px) {
-    h1{
+    h1,
+    .how_to_play{
         display: none;
     }
     
@@ -348,5 +308,29 @@ canvas {
         height: auto;
         max-height: 100vh;
     
+    }
+
+    .throw-bottle-btn,
+    .jump-btn,
+    .move-right-btn,
+    .move-left-btn {
+        display: inline-block;
+    } 
+}
+
+@media (pointer: coarse) and (orientation: landscape) {
+    .mobile_control_btn {
+        display: flex;
+    }
+}
+
+@media screen and (orientation: landscape) and (max-height: 400px) {
+    .mobile_control_btn {
+    bottom: 8px;
+    }
+
+    .move_setting_btn {
+        width: 40px;
+        height: 40px;
     }
 }

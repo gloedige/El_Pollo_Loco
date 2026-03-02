@@ -51,13 +51,21 @@
         <canvas width="720" height="480" id="canvas">
             Your browser does not support the HTML5 canvas tag.
         </canvas>
-        <button id="muteButton" class="mute-btn" onclick="toggleMute()"></button>
-        <button id="closeButton" class="close-btn" onclick="closeGame()"></button>
-        <button id="restartButton" class="restart-btn" onclick="restartGame()"></button>
-        <button id="throwBottleButton" class="throw-bottle-btn" onclick="throwBottle()"></button>
-        <button id="jumpButton" class="jump-btn" onclick="jump()"></button>
-        <button id="moveRightButton" class="move-right-btn" onclick="moveRight()"></button>
-        <button id="moveLeftButton" class="move-left-btn" onclick="moveLeft()"></button>
+        <section class="settings_btn">
+            <button id="muteButton" class="mute-btn move_setting_btn" onclick="toggleMute()"></button>
+            <button id="restartButton" class="restart-btn move_setting_btn" onclick="restartGame()"></button>
+            <button id="closeButton" class="close-btn move_setting_btn" onclick="closeGame()"></button>
+        </section>
+        <section class="mobile_control_btn">
+            <div class="control_btn_left">
+                <button id="throwBottleButton" class="throw-bottle-btn move_setting_btn" onclick="throwBottle()"></button>
+                <button id="jumpButton" class="jump-btn move_setting_btn" onclick="jump()"></button>
+            </div>
+            <div class="control_btn_right">
+                <button id="moveLeftButton" class="move-left-btn move_setting_btn" onclick="moveLeft()"></button>
+                <button id="moveRightButton" class="move-right-btn move_setting_btn" onclick="moveRight()"></button>
+            </div>
+        </section>
     </div>
     <div class="how_to_play">
         <h3>How To Play:</h3>
