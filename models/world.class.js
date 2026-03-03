@@ -303,14 +303,14 @@ class World {
         if (relationOfCameraToBackground == 0) {
             this.start_background_x_1 += this.widthOfSingleBackground * 2;
             this.start_background_x_2 += this.widthOfSingleBackground * 2;
-            this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/air.png', this.start_background_x_1));
-            this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/3_third_layer/1.png', this.start_background_x_1));
-            this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/2_second_layer/1.png', this.start_background_x_1));
-            this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/1_first_layer/1.png', this.start_background_x_1));
-            this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/air.png', this.start_background_x_2));
-            this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/3_third_layer/2.png', this.start_background_x_2));
-            this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/2_second_layer/2.png', this.start_background_x_2));
-            this.level.backgroundObjects.push(new BackgroundObject('../img/5_background/layers/1_first_layer/2.png', this.start_background_x_2));
+            this.level.backgroundObjects.push(new BackgroundObject('./img/5_background/layers/air.png', this.start_background_x_1));
+            this.level.backgroundObjects.push(new BackgroundObject('./img/5_background/layers/3_third_layer/1.png', this.start_background_x_1));
+            this.level.backgroundObjects.push(new BackgroundObject('./img/5_background/layers/2_second_layer/1.png', this.start_background_x_1));
+            this.level.backgroundObjects.push(new BackgroundObject('./img/5_background/layers/1_first_layer/1.png', this.start_background_x_1));
+            this.level.backgroundObjects.push(new BackgroundObject('./img/5_background/layers/air.png', this.start_background_x_2));
+            this.level.backgroundObjects.push(new BackgroundObject('./img/5_background/layers/3_third_layer/2.png', this.start_background_x_2));
+            this.level.backgroundObjects.push(new BackgroundObject('./img/5_background/layers/2_second_layer/2.png', this.start_background_x_2));
+            this.level.backgroundObjects.push(new BackgroundObject('./img/5_background/layers/1_first_layer/2.png', this.start_background_x_2));
         }
     }
 
