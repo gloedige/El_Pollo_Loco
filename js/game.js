@@ -275,6 +275,9 @@ function setMuteStateToSounds() {
 }
 
 
+/**
+ * Adds event listeners for keyboard keydown and keyup events to update keyboard state for movement and actions.
+ */
 window.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") keyboard.LEFT = true;
     if (e.key === "ArrowRight") keyboard.RIGHT = true;
@@ -285,6 +288,9 @@ window.addEventListener("keydown", (e) => {
 });
 
 
+/**
+ * Adds event listeners for keyboard keyup events to update keyboard state when keys are released.
+ */
 window.addEventListener("keyup", (e) => {
     if (e.key === "ArrowLeft") keyboard.LEFT = false;
     if (e.key === "ArrowRight") keyboard.RIGHT = false;

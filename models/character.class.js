@@ -80,7 +80,6 @@ class Character extends MoveableObject {
     isJumping = false;
     isCharacterSleepingSoundPlaying = false;
     isCharacterHitSoundPlaying = false;
-    isAttacking = false;
 
         
     /**
@@ -408,13 +407,10 @@ class Character extends MoveableObject {
 
 
     /**
-     * This function is called when the character throws a bottle. It sets 
-     * the attacking state to true, updates the last move time, and resets the 
-     * attacking state after a short delay.
+     * This function is called when the character performs an attack action, updating 
+     * the last move time to prevent sleeping animation and sound.
      */
     attack() {
-        this.isAttacking = true;
         this.setLastMoveTime();
-        setTimeout(() => this.isAttacking = false, 500);
     } 
 }
