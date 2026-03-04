@@ -63,10 +63,10 @@ class StatusBar extends DrawableObject {
 
     /**
      * Sets the current energy and updates the status bar image.
-     * @param {number} currentEnergy - The current energy value.
+     * @param {number} currentValue - The current energy value.
      */
-    setPercentage(currentEnergy) {
-        this.energy = currentEnergy;
+    setPercentage(currentValue) {
+        this.energy = currentValue;
         this.getPercentage();
         let path = this.STATUS_BAR_IMAGES[this.getIndexOfImageForPercentage()];
         this.img = this.imagesCache[path];
@@ -81,6 +81,8 @@ class StatusBar extends DrawableObject {
     getIndexOfImageForPercentage() {
         if (this.percentage <= 0) {
             return 0;
+        } else if (this.percentage > 0 && this.percentage < 20) {
+            return 1;
         } else if (this.percentage >= 100) {
             return 5;
         }
@@ -96,6 +98,8 @@ class StatusBar extends DrawableObject {
      */
     getPercentage() {
         this.percentage = (this.energy / this.totalEnergy) * 100;
+        console.log("Prozent aktuell: ", this.percentage);
+        
     }
 
 }
