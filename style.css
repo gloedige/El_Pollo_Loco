@@ -1,5 +1,5 @@
 @font-face {
-    font-family: zabra;
+    font-family: 'zabra';
     src: url('font/Zabars.ttf');
 
 }
@@ -14,7 +14,7 @@ body {
 }
 
 h1 {
-    font-family: zabra;
+    font-family: 'zabra', Arial;
     color: white;
     text-shadow: 4px 4px 4px #000000;
     font-size: 80px;
@@ -25,7 +25,7 @@ h1 {
 }
 
 h2{
-    font-family: zabra;
+    font-family: 'zabra', Arial;
     color: white;
     text-shadow: 4px 4px 4px #000000;
     font-size: 40px;
@@ -40,18 +40,29 @@ h3 {
 }
 
 .startButton{
-    font-family: zabra;
+    font-family: 'zabra', Arial;
     font-size: 30px;
     color: #512B0C;
     letter-spacing: 3px;
     padding: 10px 20px;
-    background: radial-gradient(circle, rgba(255, 221, 0, 1) 50%, rgba(255, 154, 0, 1) 100%);
+    background: linear-gradient(180deg, rgba(255, 221, 0, 1), rgba(255, 154, 0, 1));
     border: none;
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 4px 4px 4px #512B0C;
-    border: 2px solid #512B0C;
     margin: 16px 0;
+}
+
+.stroked {
+    /* text-shadow: 1px 0px 0px #512B0C; */
+    -webkit-text-stroke-color: #512B0C;
+    -webkit-text-stroke-width: 2px;
+}
+
+.color_gradient {
+    background-image: linear-gradient(180deg, #994409, white);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .startButton:hover {
@@ -64,10 +75,8 @@ h3 {
 }
 
 .how_to_play{
-    font-family: zabra;
+    font-family: 'zabra', Arial;
     font-size: 24px;
-    color: white;
-    text-shadow: 2px 2px 2px #000000;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -84,6 +93,7 @@ h3 {
 }
 
 .how_to_play_text{
+    font-family: 'zabra', Arial;
     display: flex;
     align-items: center;
     margin: 0;
@@ -280,18 +290,20 @@ footer {
     justify-content: center;
     margin-top: 16px;
     position: sticky;
+    box-sizing: border-box;
     bottom: 0;
-    margin: 8px;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.7);
 }
 
 footer a{
-    font-family: 'zabra';
+    font-family: 'Arial';
     font-size: 24px;
     color: white;
     text-decoration: none;
-    text-shadow: 4px 4px 4px #000000;
     letter-spacing: 4px;
     cursor: pointer;
+    
 }
 
 .main_wrapper_impressum{
@@ -305,30 +317,34 @@ footer a{
 
 
 .container_impressum{
-    color: white;
-    text-shadow: 2px 2px 2px #000000;
+    color: black;
     padding: 8px;
 }
 
 .container_impressum h2{
-    color: white;
-    text-shadow: 2px 2px 2px #000000;
+    color: black;
+    font-family: Arial;
+    text-shadow: none;
 }
 
 .first_column_impressum{
-    width: 120px;
+    width: 140px;
 }
 
 table {
-    font-family: zabra;
-    font-size: 24px;
+    font-family: Arial;
+    font-size: 30px;
     border-collapse: collapse;
-    letter-spacing: 4px;
 }
 
 .how_to_play_mobile {
     display: none;
     padding-bottom: 8px;
+}
+
+.overlay-box {
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
 }
 
 @media (max-height: 700px) {
