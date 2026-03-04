@@ -2,11 +2,11 @@
  * Represents the game world, managing the main game loop, rendering, and interactions.
  */
 class World {
-    character = new Character();
     level = level1;
-    statusBarHealth = new StatusBar(10, 0, 'health', this.character.TOTAL_ENERGY, this.character.energy);
+    character = new Character();
     statusBarCoins = new StatusBar(10, 40, 'coins', 0, numberOfCoins);
     statusBarBottles = new StatusBar(10, 80, 'bottles', 0, numberOfBottles);
+    statusBarHealth = new StatusBar(10, 0, 'health', this.character.TOTAL_ENERGY, this.character.energy);
     statusBarEndboss = new StatusBar(500, 85, 'endboss', this.getTotalEnergyOfEndboss(), this.getEndbossEnergy());
     throwableObjects = [];
     
@@ -231,14 +231,18 @@ class World {
      */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.save();
         this.ctx.translate(this.camera_x, 0);
         this.renderLevelElements();
         this.renderBottlesInAir();
+        this.ctx.restore();
+        this.renderStatusBars();
+        this.ctx.save();
+        this.ctx.translate(this.camera_x, 0);
         this.renderCharacter();
+        this.ctx.restore();
         let self = this;
         requestAnimationFrame(() => self.draw());
-        this.ctx.translate(-this.camera_x, 0);
-        this.renderStatusBars();
     }
     
     

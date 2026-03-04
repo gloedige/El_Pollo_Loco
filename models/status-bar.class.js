@@ -98,8 +98,6 @@ class StatusBar extends DrawableObject {
      */
     getPercentage() {
         this.percentage = (this.energy / this.totalEnergy) * 100;
-        console.log("Prozent aktuell: ", this.percentage);
-        
     }
 
 }
