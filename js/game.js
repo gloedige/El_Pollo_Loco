@@ -29,7 +29,9 @@ function init() {
     document.getElementById('intro_container').classList.add('d-none');
     document.getElementById('you_win_container').classList.add('d-none');
     document.getElementById('game_over_container').classList.add('d-none');
-    document.getElementById('muteButton').classList.remove('d-none');
+    document.getElementById('muteButton_canvas').classList.remove('d-none');
+    document.getElementById('muteButton_you_win').classList.add('d-none');
+    document.getElementById('muteButton_game_over').classList.add('d-none');
     game_music_loop.play();
     game_music_loop.loop = true;
     
@@ -73,7 +75,9 @@ function closeGame() {
     document.getElementById('intro_container').classList.remove('d-none');
     document.getElementById('you_win_container').classList.add('d-none');
     document.getElementById('game_over_container').classList.add('d-none');
-    document.getElementById('muteButton').classList.add('d-none');
+    document.getElementById('muteButton_canvas').classList.add('d-none');
+    document.getElementById('muteButton_you_win').classList.add('d-none');
+    document.getElementById('muteButton_game_over').classList.add('d-none');
     setLastMutedStateOnButton();
 }
 
@@ -199,6 +203,8 @@ function showYouWinScreen() {
     document.getElementById('you_win_container').classList.remove('d-none');
     document.getElementById('canvas_container').classList.add('d-none');
     document.querySelector('.you_win_img').classList.add('scale-in');
+    document.getElementById('muteButton_canvas').classList.add('d-none');
+    document.getElementById('muteButton_you_win').classList.remove('d-none');
     game_music_loop.pause();
     you_won_sound.play();
 }
@@ -211,6 +217,8 @@ function showGameOverScreen() {
     document.getElementById('game_over_container').classList.remove('d-none');
     document.getElementById('canvas_container').classList.add('d-none');
     document.querySelector('.game_over_img').classList.add('scale-in');
+    document.getElementById('muteButton_canvas').classList.add('d-none');
+    document.getElementById('muteButton_game_over').classList.remove('d-none');
     game_music_loop.pause();
     game_over_sound.play();
 }
@@ -225,7 +233,9 @@ function toggleMute() {
     game_over_sound.muted = window.isMuted;
     game_music_loop.muted = window.isMuted;
     window.sounds.soundEffectsArray.forEach(sound => sound.muted = window.isMuted);
-    document.getElementById('muteButton').style.backgroundImage = window.isMuted ? "url('./img/10_button/muted_icon.svg')" : "url('./img/10_button/unmuted_icon.svg')";
+    document.getElementById('muteButton_canvas').style.backgroundImage = window.isMuted ? "url('./img/10_button/muted_icon.svg')" : "url('./img/10_button/unmuted_icon.svg')";
+    document.getElementById('muteButton_you_win').style.backgroundImage = window.isMuted ? "url('./img/10_button/muted_icon.svg')" : "url('./img/10_button/unmuted_icon.svg')";
+    document.getElementById('muteButton_game_over').style.backgroundImage = window.isMuted ? "url('./img/10_button/muted_icon.svg')" : "url('./img/10_button/unmuted_icon.svg')";
     saveMuteStateInLocalStorage();
 }
 
@@ -254,11 +264,17 @@ function saveMuteStateInLocalStorage(){
  */
 function setLastMutedStateOnButton() {
     getMuteStateFromLocalStorage();
-    const muteButton = document.getElementById('muteButton');
+    const muteButton_canvas = document.getElementById('muteButton_canvas');
+    const muteButton_you_win = document.getElementById('muteButton_you_win');
+    const muteButton_game_over = document.getElementById('muteButton_game_over');
     if (window.isMuted) {
-        muteButton.style.backgroundImage = "url('./img/10_button/muted_icon.svg')";
+        muteButton_canvas.style.backgroundImage = "url('./img/10_button/muted_icon.svg')";
+        muteButton_you_win.style.backgroundImage = "url('./img/10_button/muted_icon.svg')";
+        muteButton_game_over.style.backgroundImage = "url('./img/10_button/muted_icon.svg')";
     } else {
-        muteButton.style.backgroundImage = "url('./img/10_button/unmuted_icon.svg')";
+        muteButton_canvas.style.backgroundImage = "url('./img/10_button/unmuted_icon.svg')";
+        muteButton_you_win.style.backgroundImage = "url('./img/10_button/unmuted_icon.svg')";
+        muteButton_game_over.style.backgroundImage = "url('./img/10_button/unmuted_icon.svg')";
     }
     setMuteStateToSounds();
 }

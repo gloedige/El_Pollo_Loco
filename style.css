@@ -250,6 +250,16 @@ canvas {
     align-items: center;
 }
 
+.settings_btn_intro_outro {
+    display:flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
 .mobile_control_btn {
     position: absolute;
     bottom: 10px;
