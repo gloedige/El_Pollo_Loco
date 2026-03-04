@@ -444,7 +444,7 @@ table {
     }
 }
 
-@media (any-pointer: coarse) and (orientation: landscape) {
+@media (pointer: coarse) and (hover: none) and (orientation: landscape) {
     .mobile_control_btn {
         display: flex;
     }
@@ -456,7 +456,7 @@ table {
     }
 }
 
-@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 400px) {
+@media (pointer: coarse) and (hover: none) and (orientation: landscape) and (max-height: 400px) {
     .mobile_control_btn {
         bottom: 8px;
     }
