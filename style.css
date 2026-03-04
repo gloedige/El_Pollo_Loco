@@ -224,7 +224,7 @@ canvas {
 
 
 .turn_device_info {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -362,7 +362,7 @@ table {
     }
 }
 
-@media (max-width: 639px) {
+@media ((pointer: fine) and (max-width: 720px)) or ((pointer: coarse) and (orientation: portrait)) {
     .intro_outro_container, 
     .how_to_play, 
     .canvas_container {
@@ -370,11 +370,8 @@ table {
 
     }
 
-}
-
-@media (min-width: 638px){
     .turn_device_info {
-        display: none;
+        display: flex;
     }
 
 }
@@ -430,26 +427,25 @@ table {
         max-height: 100vh;
     
     }
+    
+    .how_to_play{
+        font-size: 18px;
+    }
+}
 
+@media (any-pointer: coarse) and (orientation: landscape) {
+    .mobile_control_btn {
+        display: flex;
+    }
     .throw-bottle-btn,
     .jump-btn,
     .move-right-btn,
     .move-left-btn {
         display: inline-block;
     }
-
-    .how_to_play{
-        font-size: 18px;
-    }
 }
 
-@media (pointer: coarse) and (orientation: landscape) {
-    .mobile_control_btn {
-        display: flex;
-    }
-}
-
-@media screen and (orientation: landscape) and (max-height: 400px) {
+@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 400px) {
     .mobile_control_btn {
         bottom: 8px;
     }
