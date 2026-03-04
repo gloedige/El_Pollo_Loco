@@ -1,3 +1,5 @@
+hasErrorLogged = false;
+
 /**
  * Class representing a drawable object in the game.
  */
@@ -16,11 +18,15 @@ class DrawableObject {
      * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
      */
     draw(ctx) {
+        if (!this.img || !this.img.complete) return;
         try {
             ctx.drawImage(this.img, this.x | 0, this.y | 0, this.width | 0, this.height | 0);
         } catch (error) {
-            console.warn('Error drawing image:', error);
-            console.log('Could not load Image: ', this.img.src);
+            if (!this.hasErrorLogged) {
+                console.warn('Error drawing image:', error);
+                console.log('Src:', this.img.src);
+                this.hasErrorLogged = true;
+            }
         }
     }
 
