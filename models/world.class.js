@@ -19,6 +19,8 @@ class World {
     camera_x = 0;
     positionCharacterInWorld_x = 100;
     widthOfSingleBackground = 719;
+    runningFlag = true;
+    animationFrameId;
  
 
     /**
@@ -230,6 +232,7 @@ class World {
      * Draws the game world and all objects.
      */
     draw() {
+        if (!this.runningFlag) return;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.save();
         this.ctx.translate(this.camera_x, 0);
@@ -242,7 +245,18 @@ class World {
         this.renderCharacter();
         this.ctx.restore();
         let self = this;
-        requestAnimationFrame(() => self.draw());
+        if (this.runningFlag) {
+            this.saveAnimationFrameId(requestAnimationFrame(() => self.draw()));
+        }
+    }
+
+    
+    /**
+     * Saves the ID of the last animation frame to be able to stop it when the game ends.
+     * @param {number} id - The ID of the animation frame.
+     */
+    saveAnimationFrameId(id) {
+        this.animationFrameId = id;
     }
     
     
@@ -380,5 +394,11 @@ class World {
     flipImageBack(movableObject) {
         this.ctx.restore();
         movableObject.x = movableObject.x * -1;
+    }
+
+
+    stop() {
+        this.runningFlag = false;
+        cancelAnimationFrame(this.animationFrameId);
     }
 }

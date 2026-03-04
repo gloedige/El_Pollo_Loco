@@ -45,6 +45,7 @@ function init() {
  */
 function endGame() {
     if (world) {
+        world.stop();
         window.activeIntervals.forEach(clearInterval);
         window.activeIntervals = [];
         stopMusicAndSoundsLoops();
