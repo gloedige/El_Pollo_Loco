@@ -132,6 +132,7 @@ canvas {
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 20px;
+    position: relative;
 }
 
 .intro_background {

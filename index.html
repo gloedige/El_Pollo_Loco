@@ -59,13 +59,21 @@
             <div class="img_container">
                 <img src="./img/You won, you lost/You won A.png" alt="You Win" class="you_win_img">
             </div>
-            <button onclick="restartGame()" class="startButton">RESTART GAME</button>
+            <section class="settings_btn">
+                <button id="muteButton" class="mute-btn move_setting_btn" onclick="toggleMute()"></button>
+                <button id="restartButton" class="restart-btn move_setting_btn" onclick="restartGame()"></button>
+                <button id="closeButton" class="close-btn move_setting_btn" onclick="closeGame()"></button>
+            </section>
         </div>
         <div class="intro_outro_container outro_background d-none" id="game_over_container">
             <div class="img_container game_over_img_container">
                 <img src="./img/You won, you lost/Game Over.png" alt="Game Over" class="game_over_img">
             </div>
-            <button onclick="restartGame()" class="startButton">RESTART GAME</button>
+            <section class="settings_btn">
+                <button id="muteButton" class="mute-btn move_setting_btn" onclick="toggleMute()"></button>
+                <button id="restartButton" class="restart-btn move_setting_btn" onclick="restartGame()"></button>
+                <button id="closeButton" class="close-btn move_setting_btn" onclick="closeGame()"></button>
+            </section>
         </div>
         <div class="canvas_container d-none" id="canvas_container">
             <canvas width="720" height="480" id="canvas">
