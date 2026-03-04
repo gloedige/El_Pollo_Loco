@@ -65,7 +65,7 @@ class World {
         let interval_checkCollisions = setInterval(() => {
             this.checkThrowObjects();
             this.checkCollisionsHandler();
-        }, 1000/10);
+        }, 1000/30);
         let interval_checkJumpingOnTop = setInterval(() => {
             this.checkJumpingOnTop();
             this.checkHitByBottle();
