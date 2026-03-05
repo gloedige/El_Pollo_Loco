@@ -112,13 +112,24 @@ class MoveableObject extends DrawableObject {
     applyGravity() {
         let interval_gravity = setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration;
+                this.setPysics();
             }
             this.resetItemToGround();
             
         }, 1000 / 25);
         window.activeIntervals.push(interval_gravity);
+    }
+
+
+    /**
+     * This function updates the vertical position and speed of the object based on gravity.
+     */
+    setPysics() {
+        if (this instanceof ThrowableObject && this.speedY < this.SPEEDY_MAX) {
+                this.speedY = this.SPEEDY_MAX;
+            }
+            this.y -= this.speedY;
+            this.speedY -= this.acceleration;
     }
 
 
