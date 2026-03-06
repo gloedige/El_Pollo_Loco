@@ -7,6 +7,12 @@ class BackgroundObject extends MoveableObject{
     height = this.HEIGHT_CANVAS;
     width = 720;
 
+
+    /**
+     * This function creates a new background object.
+     * @param {string} imagePath - The path to the image for the background object.
+     * @param {number} x - The x-coordinate of the background object.
+     */
     constructor(imagePath, x){
         super().loadImage(imagePath);
         this.x = x;

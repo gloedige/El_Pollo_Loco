@@ -155,26 +155,33 @@ class World {
      * Checks if an enemy is hit by a thrown bottle.
      */
     async checkHitByBottle() {
-        if (!(this.level instanceof Level)) {
-            return;
-        }
+        if (!(this.level instanceof Level)) return;
         for (const bottle of this.throwableObjects) {
-            if (!bottle.colliding_detecting) {
-                continue;
-            }
+            if (!bottle.colliding_detecting) continue;
             for (const enemy of this.level.enemies) {
                 if (bottle.colliding_detecting && bottle.isColliding(enemy) && !enemy.dead) {
-                    bottle.colliding_detecting = false;
-                    enemy.hit();
-                    enemy.checkIsDead();
-                    bottle.stopBottleMovement();
-                    await bottle.handleBottleSplash();
-                    this.handleDeleteThrowableObject(bottle);
-                    this.statusBarEndboss.setPercentage(this.getEndbossEnergy());
+                    await this.handleHitByBottle(bottle, enemy);
                     break;
                 }
             }
         }
+    }
+
+
+    /** 
+     * This function handles the logic when an enemy is hit by a thrown bottle.
+     * @param {ThrowableObject} bottle - The thrown bottle that hit the enemy.
+     * @param {Enemy} enemy - The enemy that was hit by the bottle.
+     * @return {Promise} A promise that resolves when the bottle splash animation is complete and the bottle is removed from the world.
+     */
+    async handleHitByBottle(bottle, enemy) {
+        bottle.colliding_detecting = false;
+        enemy.hit();
+        enemy.checkIsDead();
+        bottle.stopBottleMovement();
+        await bottle.handleBottleSplash();
+        this.handleDeleteThrowableObject(bottle);
+        this.statusBarEndboss.setPercentage(this.getEndbossEnergy());
     }
 
 
@@ -406,6 +413,11 @@ class World {
     }
 
 
+    /**
+     * This function stops the main game loop by setting the running flag to false and 
+     * canceling the animation frame. It is called when the character dies or when the 
+     * endboss is defeated.
+     */
     stop() {
         this.runningFlag = false;
         cancelAnimationFrame(this.animationFrameId);

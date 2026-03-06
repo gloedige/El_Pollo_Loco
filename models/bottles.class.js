@@ -32,7 +32,6 @@ class Bottle extends MoveableObject {
     }
 
 
-    
     /**
      * Selects a random image from the provided array of image paths and sets it as the bottle's current image.
      * @param {string[]} imagePathsArr - Array of image paths

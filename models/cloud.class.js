@@ -8,7 +8,8 @@ class Cloud extends MoveableObject{
     width = 500;
     
     /**
-     * 
+     * This function creates a new Cloud instance, sets its initial position, loads the cloud image, 
+     * and starts its animation.
      * @param {number} y - The vertical position of the cloud on the canvas. 
      */
     constructor(y){
