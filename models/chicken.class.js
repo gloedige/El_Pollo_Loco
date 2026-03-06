@@ -19,6 +19,9 @@ class Chicken extends MoveableObject{
         right: 10,
         bottom: 20
     };
+    CHICKEN_LEFT_EDGE = 0;
+    CHICKEN_RIGHT_EDGE = 4200 - this.width;
+
 
     /**
      * Creates a new Chicken instance and initializes its properties.
@@ -32,8 +35,9 @@ class Chicken extends MoveableObject{
         this.loadImages(this.CHICKEN_DEAD_IMAGE);
         this.animate(this.CHICKEN_WALKING_IMAGES, 12);
         this.speed = 0.5 + Math.random() * 2;
-        this.autoMoveLeft(this.x, this.width);
         this.energy = 5;
+        this.start_walking = true;
+        this.autoMoveChicken(this.x);
     }
 
 
@@ -43,7 +47,9 @@ class Chicken extends MoveableObject{
      * @param {number} speedAnimation - Animation speed (frames per second).
      */
     animate(imagePathsArr, speedAnimation) {
+        let interval_moveChicken = setInterval(() => this.autoMoveChicken(this.x), 1000/25);
         let interval_playChicken = setInterval(() => this.playChicken(imagePathsArr), 1000/speedAnimation);
+        window.activeIntervals.push(interval_moveChicken);
         window.activeIntervals.push(interval_playChicken);
     }
 
@@ -58,6 +64,51 @@ class Chicken extends MoveableObject{
         } else {
             this.playMultiLoopAnimation(imagePathsArr);
         }
+    }
+
+
+    /**
+     * This function automatically moves the chicken left and right between defined edges. It also 
+     * handles the initial walking state to set the starting position.
+     * @param {number} Start_position_x - The starting x position of the chicken.
+     */
+    autoMoveChicken(Start_position_x) {
+        this.moveChicken(Start_position_x);
+        this.handleMovementThresholds();
+    }
+
+        
+    /**
+     * Moves the chicken based on its current direction and speed.
+     * @param {number} start_position_x - The starting x position of the chicken.
+     */
+    moveChicken(start_position_x) {
+        if (this.start_walking) {
+            this.x = start_position_x;
+            this.start_walking = false;
+        }
+        if (!this.otherDirection){
+            this.x -= this.speed;
+    
+        }
+        else {
+            this.x += this.speed;
+        }
+    }
+
+
+    /**
+     * Handles movement boundaries for the chicken.
+     */
+    handleMovementThresholds() {
+        if (this.x <= this.CHICKEN_LEFT_EDGE) {
+            this.x = this.CHICKEN_LEFT_EDGE;
+            this.otherDirection = true;
+        }
+        if (this.x >= this.CHICKEN_RIGHT_EDGE) {
+            this.x = this.CHICKEN_RIGHT_EDGE;
+            this.otherDirection = false;
+         }
     }
 
 }
