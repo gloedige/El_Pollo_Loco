@@ -154,19 +154,26 @@ class World {
     /**
      * Checks if an enemy is hit by a thrown bottle.
      */
-    checkHitByBottle() {
-         if (this.level instanceof Level) {
-            this.throwableObjects.forEach(bottle => {
-                this.level.enemies.forEach(enemy => {
-                    if (bottle.colliding_detecting && bottle.isColliding(enemy)) {
-                        enemy.hit();
-                        enemy.checkIsDead();
-                        bottle.colliding_detecting = false;
-                        this.handleDeleteThrowableObject(bottle);
-                        this.statusBarEndboss.setPercentage(this.getEndbossEnergy());
-                    }
-                });
-            });
+    async checkHitByBottle() {
+        if (!(this.level instanceof Level)) {
+            return;
+        }
+        for (const bottle of this.throwableObjects) {
+            if (!bottle.colliding_detecting) {
+                continue;
+            }
+            for (const enemy of this.level.enemies) {
+                if (bottle.colliding_detecting && bottle.isColliding(enemy) && !enemy.dead) {
+                    bottle.colliding_detecting = false;
+                    enemy.hit();
+                    enemy.checkIsDead();
+                    bottle.stopBottleMovement();
+                    await bottle.handleBottleSplash();
+                    this.handleDeleteThrowableObject(bottle);
+                    this.statusBarEndboss.setPercentage(this.getEndbossEnergy());
+                    break;
+                }
+            }
         }
     }
 
@@ -176,10 +183,12 @@ class World {
      * @param {ThrowableObject} bottle - The bottle to remove.
      */
     handleDeleteThrowableObject(bottle) {
-        const index = this.throwableObjects.indexOf(bottle);
-        if (index > -1) {
-            this.throwableObjects.splice(index, 1);
-        }
+        setTimeout(() => {
+            const index = this.throwableObjects.indexOf(bottle);
+            if (index > -1) {
+                this.throwableObjects.splice(index, 1);
+            }    
+        }, 0);
     }
 
 

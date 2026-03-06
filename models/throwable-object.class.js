@@ -24,6 +24,7 @@ class ThrowableObject extends MoveableObject {
         bottom: 10
     };
     SPEEDY_MAX = -5;
+    splashPromise = null;
 
 
     /**
@@ -57,37 +58,98 @@ class ThrowableObject extends MoveableObject {
         this.anmitedRotation();
     }
 
+    
+    /**
+     * Throws the object by applying gravity and updating its position.
+    */
+   throw() {
+       this.isThrown = true;
+       this.interval_throw = setInterval(() => {
+           this.applyGravity();
+           if (this.otherDirection) {
+               this.x -= this.speedX;
+            } else {
+                this.x += this.speedX;
+            }
+        }, 1000/20);
+        window.activeIntervals.push(this.interval_throw);
+    }
+
 
     /**
      * This function animates the rotation of the throwable object by cycling through 
      * a set of rotation images at a fixed interval.
      */
     anmitedRotation() {
-        let interval_rotation = setInterval(() => {
+        this.interval_rotation = setInterval(() => {
             if (!this.isThrown) {
-                clearInterval(interval_rotation);
+                clearInterval(this.interval_rotation);
                 return;
             }
             this.playMultiLoopAnimation(this.BOTTLE_ROTATION_IMAGES);
         }, 1000/30);
-        window.activeIntervals.push(interval_rotation);
+        window.activeIntervals.push(this.interval_rotation);
     }
-    
+
 
     /**
-     * Throws the object by applying gravity and updating its position.
+     * This function stops the movement of the throwable object by setting its horizontal and vertical 
+     * speeds to zero, marking it as no longer thrown, and starting the splash animation. It also 
+     * clears the interval responsible for the throwing motion.
      */
-    throw() {
-        this.isThrown = true;
-        let interval_throw = setInterval(() => {
-            this.applyGravity();
-            if (this.otherDirection) {
-                this.x -= this.speedX;
-            } else {
-                this.x += this.speedX;
-            }
-        }, 1000/20);
-        window.activeIntervals.push(interval_throw);
+    stopBottleMovement() {
+        this.isThrown = false;
+        this.speedY = 0;
+        this.acceleration = 0;
+        clearInterval(this.interval_throw);
+        clearInterval(this.interval_rotation);
+    }
+    
+    
+    /**
+     * This function handles the splash effect when the throwable object hits the ground by stopping its 
+     * movement and playing the splash animation.
+     */
+    handleBottleSplash() {
+        if (this.splashPromise) {
+            return this.splashPromise;
+        }
+        this.currentImageIndex = 0;
+        this.splashPromise = this.playSplashAnimation().finally(() => {
+            this.splashPromise = null;
+        });
+        return this.splashPromise;
+    }
 
+
+    /**
+     * This function animates the splash effect when the throwable object hits the ground by cycling 
+     * through a set of splash images at a fixed interval.
+     */
+    playSplashAnimation() {
+        return new Promise((resolve) => {
+            this.interval_splash = setInterval(() => {
+                const isLastFrame = this.singleTimeAnimation(this.BOTTLE_SPLASH_IMAGES);
+                if (isLastFrame) {
+                    clearInterval(this.interval_splash);
+                    resolve();
+                }
+            }, 1000/10);
+            window.activeIntervals.push(this.interval_splash);
+        });
+    }
+
+
+    /**
+     * Animates a sequence of images once, updating the current image index.
+     * @param {string[]} imagePathsArr - Array of image paths for the animation frames.
+     * @returns {boolean} - Returns true if the last frame has been reached, otherwise false.
+     */
+    singleTimeAnimation(imagePathsArr) {
+        let frameIndex = Math.min(this.currentImageIndex, imagePathsArr.length - 1);
+        let path = imagePathsArr[frameIndex];
+        this.img = this.imagesCache[path];
+        this.currentImageIndex++;
+        return frameIndex === imagePathsArr.length - 1;
     }
 }
