@@ -76,7 +76,7 @@ h3 {
 
 .how_to_play{
     font-family: 'zabra', Arial;
-    font-size: 24px;
+    font-size: 22px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -86,11 +86,13 @@ h3 {
     padding: 0 8px;
     color: white;
     text-shadow: 4px 4px 4px #000000;
+    gap: 12px;
 }
 
 .how_to_play_button{
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .how_to_play_text{
