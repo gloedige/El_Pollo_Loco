@@ -99,6 +99,7 @@ class Character extends MoveableObject {
         this.loadImages(this.CHARACTER_DEAD_IMAGES);
         this.animate(this.CHARACTER_WALKING_IMAGES, 10);
         this.applyGravity();
+        this.isInvulnerable = false;
     }
 
 
@@ -367,6 +368,12 @@ class Character extends MoveableObject {
         return  this.y + this.height - this.offset.bottom < movableObject.y + movableObject.height/2 &&
                 this.y + this.height - this.offset.bottom > movableObject.y + movableObject.offset.top &&
                 this.speedY < 0;
+    }
+
+
+    activateInvulnerability() {
+        this.isInvulnerable = true;
+        setTimeout(() => this.isInvulnerable = false, 500);
     }
 
 

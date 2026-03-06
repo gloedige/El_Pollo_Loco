@@ -93,7 +93,7 @@ class World {
      */
     handleCollisionsWithEnemies() {
         this.level.enemies.forEach(enemy => {
-            if (this.character.colliding_detecting && this.character.isColliding(enemy) && !this.character.isJumpingOnTop(enemy) && !enemy.dead && !this.character.isHit()) {
+            if (this.character.colliding_detecting && this.character.isColliding(enemy) && !this.character.isJumpingOnTop(enemy) && !this.character.isInvulnerable && !enemy.dead && !this.character.isHit()) {
                 this.character.hit();
                 this.statusBarHealth.setPercentage(this.character.energy);
                 this.character.checkIsDead();
@@ -142,6 +142,7 @@ class World {
             this.level.enemies.forEach(enemy => {
                 if (this.character.colliding_detecting && this.character.isColliding(enemy) && this.character.isJumpingOnTop(enemy) && !enemy.dead) {
                     enemy.hit();
+                    this.character.activateInvulnerability();
                     this.character.speedY = 20;
                     enemy.checkIsDead();
                     enemy.colliding_detecting = false;
