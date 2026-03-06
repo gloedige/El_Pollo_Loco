@@ -51,9 +51,7 @@ class Endboss extends MoveableObject {
     ];
     TIME_RESET_HURT = 1;
     GROUND_LEVEL_ENDBOSS = 30;
-    ENDBOSS_START_X_POSITION = 3500;
-    ENDBOSS_LEFT_EDGE = this.ENDBOSS_START_X_POSITION - 500;
-    ENDBOSS_RIGHT_EDGE = this.ENDBOSS_START_X_POSITION + 220 - this.width;
+    ENDBOSS_START_X_POSITION = 4000;
     TOTAL_ENERGY = 50;
     energy = this.TOTAL_ENERGY;
     world;
@@ -67,7 +65,8 @@ class Endboss extends MoveableObject {
     isEndbossWalkingSoundPlaying = false;
     lastJumpTime = 0;
     JUMPCOOLDOWN = 2000;
-    REACH_END_BOSS_X_POSITION = 3000;
+    REACH_END_BOSS_X_POSITION = this.ENDBOSS_START_X_POSITION - 400;
+    TURN_DIRECTION_DELAY = 1000;
     characterReachesEndboss = false;
 
     /**
@@ -110,7 +109,7 @@ class Endboss extends MoveableObject {
             return;
         }
         else if (this.startFinalFight()) {
-            this.handleMovementThresholds();
+            this.handleFollowCharacter();
             this.moveEndboss();
             this.handleJumping();
         }
@@ -200,17 +199,22 @@ class Endboss extends MoveableObject {
 
 
     /**
-     * Handles movement boundaries for the endboss.
+     * This functino makes the endboss follow the character by changing its direction 
+     * based on the character's position.
+     * It is called in the autoMoveEndboss function to continuously update the endboss's direction as it moves.
      */
-    handleMovementThresholds() {
-        if (this.x <= this.ENDBOSS_LEFT_EDGE) {
-            this.x = this.ENDBOSS_LEFT_EDGE;
-            this.otherDirection = true;
+    handleFollowCharacter() {
+        if (this.world && this.world.character) {
+            if (this.world.character.x < this.x) {
+                setTimeout(() => {
+                    this.otherDirection = false;
+                }, this.TURN_DIRECTION_DELAY); 
+            } else {
+                setTimeout(() => {
+                    this.otherDirection = true;
+                }, this.TURN_DIRECTION_DELAY); 
+            }
         }
-        if (this.x >= this.ENDBOSS_RIGHT_EDGE) {
-            this.x = this.ENDBOSS_RIGHT_EDGE;
-            this.otherDirection = false;
-         }
     }
 
 

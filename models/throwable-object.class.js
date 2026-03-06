@@ -108,7 +108,9 @@ class ThrowableObject extends MoveableObject {
     
     /**
      * This function handles the splash effect when the throwable object hits the ground by stopping its 
-     * movement and playing the splash animation.
+     * movement and initiating the splash animation. It ensures that the splash animation is only initiated
+     * once by using a promise to track its state.
+     * @returns {Promise} - A promise that resolves when the splash animation is complete.
      */
     handleBottleSplash() {
         if (this.splashPromise) {

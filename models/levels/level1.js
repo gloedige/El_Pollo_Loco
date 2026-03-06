@@ -71,7 +71,7 @@ function createArrayOfObjects(numberOfElements, object) {
 function createHarmonicCoins(count) {
     const frequency = 2;
     const xStart = 300;
-    const xEnd = 1500;
+    const xEnd = 1800;
     const yBase = 225;
     const yAmplitude = 100;
     for (let i = 0; i < count; i++) {
@@ -86,13 +86,13 @@ function createHarmonicCoins(count) {
  * This function creates a specified number of 2x2 coin blocks randomly distributed within the given x and y ranges.
  * The number of blocks is calculated from the total number of coins (always 4 coins per block).
  * @param {number} totalCoins - Total number of coins to place (must be divisible by 4, otherwise fewer coins will be created)
- * @param {number} [xStart=1700] - Start x position
- * @param {number} [xEnd=3000] - End x position
- * @param {number} [yStart=150] - Start y position
- * @param {number} [yEnd=400] - End y position
+ * @param {number} [xStart=2000] - Start x position
+ * @param {number} [xEnd=3500] - End x position
+ * @param {number} [yStart=120] - Start y position
+ * @param {number} [yEnd=360] - End y position
  * @returns {Array} Array of Coin objects as randomly distributed 2x2 blocks
  */
-function createRandomCoinBlocks2x2(totalCoins, xStart = 1700, xEnd = 3000, yStart = 120, yEnd = 360) {
+function createRandomCoinBlocks2x2(totalCoins, xStart = 2000, xEnd = 3500, yStart = 120, yEnd = 360) {
     const blockWidthPx = 40;
     const blockHeightPx = 40;
     const minBlockDistance = 100;
