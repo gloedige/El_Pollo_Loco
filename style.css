@@ -381,7 +381,7 @@ table {
         position: unset;
     }
 
-    .how_to_play_mobile.how_to_play_mobile {
+    .how_to_play.how_to_play_mobile {
         display: flex;
     }
 
