@@ -26,7 +26,8 @@ game_music_loop.volume = 0.1;
 function init() {
     canvas = document.getElementById('canvas');
     document.getElementById('canvas_container').classList.remove('d-none');
-    document.getElementById('intro_container').classList.add('d-none');
+        showMobileControlsIfTouch();
+        document.getElementById('intro_container').classList.add('d-none');
     document.getElementById('you_win_container').classList.add('d-none');
     document.getElementById('game_over_container').classList.add('d-none');
     document.getElementById('muteButton_canvas').classList.remove('d-none');
@@ -226,6 +227,30 @@ function setMuteStateToSounds() {
 /**
  * Adds event listeners for keyboard keydown and keyup events to update keyboard state for movement and actions.
  */
+/**
+ * Shows mobile controls if the device supports touch input and is in landscape.
+ */
+function showMobileControlsIfTouch() {
+    const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    const isLandscape = window.innerWidth > window.innerHeight;
+    if (isTouch && isLandscape) {
+        document.querySelector('.mobile_control_btn').classList.add('touch-visible');
+    }
+}
+
+window.addEventListener('orientationchange', () => {
+    const mobileBtn = document.querySelector('.mobile_control_btn');
+    if (!mobileBtn) return;
+    setTimeout(() => {
+        const isLandscape = window.innerWidth > window.innerHeight;
+        if (isLandscape) {
+            mobileBtn.classList.add('touch-visible');
+        } else {
+            mobileBtn.classList.remove('touch-visible');
+        }
+    }, 200);
+});
+
 window.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") keyboard.LEFT = true;
     if (e.key === "ArrowRight") keyboard.RIGHT = true;
