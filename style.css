@@ -268,6 +268,7 @@ canvas {
 .mobile_control_btn {
     position: absolute;
     bottom: 10px;
+    z-index: 10;
     display: none;
     justify-content: space-between;
     align-items: center;
@@ -363,6 +364,17 @@ table {
     backdrop-filter: blur(8px);
 }
 
+.mobile_control_btn.touch-visible {
+    display: flex;
+}
+
+.mobile_control_btn.touch-visible .throw-bottle-btn,
+.mobile_control_btn.touch-visible .jump-btn,
+.mobile_control_btn.touch-visible .move-right-btn,
+.mobile_control_btn.touch-visible .move-left-btn {
+    display: inline-block;
+}
+
 @media (max-height: 700px) {
     footer {
         display: none;
@@ -449,19 +461,7 @@ table {
     }
 }
 
-@media (pointer: coarse) and (hover: none) and (orientation: landscape) {
-    .mobile_control_btn {
-        display: flex;
-    }
-    .throw-bottle-btn,
-    .jump-btn,
-    .move-right-btn,
-    .move-left-btn {
-        display: inline-block;
-    }
-}
-
-@media (pointer: coarse) and (hover: none) and (orientation: landscape) and (max-height: 400px) {
+@media screen and (orientation: landscape) and (max-height: 400px) {
     .mobile_control_btn {
         bottom: 8px;
     }
